@@ -428,6 +428,72 @@ body.locked{overflow:hidden}
 @media (max-width:900px) and (min-width:761px){.tab svg{display:none}.tab{padding:8px 10px;font-size:13px}}
 @media (max-width:480px){.kititem{padding:10px 2px 8px;font-size:10px;gap:4px}.kitgrid{gap:6px}.kititem svg{width:24px;height:24px}.mood .emo{font-size:20px}.mood{font-size:10px}.moodsum{grid-template-columns:repeat(2,minmax(0,1fr))}.hbar{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}}
 @media (max-width:340px){.kitgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ===== v4 ===== */
+.hero{grid-template-columns:auto minmax(0,1fr) auto}
+.heroill{width:210px;align-self:end;margin:-8px -8px -26px 0}
+.heroill svg{width:100%;height:auto;display:block}
+@media (max-width:1000px){.heroill{display:none}.hero{grid-template-columns:auto minmax(0,1fr)}}
+@media (max-width:640px){.hero{grid-template-columns:minmax(0,1fr)}}
+.herobody .tip{display:flex;align-items:center;gap:12px;text-align:left}
+.herobody .tip p{margin:0}
+.phill{width:46px;height:46px;flex:none}
+.phill svg{width:100%;height:100%;display:block}
+.homegrid2{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:18px;align-items:start}
+@media (max-width:980px){.homegrid2{grid-template-columns:minmax(0,1fr)}}
+.regmini .qhead{align-items:center}
+.regmini .note{margin:10px 0 0}
+.regbadge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
+.regbadge::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.regbadge.regular{background:#dff3e7;color:#1f6b40}
+.regbadge.slight{background:#fdf0d5;color:#8a5a00}
+.regbadge.irregular{background:#fde2dc;color:#a3321c}
+.regbadge.need{background:var(--surface-2);color:var(--muted)}
+.strip{margin-top:10px;max-width:480px}
+.strip svg{display:block;width:100%;height:auto}
+.strip text{font-family:var(--body);font-size:13px;fill:var(--muted)}
+.strip text.nr{font-size:12px;font-weight:700;fill:var(--fertile-ink)}
+.reghead{display:flex;gap:18px;align-items:center}
+.reghead h3{margin:0 0 6px}
+.reghead .note{margin:6px 0 0}
+.regill{width:150px;flex:none;background:var(--surface-2);border-radius:16px;padding:6px}
+.regill svg{display:block;width:100%;height:auto}
+.regfacts{margin:12px 0 0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:4px}
+.regfacts li.flag{color:#a3321c;font-weight:700}
+.regmsg{margin:12px 0 14px;font-size:14px;max-width:70ch}
+@media (max-width:560px){.regill{width:96px}.reghead{gap:12px}}
+.learnrow .qhead{align-items:center}
+.teaser{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,1fr);gap:12px;overflow-x:auto;margin-top:12px;padding-bottom:6px;scroll-snap-type:x mandatory}
+.teaser .acard{scroll-snap-align:start}
+.acard{display:flex;flex-direction:column;text-align:left;border-radius:18px;border:1px solid var(--line);background:var(--surface);overflow:hidden;min-width:0;box-shadow:var(--shadow)}
+.acard:hover{border-color:var(--rose)}
+.acover{display:block;background:linear-gradient(135deg,var(--surface-2),var(--baby));padding:10px 14px 0}
+.acover svg{display:block;width:100%;height:auto;max-height:150px}
+.abody{display:flex;flex-direction:column;gap:4px;padding:12px 14px 14px}
+.abody b{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.3;color:var(--ink)}
+.abody span{font-size:13px;color:var(--muted)}
+.acard.sm .acover svg{max-height:96px}
+.acard.sm .abody b{font-size:15px}
+.learnhero{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:20px;align-items:center;background:linear-gradient(135deg,var(--surface) 30%,var(--baby));overflow:hidden}
+.learnhero h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,40px);margin:12px 0 6px;line-height:1.15}
+.learnhero p{margin:0;color:var(--muted);max-width:52ch}
+.lhill svg{display:block;width:100%;height:auto}
+@media (max-width:640px){.learnhero{grid-template-columns:minmax(0,1fr) 120px;gap:10px}.learnhero h1{font-size:26px}}
+.learngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.disclaimer{text-align:center}
+.dialog.wide{width:min(100%,620px)}
+.artcover{margin:-22px -22px 0;background:linear-gradient(135deg,var(--surface-2),var(--baby));padding:16px 40px 0;border-radius:22px 22px 0 0}
+.artcover svg{display:block;width:100%;max-height:200px;height:auto}
+.artsec h4{margin:0 0 6px;font-size:15px;color:var(--rose-ink)}
+.artsec ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:14px;line-height:1.5}
+.artsec p{margin:0;font-size:14px;color:var(--ink)}
+.artsrc{font-size:12px!important}
+.artsrc a{color:var(--rose-ink)}
+.artnote{font-size:12px!important;background:var(--surface-2);border-radius:10px;padding:8px 10px}
+.seg{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:14px}
+.seg button{padding:8px 18px;border-radius:10px;font-weight:700;font-size:14px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--baby);color:var(--on-baby)}
+.calwrap.full{max-width:none}
 /* dialog */
 .overlay{position:fixed;inset:0;z-index:50;background:rgba(45,26,36,.42);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 .dialog{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:min(100%,420px);max-height:100%;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:16px}
@@ -462,7 +528,7 @@ body.locked{overflow:hidden}
       <div class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c-3.6 4.6-6 8-6 11a6 6 0 0 0 12 0c0-3-2.4-6.4-6-11z"/></svg></div>
       <b data-i18n="brand">Monthly Period Tracker</b>
     </div>
-    <nav class="nav" role="tablist" data-i18n-label="views"><button type="button" class="tab" role="tab" data-tab="home" id="tab-home" aria-controls="viewHome" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg><span data-i18n="tabHome">Today</span></button><button type="button" class="tab" role="tab" data-tab="cal" id="tab-cal" aria-controls="viewCal" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="tabCal">Calendar</span></button><button type="button" class="tab" role="tab" data-tab="ins" id="tab-ins" aria-controls="viewIns" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span data-i18n="tabIns">Insights</span></button><button type="button" class="tab" role="tab" data-tab="year" id="tab-year" aria-controls="viewYear" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span data-i18n="tabYearS">12 months</span></button><button type="button" class="tab" role="tab" data-tab="set" id="tab-set" aria-controls="viewSet" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span data-i18n="tabSet">Settings</span></button></nav>
+    <nav class="nav" role="tablist" data-i18n-label="views"><button type="button" class="tab" role="tab" data-tab="home" id="tab-home" aria-controls="viewHome" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg><span data-i18n="tabHome">Today</span></button><button type="button" class="tab" role="tab" data-tab="cal" id="tab-cal" aria-controls="viewCal" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="tabCal">Calendar</span></button><button type="button" class="tab" role="tab" data-tab="ins" id="tab-ins" aria-controls="viewIns" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span data-i18n="tabIns">Insights</span></button><button type="button" class="tab" role="tab" data-tab="learn" id="tab-learn" aria-controls="viewLearn" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M9 8h7M9 12h5"/></svg><span data-i18n="tabLearn">Learn</span></button><button type="button" class="tab" role="tab" data-tab="set" id="tab-set" aria-controls="viewSet" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span data-i18n="tabSet">Settings</span></button></nav>
     <div class="switches">
       <div class="theme lang" role="group" aria-label="Language / ভাষা">
         <button type="button" id="lEn" aria-pressed="true" lang="en">EN</button>
@@ -490,9 +556,10 @@ body.locked{overflow:hidden}
         <span class="phase" id="hPhase"></span>
         <h1 id="hHead"></h1>
         <p id="hSub"></p>
-        <p class="tip" id="hTip"></p>
+        <div class="tip"><span class="phill" id="hPhIll"></span><p id="hTip"></p></div>
         <div class="group"><button type="button" class="btn primary lg" id="hLogP"></button><button type="button" class="btn lg" id="hLogS" data-i18n="logSym">Log symptoms</button></div>
       </div>
+      <div class="heroill" id="heroIll" aria-hidden="true"></div>
     </div>
 
     <div class="alerts" id="alertBox" hidden></div>
@@ -500,6 +567,11 @@ body.locked{overflow:hidden}
     <div class="homegrid">
       <section class="card qlog" id="qlog" data-i18n-label="qlogH"></section>
       <section class="card kit" id="kitCard" data-i18n-label="kitH"></section>
+    </div>
+
+    <div class="homegrid2">
+      <section class="card regmini" id="regMini"></section>
+      <section class="card learnrow"><div class="qhead"><h3 data-i18n="learnH">Learn about your body</h3><button type="button" class="linkbtn" data-goto="learn" data-i18n="seeAll">See all</button></div><div class="teaser" id="learnTeaser"></div></section>
     </div>
 
     <div class="stats">
@@ -519,8 +591,9 @@ body.locked{overflow:hidden}
   </section>
 
   <section class="view" id="viewCal" role="tabpanel" aria-labelledby="tab-cal" hidden>
-    <div class="calwrap">
-    <section class="card" data-i18n-label="monthCal">
+    <div class="calwrap" id="calWrap">
+    <div class="seg" role="group" data-i18n-label="views"><button type="button" id="segMonth" aria-pressed="true" data-i18n="segMonth">Month</button><button type="button" id="segYear" aria-pressed="false" data-i18n="segYear">12 months</button></div>
+    <section class="card" id="calMonth" data-i18n-label="monthCal">
       <div class="head">
         <h2 id="monthTitle">Month</h2>
         <div class="group">
@@ -540,12 +613,30 @@ body.locked{overflow:hidden}
       </div>
       <p class="hint" data-i18n="hint">Tap any day to log a period, flow, symptoms or a note.</p>
     </section>
+    <section class="card view-card" id="viewYear" hidden>
+      <div class="head">
+        <h2 id="yearTitle">2026</h2>
+        <div class="group">
+          <button type="button" class="btn icon" id="yPrev" data-i18n-label="prevYear">‹</button>
+          <button type="button" class="btn" id="yNow" data-i18n="thisYear">This year</button>
+          <button type="button" class="btn icon" id="yNext" data-i18n-label="nextYear">›</button>
+        </div>
+      </div>
+      <div class="months" id="months"></div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th data-i18n="thMonth">Month</th><th data-i18n="thDates">Period dates</th><th data-i18n="thStatus">Status</th><th data-i18n="thCycle">Cycle length</th><th data-i18n="thActions">Actions</th></tr></thead>
+          <tbody id="ytable"></tbody>
+        </table>
+      </div>
+    </section>
 
     </div>
   </section>
 
   <section class="view" id="viewIns" role="tabpanel" aria-labelledby="tab-ins" hidden>
     <div class="insgrid">
+    <section class="card span2 regcard" id="regCard"></section>
     <section class="card span2 chartcard">
       <div class="chart-head"><div><h3 data-i18n="histTitle">Cycle history</h3><p class="note" data-i18n="histBody">Length of each cycle, with your average.</p></div>
         <div class="legend" style="margin-top:0"><span><i style="background:var(--baby)"></i><span data-i18n="cycleLbl">Cycle length</span></span><span><i style="background:var(--rose)"></i><span data-i18n="periodLbl">Period days</span></span></div></div>
@@ -559,22 +650,14 @@ body.locked{overflow:hidden}
     </div>
   </section>
 
-  <section class="card view-card" id="viewYear" role="tabpanel" aria-labelledby="tab-year" hidden>
-    <div class="head">
-      <h2 id="yearTitle">2026</h2>
-      <div class="group">
-        <button type="button" class="btn icon" id="yPrev" data-i18n-label="prevYear">‹</button>
-        <button type="button" class="btn" id="yNow" data-i18n="thisYear">This year</button>
-        <button type="button" class="btn icon" id="yNext" data-i18n-label="nextYear">›</button>
-      </div>
+
+  <section class="view" id="viewLearn" role="tabpanel" aria-labelledby="tab-learn" hidden>
+    <div class="learnhero card">
+      <div class="lhtext"><span class="phase" data-i18n="learnEyebrow">Health guides</span><h1 data-i18n="learnTitle">Know your body</h1><p data-i18n="learnBody">Short guides.</p></div>
+      <div class="lhill" id="learnHeroIll"></div>
     </div>
-    <div class="months" id="months"></div>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th data-i18n="thMonth">Month</th><th data-i18n="thDates">Period dates</th><th data-i18n="thStatus">Status</th><th data-i18n="thCycle">Cycle length</th><th data-i18n="thActions">Actions</th></tr></thead>
-        <tbody id="ytable"></tbody>
-      </table>
-    </div>
+    <div class="learngrid" id="learnGrid"></div>
+    <p class="note disclaimer" data-i18n="notAdvice">General information, not medical advice.</p>
   </section>
 
   <section class="view" id="viewSet" role="tabpanel" aria-labelledby="tab-set" hidden>
@@ -655,7 +738,12 @@ const I18N={
   needDate:'Choose a date first.',delTitle:'Delete this period?',delBody:r=>`The period ${r} will be removed. This can't be undone.`,yesDelete:'Yes, delete',
   monthTitle:m=>`Reset ${m}?`,monthBody:'All periods logged in this month will be removed. This can’t be undone.',yesReset:'Yes, reset',
   allTitle:'Reset all data?',allBody:'Every logged period will be removed and settings go back to default. This can’t be undone.',resetAll:'Reset all data',
-  tSaved:'Saved',tDeleted:'Period deleted',tMonth:'Month reset',tAll:'All data reset',close:'Close',createdBy:'Created by',tabIns:'Insights',qlogH:"Today's log",moodH:'Mood',waterH:'Water',glasses:(a,b)=>`${a} of ${b} glasses`,pillTaken:'Pill taken today',pillNot:'Tap when you take your pill',moreLog:'Symptoms & notes',todaySum:'Logged today:',nothingYet:'Nothing logged yet today.',
+  tSaved:'Saved',tDeleted:'Period deleted',tMonth:'Month reset',tAll:'All data reset',close:'Close',createdBy:'Created by',tabLearn:'Learn',learnH:'Learn about your body',seeAll:'See all',learnEyebrow:'Health guides',learnTitle:'Know your body',learnBody:'Short guides based on NHS and FIGO medical guidance. They are general information, not a diagnosis.',sourcesL:'Sources:',notAdvice:'This is general health information, not medical advice. If you are worried, talk to a doctor.',segMonth:'Month',segYear:'12 months',
+  regH:'Cycle regularity',reg:{need:'Not enough data',regular:'Regular',slight:'Slightly variable',irregular:'Irregular'},regNeed:()=>'Log at least 3 periods to see whether your cycles are regular.',regBasis:n=>`Based on your last ${n} cycles`,regNoBasis:'Worked out from the time between your logged periods',
+  regRange:(a,b,v)=>`Your cycles lasted ${a} to ${b} days (a difference of ${v} days).`,regAvg:n=>`Average cycle: ${n} days.`,regShort:n=>`${n} cycle(s) shorter than 24 days`,regLong:n=>`${n} cycle(s) longer than 38 days`,regBleed:n=>`${n} period(s) lasted more than 8 days`,
+  regMsg:{regular:'Your cycle length stays in the normal range and changes by 7 days or less. This is a regular pattern.',slight:'Your cycles change by a little more than 7 days, or a period lasted more than 8 days. This can still be normal if you are 18 to 25 or 42 to 45. Keep tracking.',irregular:'Your cycles are outside the usual pattern. This is common and is often caused by stress, weight change or hormones, but a doctor can check for causes such as PCOS or thyroid problems.'},
+  normalRange:'Normal range (days)',stripLabel:'Your cycle lengths compared with the normal range',readMore:'Read about regular and irregular periods',seeDetails:'See details in Insights',
+  tabIns:'Insights',qlogH:"Today's log",moodH:'Mood',waterH:'Water',glasses:(a,b)=>`${a} of ${b} glasses`,pillTaken:'Pill taken today',pillNot:'Tap when you take your pill',moreLog:'Symptoms & notes',todaySum:'Logged today:',nothingYet:'Nothing logged yet today.',
   moods:{happy:'Happy',calm:'Calm',sad:'Sad',irritable:'Irritable',anxious:'Anxious',sleepy:'Sleepy'},bodyH:'Body',weightL:'Weight (kg)',tempL:'Temperature (°C)',badWeight:'Enter a weight between 20 and 300 kg.',badTemp:'Enter a temperature between 34 and 43 °C.',pillL:'Pill or medicine taken',
   kitH:'Period kit',kitBody:'Tick what is ready for your next period.',kitProg:(a,b)=>`${a} of ${b} ready`,kitSoon:n=>`Your period may start in ${n} days. Is your kit ready?`,kitNow:'Your period is here. Keep your kit close.',kitReset:'Untick all',kitResetT:'Untick all items?',kitResetB:'Every item in your period kit will be marked as not ready.',yesUntick:'Yes, untick all',
   kit:{pads:'Pads',liners:'Panty liners',tampons:'Tampons',cup:'Menstrual cup',pain:'Pain relief',heat:'Hot water bag',undies:'Spare underwear',wipes:'Wet wipes',choc:'Dark chocolate',bottle:'Water bottle'},
@@ -679,7 +767,7 @@ const I18N={
   syms:{cramps:'Cramps',headache:'Headache',back:'Back pain',bloat:'Bloating',mood:'Mood swings',tired:'Tiredness',acne:'Acne',breast:'Breast tenderness',nausea:'Nausea',crave:'Cravings',sleep:'Trouble sleeping',dizzy:'Dizziness',diarrhea:'Diarrhea',constip:'Constipation',discharge:'Discharge',clots:'Clots'},
   lateT:n=>`Your period is ${n} days late`,lateB:'Stress, travel, illness and other changes can delay a period. If it is very late or you might be pregnant, consider a test or talk to a doctor.',
   irrT:'Your cycles vary a lot',irrB:(a,b)=>`Your recent cycles ranged from ${a} to ${b} days. Some variation is normal, but if it continues, you may want to talk to a doctor.`,
-  rangeT:'Your average cycle is outside the usual range',rangeB:n=>`Your average is ${n} days. Most cycles last 21 to 35 days. If this continues, consider talking to a doctor.`,
+  rangeT:'Your average cycle is outside the usual range',rangeB:n=>`Your average is ${n} days. Most cycles last 24 to 38 days. If this continues, consider talking to a doctor.`,
   histTitle:'Cycle history',histBody:'Length of each cycle, with your average.',histEmpty:'Log at least two periods to see your cycle history.',avgLbl:n=>`Avg ${n}`,cycleLbl:'Cycle length',periodLbl:'Period days',
   brand:'Monthly Period Tracker',quoteTitle:'A gentle reminder',quoteLabel:'Period quote',qPrev:'Previous quote',qNext:'Next quote',
   quotes:['Your period is a sign of your body doing its work. Be gentle with yourself today.','Rest is productive too. Listen to what your body needs.','Periods are normal and natural. There is nothing to be ashamed of.','Drink water, eat well, sleep enough. Small care adds up.','Knowing your cycle is knowing yourself a little better.','Cramps are real. Asking for a break is okay.','Talk about periods openly. Silence helps no one.','Every cycle is different, and that is okay.','A warm compress, a warm drink and some kindness go a long way.','Track it, understand it, take care of yourself.'],customize:'Customize',themeColor:'Theme colour',mode:'Mode',periodIcon:'Period icon',iconColor:'Icon colour',bloodRed:'Blood red',matchTheme:'Match theme',done:'Done',custBody:'Changes apply right away and are remembered on this device.',
@@ -700,7 +788,12 @@ const I18N={
   needDate:'আগে একটি তারিখ বেছে নিন।',delTitle:'এই পিরিয়ডটি মুছবেন?',delBody:r=>`${r} পিরিয়ডটি মুছে যাবে। এটি আর ফেরানো যাবে না।`,yesDelete:'হ্যাঁ, মুছুন',
   monthTitle:m=>`${m} রিসেট করবেন?`,monthBody:'এই মাসে লগ করা সব পিরিয়ড মুছে যাবে। এটি আর ফেরানো যাবে না।',yesReset:'হ্যাঁ, রিসেট',
   allTitle:'সব ডেটা রিসেট করবেন?',allBody:'লগ করা সব পিরিয়ড মুছে যাবে এবং সেটিংস ডিফল্টে ফিরে যাবে। এটি আর ফেরানো যাবে না।',resetAll:'সব ডেটা রিসেট',
-  tSaved:'সংরক্ষিত হয়েছে',tDeleted:'পিরিয়ড মুছে ফেলা হয়েছে',tMonth:'মাস রিসেট হয়েছে',tAll:'সব ডেটা রিসেট হয়েছে',close:'বন্ধ করুন',createdBy:'নির্মাতা:',tabIns:'ইনসাইট',qlogH:'আজকের লগ',moodH:'মেজাজ',waterH:'পানি',glasses:(a,b)=>`${b} গ্লাসের মধ্যে ${a}`,pillTaken:'আজকের পিল খাওয়া হয়েছে',pillNot:'পিল খেলে এখানে ট্যাপ করুন',moreLog:'উপসর্গ ও নোট',todaySum:'আজ লগ করা:',nothingYet:'আজ এখনো কিছু লগ করা হয়নি।',
+  tSaved:'সংরক্ষিত হয়েছে',tDeleted:'পিরিয়ড মুছে ফেলা হয়েছে',tMonth:'মাস রিসেট হয়েছে',tAll:'সব ডেটা রিসেট হয়েছে',close:'বন্ধ করুন',createdBy:'নির্মাতা:',tabLearn:'জানুন',learnH:'নিজের শরীর সম্পর্কে জানুন',seeAll:'সব দেখুন',learnEyebrow:'স্বাস্থ্য নির্দেশিকা',learnTitle:'নিজের শরীরকে জানুন',learnBody:'NHS ও FIGO-র চিকিৎসা নির্দেশনার ভিত্তিতে সংক্ষিপ্ত গাইড। এগুলো সাধারণ তথ্য, রোগনির্ণয় নয়।',sourcesL:'সূত্র:',notAdvice:'এটি সাধারণ স্বাস্থ্য তথ্য, চিকিৎসা পরামর্শ নয়। দুশ্চিন্তা হলে ডাক্তারের সাথে কথা বলুন।',segMonth:'মাস',segYear:'১২ মাস',
+  regH:'চক্রের নিয়মিততা',reg:{need:'যথেষ্ট তথ্য নেই',regular:'নিয়মিত',slight:'কিছুটা পরিবর্তনশীল',irregular:'অনিয়মিত'},regNeed:()=>'চক্র নিয়মিত কিনা দেখতে অন্তত ৩টি পিরিয়ড লগ করুন।',regBasis:n=>`আপনার শেষ ${n}টি চক্রের ভিত্তিতে`,regNoBasis:'লগ করা পিরিয়ডগুলোর মাঝের সময় থেকে হিসাব করা হয়',
+  regRange:(a,b,v)=>`আপনার চক্র ${a} থেকে ${b} দিনের ছিল (পার্থক্য ${v} দিন)।`,regAvg:n=>`গড় চক্র: ${n} দিন।`,regShort:n=>`${n}টি চক্র ২৪ দিনের কম`,regLong:n=>`${n}টি চক্র ৩৮ দিনের বেশি`,regBleed:n=>`${n}টি পিরিয়ড ৮ দিনের বেশি ছিল`,
+  regMsg:{regular:'আপনার চক্রের দৈর্ঘ্য স্বাভাবিক সীমার মধ্যে আছে এবং ৭ দিন বা তার কম বদলায়। এটি নিয়মিত ধরন।',slight:'আপনার চক্র ৭ দিনের একটু বেশি বদলায়, অথবা একটি পিরিয়ড ৮ দিনের বেশি ছিল। ১৮ থেকে ২৫ বা ৪২ থেকে ৪৫ বছর বয়সে এটা স্বাভাবিক হতে পারে। ট্র্যাক করতে থাকুন।',irregular:'আপনার চক্র সাধারণ ধরনের বাইরে। এটা প্রায়ই হয় এবং মানসিক চাপ, ওজন পরিবর্তন বা হরমোনের কারণে হতে পারে, তবে PCOS বা থাইরয়েডের মতো কারণ আছে কিনা ডাক্তার পরীক্ষা করে দেখতে পারেন।'},
+  normalRange:'স্বাভাবিক সীমা (দিন)',stripLabel:'স্বাভাবিক সীমার সাথে আপনার চক্রের দৈর্ঘ্য',readMore:'নিয়মিত ও অনিয়মিত পিরিয়ড সম্পর্কে পড়ুন',seeDetails:'ইনসাইট-এ বিস্তারিত দেখুন',
+  tabIns:'ইনসাইট',qlogH:'আজকের লগ',moodH:'মেজাজ',waterH:'পানি',glasses:(a,b)=>`${b} গ্লাসের মধ্যে ${a}`,pillTaken:'আজকের পিল খাওয়া হয়েছে',pillNot:'পিল খেলে এখানে ট্যাপ করুন',moreLog:'উপসর্গ ও নোট',todaySum:'আজ লগ করা:',nothingYet:'আজ এখনো কিছু লগ করা হয়নি।',
   moods:{happy:'খুশি',calm:'শান্ত',sad:'মন খারাপ',irritable:'বিরক্ত',anxious:'উদ্বিগ্ন',sleepy:'ঘুম ঘুম'},bodyH:'শরীর',weightL:'ওজন (কেজি)',tempL:'তাপমাত্রা (°সে)',badWeight:'২০ থেকে ৩০০ কেজির মধ্যে ওজন দিন।',badTemp:'৩৪ থেকে ৪৩ °সে-এর মধ্যে তাপমাত্রা দিন।',pillL:'পিল বা ওষুধ খাওয়া হয়েছে',
   kitH:'পিরিয়ড কিট',kitBody:'পরের পিরিয়ডের জন্য যা প্রস্তুত আছে তাতে টিক দিন।',kitProg:(a,b)=>`${b}টির মধ্যে ${a}টি প্রস্তুত`,kitSoon:n=>`${n} দিন পর পিরিয়ড শুরু হতে পারে। আপনার কিট প্রস্তুত তো?`,kitNow:'পিরিয়ড চলছে। কিট হাতের কাছে রাখুন।',kitReset:'সব টিক তুলুন',kitResetT:'সব টিক তুলে দেবেন?',kitResetB:'পিরিয়ড কিটের সব জিনিস "প্রস্তুত নয়" হিসেবে দেখাবে।',yesUntick:'হ্যাঁ, সব তুলুন',
   kit:{pads:'প্যাড',liners:'প্যান্টি লাইনার',tampons:'ট্যাম্পন',cup:'মেনস্ট্রুয়াল কাপ',pain:'ব্যথার ওষুধ',heat:'গরম পানির ব্যাগ',undies:'বাড়তি অন্তর্বাস',wipes:'ওয়েট ওয়াইপস',choc:'ডার্ক চকলেট',bottle:'পানির বোতল'},
@@ -724,7 +817,7 @@ const I18N={
   syms:{cramps:'পেটব্যথা',headache:'মাথাব্যথা',back:'কোমরব্যথা',bloat:'পেট ফাঁপা',mood:'মেজাজ ওঠানামা',tired:'ক্লান্তি',acne:'ব্রণ',breast:'স্তনে ব্যথা',nausea:'বমি ভাব',crave:'খাবারের ইচ্ছা',sleep:'ঘুমের সমস্যা',dizzy:'মাথা ঘোরা',diarrhea:'ডায়রিয়া',constip:'কোষ্ঠকাঠিন্য',discharge:'সাদা স্রাব',clots:'রক্তের চাকা'},
   lateT:n=>`আপনার পিরিয়ড ${n} দিন দেরি হয়েছে`,lateB:'মানসিক চাপ, ভ্রমণ, অসুস্থতা বা অন্য পরিবর্তনে পিরিয়ড দেরি হতে পারে। অনেক দেরি হলে বা গর্ভধারণের সম্ভাবনা থাকলে টেস্ট করুন বা ডাক্তারের সাথে কথা বলুন।',
   irrT:'আপনার চক্র অনেক ওঠানামা করছে',irrB:(a,b)=>`সাম্প্রতিক চক্র ${a} থেকে ${b} দিনের মধ্যে ছিল। কিছুটা পার্থক্য স্বাভাবিক, তবে এমন চলতে থাকলে ডাক্তারের সাথে কথা বলতে পারেন।`,
-  rangeT:'আপনার গড় চক্র সাধারণ সীমার বাইরে',rangeB:n=>`আপনার গড় ${n} দিন। বেশিরভাগ চক্র ২১ থেকে ৩৫ দিনের হয়। এমন চলতে থাকলে ডাক্তারের সাথে কথা বলুন।`,
+  rangeT:'আপনার গড় চক্র সাধারণ সীমার বাইরে',rangeB:n=>`আপনার গড় ${n} দিন। বেশিরভাগ চক্র ২৪ থেকে ৩৮ দিনের হয়। এমন চলতে থাকলে ডাক্তারের সাথে কথা বলুন।`,
   histTitle:'চক্রের ইতিহাস',histBody:'প্রতিটি চক্রের দৈর্ঘ্য, সাথে আপনার গড়।',histEmpty:'চক্রের ইতিহাস দেখতে অন্তত দুটি পিরিয়ড লগ করুন।',avgLbl:n=>`গড় ${n}`,cycleLbl:'চক্রের দৈর্ঘ্য',periodLbl:'পিরিয়ডের দিন',
   brand:'মাসিক পিরিয়ড ট্র্যাকার',quoteTitle:'একটি কোমল কথা',quoteLabel:'পিরিয়ড উক্তি',qPrev:'আগের উক্তি',qNext:'পরের উক্তি',
   quotes:['পিরিয়ড মানে আপনার শরীর তার কাজ ঠিকমতো করছে। আজ নিজের প্রতি একটু কোমল হোন।','বিশ্রামও কাজের অংশ। শরীর যা চায় তা শুনুন।','পিরিয়ড স্বাভাবিক ও প্রাকৃতিক, এতে লজ্জার কিছু নেই।','পানি পান করুন, ভালো খান, পর্যাপ্ত ঘুমান। ছোট ছোট যত্নই বড় পার্থক্য গড়ে।','নিজের চক্র জানা মানে নিজেকে আরেকটু ভালো করে জানা।','পেটব্যথা সত্যি। বিরতি চাওয়াতে কোনো দোষ নেই।','পিরিয়ড নিয়ে খোলামেলা কথা বলুন। চুপ থাকায় কারও উপকার হয় না।','প্রতিটি চক্র আলাদা, এবং সেটাই স্বাভাবিক।','একটা গরম সেঁক, এক কাপ উষ্ণ পানীয় আর একটু ভালোবাসা অনেক কাজে দেয়।','ট্র্যাক করুন, বুঝুন, নিজের যত্ন নিন।'],customize:'কাস্টমাইজ',themeColor:'থিমের রঙ',mode:'মোড',periodIcon:'পিরিয়ড আইকন',iconColor:'আইকনের রঙ',bloodRed:'রক্ত লাল',matchTheme:'থিমের রঙে',done:'হয়ে গেছে',custBody:'পরিবর্তন সঙ্গে সঙ্গে দেখা যাবে এবং এই ডিভাইসে মনে রাখা হবে।',
@@ -832,7 +925,7 @@ if(state.example&&!Object.keys(state.logs).length)state.logs=sampleLogs(state.pe
 sortP(state.periods);
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
 
-let view=new Date(today.getFullYear(),today.getMonth(),1), year=today.getFullYear(), tab='home', slideDir=0;
+let view=new Date(today.getFullYear(),today.getMonth(),1), year=today.getFullYear(), tab='home', slideDir=0, calMode='month';
 
 const periods=()=>state.periods.map(p=>({start:parse(p.start),len:p.len,key:p.start}));
 function avgCycle(){const s=periods(),g=[];for(let i=1;i<s.length;i++){const x=diff(s[i-1].start,s[i].start);if(x>=18&&x<=50)g.push(x)}const r=g.slice(-6);return r.length?Math.round(r.reduce((a,b)=>a+b,0)/r.length):state.cyc}
@@ -875,7 +968,7 @@ function openDialog(html,focusSel){
   $('dialog').innerHTML=html;$('overlay').hidden=false;
   const f=$('dialog').querySelector(focusSel||'button');if(f)f.focus();
 }
-function closeDialog(){if($('overlay').hidden)return;$('overlay').hidden=true;$('dialog').innerHTML='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+function closeDialog(){if($('overlay').hidden)return;$('overlay').hidden=true;$('dialog').innerHTML='';$('dialog').classList.remove('wide');if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 $('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closeDialog()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDialog()});
 
@@ -1171,8 +1264,8 @@ function buildAlerts(){
   if(late>=5&&diff(last.start,today)<120)out.push({warn:true,title:t.lateT(num(late)),body:t.lateB});
   const gaps=[];for(let i=1;i<s.length;i++){const g=diff(s[i-1].start,s[i].start);if(g>=10&&g<=90)gaps.push(g)}
   const r=gaps.slice(-6);
-  if(r.length>=3){const mn=Math.min(...r),mx=Math.max(...r);if(mx-mn>7)out.push({title:t.irrT,body:t.irrB(num(mn),num(mx))})}
-  if(r.length>=2&&(avg<21||avg>35))out.push({title:t.rangeT,body:t.rangeB(num(avg))});
+  if(r.length>=3){const mn=Math.min(...r),mx=Math.max(...r);if(mx-mn>9)out.push({title:t.irrT,body:t.irrB(num(mn),num(mx))})}
+  if(r.length>=2&&(avg<24||avg>38))out.push({title:t.rangeT,body:t.rangeB(num(avg))});
   return out;
 }
 const ALERT_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17.5v.01"/></svg>';
@@ -1211,6 +1304,167 @@ function drawRing(cd,avg,plen){
   $('ring').innerHTML=g;
 }
 
+/* ===== v4: illustrations, cycle regularity, Learn ===== */
+const SKIN='#f2c4a2',HAIR='#3b2230';
+const ILL={
+woman:`<svg viewBox="0 0 200 150" aria-hidden="true"><circle cx="100" cy="80" r="64" fill="var(--baby)" opacity=".65"/><circle cx="36" cy="42" r="7" fill="var(--rose)" opacity=".45"/><circle cx="170" cy="50" r="5" fill="var(--fertile-ink)" opacity=".4"/><circle cx="162" cy="118" r="8" fill="var(--rose)" opacity=".3"/><circle cx="30" cy="112" r="4" fill="var(--fertile-ink)" opacity=".35"/>
+<path d="M66 72c0-26 15-42 34-42s34 16 34 42v46H66z" fill="${HAIR}"/><rect x="92" y="90" width="16" height="18" rx="5" fill="#e3ad8a"/><ellipse cx="100" cy="72" rx="21" ry="24" fill="${SKIN}"/>
+<path d="M78 68c3-18 13-26 24-26 11 0 19 8 21 19-11-1-24-7-29-15-3 10-9 17-16 22z" fill="${HAIR}"/><path d="M89 74q4 3 8 0M103 74q4 3 8 0" fill="none" stroke="${HAIR}" stroke-width="2.2" stroke-linecap="round"/>
+<circle cx="86" cy="82" r="4" fill="var(--rose)" opacity=".35"/><circle cx="114" cy="82" r="4" fill="var(--rose)" opacity=".35"/><path d="M95 85q5 4 10 0" fill="none" stroke="#a24b5c" stroke-width="2" stroke-linecap="round"/>
+<path d="M58 152c2-28 19-44 42-44s40 16 42 44z" fill="var(--rose)"/><path d="M100 136c-7-6-14-10-14-16a7 7 0 0 1 14-2 7 7 0 0 1 14 2c0 6-7 10-14 16z" fill="#fff"/>
+<g transform="translate(127 54)"><circle r="5" cy="-6" fill="var(--rose)"/><circle r="5" cx="6" fill="var(--rose)"/><circle r="5" cy="6" fill="var(--rose)"/><circle r="5" cx="-6" fill="var(--rose)"/><circle r="3.5" fill="#ffd36e"/></g></svg>`,
+period:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--baby)"/><path d="M32 12c-8 10-13 17-13 24a13 13 0 0 0 26 0c0-7-5-14-13-24z" fill="var(--icon)"/><ellipse cx="26" cy="38" rx="2.6" ry="4" fill="#fff" opacity=".6"/></svg>`,
+follic:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--baby)"/><path d="M32 50V30" stroke="#3f8f5a" stroke-width="3" stroke-linecap="round"/><path d="M32 34c-10 0-15-6-15-13 9 0 15 5 15 13z" fill="#5fb37a"/><path d="M32 30c0-9 6-15 15-15 0 9-6 15-15 15z" fill="#7cc994"/><path d="M20 50h24" stroke="#a0715a" stroke-width="3" stroke-linecap="round"/></svg>`,
+fertile:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--fertile)"/><g transform="translate(32 30)" fill="var(--fertile-ink)" opacity=".85"><circle r="7" cy="-10"/><circle r="7" cx="10" cy="-3"/><circle r="7" cx="6" cy="9"/><circle r="7" cx="-6" cy="9"/><circle r="7" cx="-10" cy="-3"/></g><circle cx="32" cy="30" r="5" fill="#ffd36e"/><path d="M32 42v12" stroke="#3f8f5a" stroke-width="3" stroke-linecap="round"/></svg>`,
+ovu:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--fertile)"/><g stroke="#f0a92e" stroke-width="3" stroke-linecap="round"><path d="M32 8v6M32 50v6M8 32h6M50 32h6M15 15l4 4M45 45l4 4M49 15l-4 4M19 45l-4 4"/></g><circle cx="32" cy="32" r="12" fill="#ffd36e"/><circle cx="28" cy="29" r="3" fill="#fff" opacity=".7"/></svg>`,
+luteal:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--baby)"/><path d="M38 14a18 18 0 1 0 12 30 15 15 0 0 1-12-30z" fill="var(--rose-ink)" opacity=".8"/><path d="M46 18l1.5 3.5L51 23l-3.5 1.5L46 28l-1.5-3.5L41 23l3.5-1.5z" fill="#ffd36e"/><circle cx="20" cy="20" r="2" fill="#ffd36e"/></svg>`,
+late:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--baby)"/><rect x="16" y="18" width="32" height="30" rx="5" fill="var(--surface)" stroke="var(--rose-ink)" stroke-width="2.5"/><path d="M16 27h32M24 14v8M40 14v8" stroke="var(--rose-ink)" stroke-width="2.5" stroke-linecap="round"/><circle cx="32" cy="38" r="6" fill="none" stroke="var(--rose)" stroke-width="2.5"/><path d="M32 35v3l2 2" stroke="var(--rose)" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`,
+none:`<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="var(--baby)"/><rect x="16" y="18" width="32" height="30" rx="5" fill="var(--surface)" stroke="var(--rose-ink)" stroke-width="2.5"/><path d="M16 27h32M24 14v8M40 14v8" stroke="var(--rose-ink)" stroke-width="2.5" stroke-linecap="round"/><path d="M32 32v10M27 37h10" stroke="var(--rose)" stroke-width="3" stroke-linecap="round"/></svg>`,
+/* article covers 200x120 */
+c_normal:`<svg viewBox="0 0 200 120" aria-hidden="true"><circle cx="150" cy="30" r="22" fill="var(--baby)"/><circle cx="40" cy="96" r="16" fill="var(--fertile)"/><rect x="58" y="22" width="84" height="80" rx="12" fill="var(--surface)" stroke="var(--rose-ink)" stroke-width="3"/><path d="M58 44h84" stroke="var(--rose-ink)" stroke-width="3"/><path d="M78 16v14M122 16v14" stroke="var(--rose-ink)" stroke-width="4" stroke-linecap="round"/><g fill="var(--line)"><circle cx="74" cy="58" r="4"/><circle cx="90" cy="58" r="4"/><circle cx="106" cy="58" r="4"/><circle cx="122" cy="58" r="4"/><circle cx="74" cy="72" r="4"/><circle cx="122" cy="72" r="4"/><circle cx="74" cy="86" r="4"/><circle cx="90" cy="86" r="4"/><circle cx="106" cy="86" r="4"/><circle cx="122" cy="86" r="4"/></g><path d="M98 62c-5 6-8 10-8 14a8 8 0 0 0 16 0c0-4-3-8-8-14z" fill="var(--icon)"/></svg>`,
+c_regular:`<svg viewBox="0 0 200 120" aria-hidden="true"><rect x="24" y="44" width="152" height="40" rx="8" fill="var(--baby)" opacity=".7"/><path d="M24 98h152" stroke="var(--line)" stroke-width="3" stroke-linecap="round"/><polyline points="30,66 58,60 86,70 114,62 142,68 170,58" fill="none" stroke="var(--rose)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><g fill="var(--surface)" stroke="var(--rose-ink)" stroke-width="3"><circle cx="30" cy="66" r="5"/><circle cx="58" cy="60" r="5"/><circle cx="86" cy="70" r="5"/><circle cx="114" cy="62" r="5"/><circle cx="142" cy="68" r="5"/><circle cx="170" cy="58" r="5"/></g><circle cx="160" cy="26" r="16" fill="#3a9a63"/><path d="M152 26l6 6 10-11" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+c_hygiene:`<svg viewBox="0 0 200 120" aria-hidden="true"><circle cx="100" cy="64" r="48" fill="var(--baby)" opacity=".7"/><rect x="58" y="26" width="34" height="76" rx="17" fill="var(--surface)" stroke="var(--rose-ink)" stroke-width="3"/><rect x="48" y="54" width="54" height="20" rx="8" fill="var(--surface)" stroke="var(--rose-ink)" stroke-width="3"/><rect x="66" y="40" width="18" height="48" rx="9" fill="var(--baby)"/><rect x="112" y="70" width="48" height="30" rx="10" fill="#9fd3f0" stroke="#3b8fd6" stroke-width="3"/><g fill="#fff" stroke="#3b8fd6" stroke-width="2"><circle cx="124" cy="60" r="6"/><circle cx="140" cy="52" r="8"/><circle cx="154" cy="62" r="5"/></g><path d="M170 28c-5 6-8 10-8 14a8 8 0 0 0 16 0c0-4-3-8-8-14z" fill="#7cc0f2"/></svg>`,
+c_pain:`<svg viewBox="0 0 200 120" aria-hidden="true"><circle cx="70" cy="66" r="46" fill="var(--baby)" opacity=".7"/><rect x="60" y="14" width="20" height="12" rx="3" fill="var(--rose-ink)"/><path d="M50 26h40a12 12 0 0 1 12 12v48a16 16 0 0 1-16 16H54a16 16 0 0 1-16-16V38a12 12 0 0 1 12-12z" fill="var(--rose)"/><path d="M70 74c-6-5-12-8-12-13a6 6 0 0 1 12-2 6 6 0 0 1 12 2c0 5-6 8-12 13z" fill="#fff"/><path d="M118 70h50v14a20 20 0 0 1-20 20h-10a20 20 0 0 1-20-20z" fill="var(--surface)" stroke="var(--rose-ink)" stroke-width="3"/><path d="M168 76h6a8 8 0 0 1 0 16h-8" fill="none" stroke="var(--rose-ink)" stroke-width="3"/><path d="M132 58c-4-6 4-10 0-16M146 58c-4-6 4-10 0-16" fill="none" stroke="var(--muted)" stroke-width="3" stroke-linecap="round"/></svg>`,
+c_food:`<svg viewBox="0 0 200 120" aria-hidden="true"><ellipse cx="88" cy="70" rx="62" ry="40" fill="var(--surface)" stroke="var(--line)" stroke-width="3"/><ellipse cx="88" cy="70" rx="46" ry="28" fill="var(--surface-2)"/><circle cx="70" cy="64" r="16" fill="#f2b84b"/><g fill="#e09a2a"><circle cx="64" cy="60" r="2.2"/><circle cx="72" cy="58" r="2.2"/><circle cx="76" cy="66" r="2.2"/><circle cx="66" cy="70" r="2.2"/></g><path d="M92 54c12-10 26-6 28 4-10 6-22 6-28-4z" fill="#5fb37a"/><path d="M96 74c10-8 24-4 26 6-10 6-20 4-26-6z" fill="#3f8f5a"/><ellipse cx="80" cy="84" rx="10" ry="7" fill="#fff" stroke="var(--line)" stroke-width="2"/><circle cx="80" cy="84" r="4" fill="#ffd36e"/><circle cx="150" cy="30" r="13" fill="#f39a3d"/><path d="M150 17v26M137 30h26M141 21l18 18M159 21l-18 18" stroke="#ffd59a" stroke-width="2"/><path d="M162 62h22l-3 44a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4z" fill="#c8e7fa" stroke="#3b8fd6" stroke-width="3"/><path d="M165 80h16" stroke="#3b8fd6" stroke-width="2"/></svg>`,
+c_heavy:`<svg viewBox="0 0 200 120" aria-hidden="true"><circle cx="86" cy="64" r="46" fill="var(--baby)" opacity=".7"/><path d="M86 16c-18 22-28 36-28 52a28 28 0 0 0 56 0c0-16-10-30-28-52z" fill="var(--icon)"/><ellipse cx="74" cy="72" rx="5" ry="9" fill="#fff" opacity=".55"/><path d="M146 34l30 52h-60z" fill="#f2b84b" stroke="#c98a0b" stroke-width="3" stroke-linejoin="round"/><path d="M146 54v14M146 76v1" stroke="#5a3a00" stroke-width="5" stroke-linecap="round"/></svg>`,
+c_doctor:`<svg viewBox="0 0 200 120" aria-hidden="true"><circle cx="96" cy="62" r="48" fill="var(--fertile)" opacity=".8"/><rect x="62" y="20" width="64" height="86" rx="10" fill="var(--surface)" stroke="var(--rose-ink)" stroke-width="3"/><rect x="80" y="14" width="28" height="12" rx="5" fill="var(--rose-ink)"/><path d="M94 44v20M84 54h20" stroke="var(--rose)" stroke-width="6" stroke-linecap="round"/><path d="M76 78h36M76 90h24" stroke="var(--line)" stroke-width="4" stroke-linecap="round"/><path d="M140 22v26a16 16 0 0 0 32 0V22" fill="none" stroke="var(--fertile-ink)" stroke-width="4" stroke-linecap="round"/><path d="M156 64v18a14 14 0 0 1-28 0" fill="none" stroke="var(--fertile-ink)" stroke-width="4" stroke-linecap="round"/><circle cx="128" cy="82" r="7" fill="var(--surface)" stroke="var(--fertile-ink)" stroke-width="4"/></svg>`
+};
+
+/* ---------- Learn articles (EN / BN) ---------- */
+const SRC={nhs111:['NHS 111 Wales','https://111.wales.nhs.uk/encyclopaedia/p/article/periods,painful'],nhsheavy:['NHS 111 Wales – Heavy periods','https://111.wales.nhs.uk/Heavyperiods,Menorrhagia'],
+  nidirr:['NI Direct – Irregular periods','https://www.nidirect.gov.uk/conditions/irregular-periods'],nidmiss:['NI Direct – Stopped or missed periods','https://www.nidirect.gov.uk/conditions/stopped-or-missed-periods'],
+  nidtss:['NI Direct – Toxic shock syndrome','https://www.nidirect.gov.uk/conditions/toxic-shock-syndrome'],figo:['MSD Manual – Normal menstrual parameters (FIGO 2018)','https://www.msdmanuals.com/professional/multimedia/table/normal-menstrual-parameters'],
+  ohsu:['OHSU – Period hygiene products','https://www.ohsu.edu/sites/default/files/2024-05/Period%20Education%20Guide%20Section%204.Period%20Hygiene%20Products.pdf'],crs:['CRS – Reusable pad guide','https://www.crs.org/sites/default/files/wash-toolkit/resources/5MHM-reusable-pad-guide.pdf'],
+  iron:['NHS Sherwood Forest – Iron in your diet','https://www.sfh-tr.nhs.uk/media/13516/iron-in-your-diet.pdf']};
+const ARTICLES=[
+{id:'normal',ill:'c_normal',src:['figo','nidirr'],
+ en:{t:'What is a normal period?',s:'Cycle length, bleeding days and what changes with age.',b:[
+  ['Cycle length',['Count from the first day of one period to the first day of the next.','For adults, a cycle of 24 to 38 days is considered normal. 28 days is only an average.','Your cycle can change a little from month to month. That is normal.']],
+  ['Bleeding',['Bleeding usually lasts 2 to 7 days, about 5 days on average. Up to 8 days can still be normal.','Flow is often heaviest in the first 2 days.']],
+  ['Life stages',['In the first few years after periods start, cycles are often irregular.','Cycles change again in the years before menopause.']]]},
+ bn:{t:'স্বাভাবিক পিরিয়ড কেমন?',s:'চক্রের দৈর্ঘ্য, রক্তপাতের দিন এবং বয়সের সাথে কী বদলায়।',b:[
+  ['চক্রের দৈর্ঘ্য',['এক পিরিয়ডের প্রথম দিন থেকে পরের পিরিয়ডের প্রথম দিন পর্যন্ত গুনুন।','প্রাপ্তবয়স্কদের ক্ষেত্রে ২৪ থেকে ৩৮ দিনের চক্র স্বাভাবিক ধরা হয়। ২৮ দিন শুধু একটি গড়।','মাস থেকে মাসে চক্র একটু বদলাতে পারে। এটা স্বাভাবিক।']],
+  ['রক্তপাত',['রক্তপাত সাধারণত ২ থেকে ৭ দিন থাকে, গড়ে প্রায় ৫ দিন। ৮ দিন পর্যন্তও স্বাভাবিক হতে পারে।','প্রথম ২ দিন সাধারণত রক্তপাত সবচেয়ে বেশি হয়।']],
+  ['জীবনের বিভিন্ন সময়',['পিরিয়ড শুরুর প্রথম কয়েক বছর চক্র প্রায়ই অনিয়মিত থাকে।','মেনোপজের আগের বছরগুলোতে চক্র আবার বদলায়।']]]}},
+{id:'regular',ill:'c_regular',src:['figo','nidirr','nidmiss'],
+ en:{t:'Regular and irregular periods',s:'What irregular means, common causes and when to get checked.',b:[
+  ['Regular or irregular?',['Your periods are regular when your shortest and longest cycles are within about 7 to 9 days of each other.','They are irregular when the gap between periods changes a lot, periods come early or late, or you skip periods.']],
+  ['Common causes',['Stress','Big weight loss or gain','Very intense exercise','Starting, stopping or changing contraception','Polycystic ovary syndrome (PCOS)','Thyroid problems','The first years after periods start, and the years before menopause','Pregnancy, so take a test if your period is late and you could be pregnant']],
+  ['What helps',['Track at least 3 cycles so you can see your pattern.','Sleep well, eat regular meals and find ways to manage stress.']],
+  ['See a doctor if',['You have missed more than 3 periods in a row and you are not pregnant','Your periods come more often than every 24 days, or less often than every 38 days','You bleed between periods or after sex','Your periods stop before age 45']]]},
+ bn:{t:'নিয়মিত ও অনিয়মিত পিরিয়ড',s:'অনিয়মিত মানে কী, সাধারণ কারণ এবং কখন পরীক্ষা করাবেন।',b:[
+  ['নিয়মিত নাকি অনিয়মিত?',['সবচেয়ে ছোট ও সবচেয়ে বড় চক্রের পার্থক্য প্রায় ৭ থেকে ৯ দিনের মধ্যে থাকলে পিরিয়ড নিয়মিত।','দুই পিরিয়ডের মাঝের সময় অনেক বদলালে, আগে বা দেরিতে হলে, অথবা পিরিয়ড বাদ গেলে তা অনিয়মিত।']],
+  ['সাধারণ কারণ',['মানসিক চাপ','হঠাৎ অনেক ওজন কমা বা বাড়া','অতিরিক্ত কঠোর ব্যায়াম','জন্মনিয়ন্ত্রণ শুরু, বন্ধ বা পরিবর্তন','পলিসিস্টিক ওভারি সিনড্রোম (PCOS)','থাইরয়েডের সমস্যা','পিরিয়ড শুরুর প্রথম কয়েক বছর এবং মেনোপজের আগের বছরগুলো','গর্ভধারণ, তাই পিরিয়ড দেরি হলে ও সম্ভাবনা থাকলে টেস্ট করুন']],
+  ['যা সাহায্য করে',['নিজের ধরন বুঝতে অন্তত ৩টি চক্র ট্র্যাক করুন।','ভালো ঘুমান, নিয়মিত খাবার খান এবং মানসিক চাপ কমানোর চেষ্টা করুন।']],
+  ['ডাক্তার দেখান যদি',['গর্ভবতী না হয়েও পরপর ৩টির বেশি পিরিয়ড বাদ যায়','২৪ দিনের কম বা ৩৮ দিনের বেশি পরপর পিরিয়ড হয়','দুই পিরিয়ডের মাঝে বা সহবাসের পর রক্তপাত হয়','৪৫ বছরের আগেই পিরিয়ড বন্ধ হয়ে যায়']]]}},
+{id:'hygiene',ill:'c_hygiene',src:['ohsu','crs','nidtss'],
+ en:{t:'Staying clean and comfortable',s:'How often to change pads, tampons and cups, and caring for cloth pads.',b:[
+  ['How often to change',['Pads: every 4 to 8 hours, sooner if your flow is heavy.','Tampons: every 4 to 8 hours. Use the lowest absorbency you need, and never use more than one at a time.','Menstrual cup: empty it at least every 10 to 12 hours, or as the maker advises.']],
+  ['Everyday care',['Wash your hands before and after changing.','Wash the outside of your genital area with plain water. Scented washes and douches are not needed.','Wrap used disposable pads and put them in a bin. Do not flush them.']],
+  ['Cloth pads',['Wash with soap and clean water.','Dry them completely, in sunlight if you can.','Store them in a clean, dry place.']],
+  ['Emergency: toxic shock syndrome',['It is rare but serious. Signs include a high temperature, a sunburn-like rash, being sick, diarrhoea, dizziness or confusion.','Remove any tampon straight away and get emergency medical help.']]]},
+ bn:{t:'পরিষ্কার ও আরামদায়ক থাকা',s:'প্যাড, ট্যাম্পন ও কাপ কতক্ষণ পরপর বদলাবেন এবং কাপড়ের প্যাডের যত্ন।',b:[
+  ['কতক্ষণ পরপর বদলাবেন',['প্যাড: ৪ থেকে ৮ ঘণ্টা পরপর, রক্তপাত বেশি হলে আরও আগে।','ট্যাম্পন: ৪ থেকে ৮ ঘণ্টা পরপর। প্রয়োজন অনুযায়ী সবচেয়ে কম শোষণক্ষমতার ট্যাম্পন ব্যবহার করুন, একসাথে একটির বেশি নয়।','মেনস্ট্রুয়াল কাপ: অন্তত ১০ থেকে ১২ ঘণ্টা পরপর খালি করুন, অথবা প্রস্তুতকারকের নির্দেশনা মানুন।']],
+  ['প্রতিদিনের যত্ন',['বদলানোর আগে ও পরে হাত ধুয়ে নিন।','যৌনাঙ্গের বাইরের অংশ সাধারণ পানি দিয়ে ধুয়ে নিন। সুগন্ধি ওয়াশ বা ডুশ দরকার নেই।','ব্যবহৃত প্যাড মুড়িয়ে ডাস্টবিনে ফেলুন। টয়লেটে ফ্লাশ করবেন না।']],
+  ['কাপড়ের প্যাড',['সাবান ও পরিষ্কার পানি দিয়ে ধুয়ে নিন।','পুরোপুরি শুকিয়ে নিন, সম্ভব হলে রোদে।','পরিষ্কার ও শুকনো জায়গায় রাখুন।']],
+  ['জরুরি: টক্সিক শক সিনড্রোম',['এটি বিরল কিন্তু গুরুতর। লক্ষণ: উচ্চ জ্বর, রোদে পোড়ার মতো র‍্যাশ, বমি, ডায়রিয়া, মাথা ঘোরা বা বিভ্রান্তি।','সাথে সাথে ট্যাম্পন খুলে ফেলুন এবং জরুরি চিকিৎসা নিন।']]]}},
+{id:'pain',ill:'c_pain',src:['nhs111'],
+ en:{t:'Easing period pain',s:'Simple things that help, and when pain needs a doctor.',b:[
+  ['Things that help',['Put a hot water bag, wrapped in a cloth, on your lower belly, or take a warm bath.','Gently massage your lower belly and lower back.','Light exercise such as walking, yoga, swimming or cycling.','Pain relief such as paracetamol or ibuprofen from a pharmacy. Follow the label, and ask a pharmacist if you have asthma, stomach problems or another condition.','Cutting down on smoking and alcohol may also help.']],
+  ['See a doctor if',['Pain stops you going to school or work, sleeping or doing daily things','Your periods become more painful, heavier or irregular','You have pain during sex, or when peeing or pooing','You bleed between periods']],
+  ['Get urgent help',['If the pain is severe or worse than usual and painkillers are not helping.']]]},
+ bn:{t:'পিরিয়ডের ব্যথা কমানো',s:'সহজ কিছু উপায় এবং কখন ব্যথার জন্য ডাক্তার দেখাতে হবে।',b:[
+  ['যা সাহায্য করে',['কাপড়ে মুড়িয়ে গরম পানির ব্যাগ তলপেটে রাখুন, অথবা কুসুম গরম পানিতে গোসল করুন।','তলপেট ও কোমরে আলতো করে মালিশ করুন।','হালকা ব্যায়াম, যেমন হাঁটা, ইয়োগা, সাঁতার বা সাইকেল চালানো।','ফার্মেসি থেকে প্যারাসিটামল বা আইবুপ্রোফেনের মতো ব্যথার ওষুধ। মোড়কের নির্দেশনা মানুন, আর অ্যাজমা, পেটের সমস্যা বা অন্য অসুখ থাকলে ফার্মাসিস্টকে জিজ্ঞেস করুন।','ধূমপান ও অ্যালকোহল কমালেও উপকার হতে পারে।']],
+  ['ডাক্তার দেখান যদি',['ব্যথার কারণে স্কুল বা কাজে যেতে, ঘুমাতে বা দৈনন্দিন কাজ করতে না পারেন','পিরিয়ড আগের চেয়ে বেশি ব্যথাযুক্ত, ভারী বা অনিয়মিত হয়','সহবাস, প্রস্রাব বা পায়খানার সময় ব্যথা হয়','দুই পিরিয়ডের মাঝে রক্তপাত হয়']],
+  ['জরুরি সাহায্য নিন',['ব্যথা যদি তীব্র বা স্বাভাবিকের চেয়ে বেশি হয় এবং ওষুধে কাজ না হয়।']]]}},
+{id:'food',ill:'c_food',src:['iron','nhsheavy'],
+ en:{t:'Food, iron and water',s:'Eat to replace iron, and how to absorb more of it.',b:[
+  ['Why iron matters',['You lose iron when you bleed. Heavy periods can lead to anaemia, which can make you feel tired and short of breath.']],
+  ['Iron-rich foods',['Red meat, chicken and fish such as sardines','Eggs','Lentils (dal), chickpeas and beans','Leafy green vegetables','Nuts, seeds and dried fruit']],
+  ['Absorb more iron',['Eat fruit or vegetables with vitamin C at meals, such as guava, orange, lemon or tomato.','Drink tea between meals, not with them, because tea reduces how much iron you absorb.']],
+  ['Every day',['Drink water regularly and eat regular meals.','If you often feel very tired, ask a doctor about a blood test for anaemia.']]]},
+ bn:{t:'খাবার, আয়রন ও পানি',s:'আয়রন পূরণে কী খাবেন এবং কীভাবে বেশি আয়রন শোষণ হয়।',b:[
+  ['আয়রন কেন জরুরি',['রক্তপাতের সাথে শরীর থেকে আয়রন বেরিয়ে যায়। বেশি রক্তপাত হলে রক্তস্বল্পতা হতে পারে, যাতে ক্লান্তি ও শ্বাসকষ্ট লাগে।']],
+  ['আয়রনসমৃদ্ধ খাবার',['লাল মাংস, মুরগি এবং সার্ডিনের মতো মাছ','ডিম','ডাল, ছোলা ও শিম','সবুজ শাকসবজি','বাদাম, বীজ ও শুকনো ফল']],
+  ['বেশি আয়রন শোষণ',['খাবারের সাথে ভিটামিন সি-যুক্ত ফল বা সবজি খান, যেমন পেয়ারা, কমলা, লেবু বা টমেটো।','চা খাবারের সাথে নয়, দুই খাবারের মাঝে খান, কারণ চা আয়রন শোষণ কমায়।']],
+  ['প্রতিদিন',['নিয়মিত পানি পান করুন এবং সময়মতো খাবার খান।','প্রায়ই খুব ক্লান্ত লাগলে রক্তস্বল্পতার পরীক্ষার জন্য ডাক্তারকে জিজ্ঞেস করুন।']]]}},
+{id:'heavy',ill:'c_heavy',src:['nhsheavy'],
+ en:{t:'Is my bleeding too heavy?',s:'Signs of heavy periods and what a doctor can do.',b:[
+  ['Signs of heavy periods',['Changing your pad or tampon every 1 to 2 hours','Needing two products at once, such as a pad and a tampon','Periods lasting more than 7 days','Passing clots larger than about 2.5 cm','Bleeding through to your clothes or bedding','Feeling very tired or short of breath']],
+  ['Possible causes',['Heavy periods can be normal, especially when periods first start, after pregnancy or near menopause.','Conditions such as fibroids, endometriosis, adenomyosis or PCOS can also cause them.']],
+  ['See a doctor',['If heavy periods affect your daily life, or you have had them for some time. Treatments are available.']]]},
+ bn:{t:'রক্তপাত কি অতিরিক্ত বেশি?',s:'অতিরিক্ত রক্তপাতের লক্ষণ এবং ডাক্তার কী করতে পারেন।',b:[
+  ['অতিরিক্ত রক্তপাতের লক্ষণ',['প্রতি ১ থেকে ২ ঘণ্টায় প্যাড বা ট্যাম্পন বদলাতে হয়','একসাথে দুটি জিনিস লাগে, যেমন প্যাড ও ট্যাম্পন','পিরিয়ড ৭ দিনের বেশি থাকে','প্রায় ২.৫ সেমির চেয়ে বড় রক্তের চাকা যায়','কাপড় বা বিছানায় রক্ত লেগে যায়','খুব ক্লান্ত লাগে বা শ্বাসকষ্ট হয়']],
+  ['সম্ভাব্য কারণ',['বেশি রক্তপাত স্বাভাবিকও হতে পারে, বিশেষ করে পিরিয়ড শুরুর সময়, সন্তান জন্মের পর বা মেনোপজের কাছাকাছি।','ফাইব্রয়েড, এন্ডোমেট্রিওসিস, অ্যাডেনোমায়োসিস বা PCOS-এর মতো সমস্যার কারণেও হতে পারে।']],
+  ['ডাক্তার দেখান',['বেশি রক্তপাত দৈনন্দিন জীবনে প্রভাব ফেললে বা অনেক দিন ধরে চললে। এর চিকিৎসা আছে।']]]}},
+{id:'doctor',ill:'c_doctor',src:['nidmiss','nidirr','nidtss'],
+ en:{t:'When to see a doctor',s:'Signs that need a check-up, and signs that need help now.',b:[
+  ['Book a check-up if',['You have missed more than 3 periods in a row and you are not pregnant','You bleed between periods, after sex or after menopause','You have signs of heavy periods','Period pain stops your daily life','Your cycles are often shorter than 24 days or longer than 38 days','Your periods stop before age 45']],
+  ['Get help now if',['You have a high temperature (39 °C or more), a sunburn-like rash, are being sick, feel dizzy or confused, especially while using a tampon. Remove the tampon and get emergency help.','You have severe pain that painkillers do not help.']],
+  ['Bring your report',['Use the Doctor report in Insights. Your dates, cycle lengths and symptoms help the doctor understand what is happening.']]]},
+ bn:{t:'কখন ডাক্তার দেখাবেন',s:'যেসব লক্ষণে চেকআপ দরকার এবং যেসব লক্ষণে এখনই সাহায্য দরকার।',b:[
+  ['চেকআপ করান যদি',['গর্ভবতী না হয়েও পরপর ৩টির বেশি পিরিয়ড বাদ যায়','দুই পিরিয়ডের মাঝে, সহবাসের পর বা মেনোপজের পর রক্তপাত হয়','অতিরিক্ত রক্তপাতের লক্ষণ থাকে','পিরিয়ডের ব্যথায় দৈনন্দিন কাজ বন্ধ হয়ে যায়','প্রায়ই চক্র ২৪ দিনের কম বা ৩৮ দিনের বেশি হয়','৪৫ বছরের আগেই পিরিয়ড বন্ধ হয়ে যায়']],
+  ['এখনই সাহায্য নিন যদি',['উচ্চ জ্বর (৩৯ °সে বা বেশি), রোদে পোড়ার মতো র‍্যাশ, বমি, মাথা ঘোরা বা বিভ্রান্তি হয়, বিশেষ করে ট্যাম্পন ব্যবহারের সময়। ট্যাম্পন খুলে ফেলুন এবং জরুরি সাহায্য নিন।','তীব্র ব্যথা যা ওষুধেও কমে না।']],
+  ['রিপোর্ট সাথে নিন',['ইনসাইট-এর "ডাক্তারের জন্য রিপোর্ট" ব্যবহার করুন। আপনার তারিখ, চক্রের দৈর্ঘ্য ও উপসর্গ ডাক্তারকে বুঝতে সাহায্য করে।']]]}}
+];
+const art=id=>ARTICLES.find(a=>a.id===id);
+function articleCard(a,small){const c=a[lang]||a.en;return `<button type="button" class="acard${small?' sm':''}" data-art="${a.id}"><span class="acover">${ILL[a.ill]}</span><span class="abody"><b>${c.t}</b><span>${c.s}</span></span></button>`}
+function openArticle(id){
+  const a=art(id);if(!a)return;const c=a[lang]||a.en,t=T();
+  openDialog(`<div class="artcover">${ILL[a.ill]}</div><h3 id="dlgTitle" tabindex="-1">${c.t}</h3><p>${c.s}</p>
+    ${c.b.map(([h,items])=>`<div class="artsec"><h4>${h}</h4>${items.length>1?`<ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul>`:`<p>${items[0]}</p>`}</div>`).join('')}
+    <p class="artsrc"><b>${t.sourcesL}</b> ${a.src.map(k=>`<a href="${SRC[k][1]}" target="_blank" rel="noopener">${SRC[k][0]}</a>`).join(' · ')}</p>
+    <p class="artnote">${t.notAdvice}</p>
+    <div class="actions"><button type="button" class="btn primary" id="artClose">${t.close}</button></div>`,'#dlgTitle');$('dialog').scrollTop=0;
+  $('dialog').classList.add('wide');$('artClose').onclick=closeDialog;
+}
+
+/* ---------- cycle regularity ---------- */
+function regularity(){
+  const s=periods();const cyc=[];
+  for(let i=1;i<s.length;i++){const g=diff(s[i-1].start,s[i].start);if(g>=10&&g<=90)cyc.push({start:s[i-1].start,len:g})}
+  const recent=cyc.slice(-12),lens=recent.map(c=>c.len);
+  const r={n:recent.length,cycles:recent,status:'need'};
+  if(recent.length<2)return r;
+  r.min=Math.min(...lens);r.max=Math.max(...lens);r.vary=r.max-r.min;r.avg=Math.round(lens.reduce((a,b)=>a+b,0)/lens.length);
+  r.short=lens.filter(x=>x<24).length;r.long=lens.filter(x=>x>38).length;r.longBleed=s.slice(-12).filter(p=>p.len>8).length;
+  r.status=(r.short||r.long||r.vary>9)?'irregular':(r.vary>7||r.longBleed)?'slight':'regular';
+  return r;
+}
+function regStrip(r){
+  const lo=15,hi=60,W=400,H=62,L=12,R=12,x=v=>L+(W-L-R)*(Math.min(hi,Math.max(lo,v))-lo)/(hi-lo),t=T();
+  let g=`<rect x="${L}" y="26" width="${W-L-R}" height="12" rx="6" fill="var(--surface-2)"/><rect x="${x(24)}" y="26" width="${x(38)-x(24)}" height="12" rx="6" fill="var(--fertile)"/>`;
+  g+=`<text x="${x(24)}" y="58" text-anchor="middle">${num(24)}</text><text x="${x(38)}" y="58" text-anchor="middle">${num(38)}</text><text x="${(x(24)+x(38))/2}" y="18" text-anchor="middle" class="nr">${t.normalRange}</text>`;
+  (r.cycles||[]).forEach((c,i)=>{g+=`<circle cx="${x(c.len)}" cy="32" r="${i===r.cycles.length-1?8:6}" fill="${c.len<24||c.len>38?'#e07a2f':'var(--rose)'}" stroke="var(--surface)" stroke-width="2" opacity="${0.45+0.55*(i+1)/r.cycles.length}"/>`});
+  return `<div class="strip"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t.stripLabel)}">${g}</svg></div>`;
+}
+function renderRegularity(){
+  const t=T(),r=regularity(),st=r.status;
+  const badge=`<span class="regbadge ${st}">${t.reg[st]}</span>`;
+  let detail='';
+  if(st==='need')detail=`<p class="note">${t.regNeed(num(Math.max(0,3-periods().length)))}</p>`;
+  else{
+    const facts=[`<li>${t.regRange(num(r.min),num(r.max),num(r.vary))}</li>`,`<li>${t.regAvg(num(r.avg))}</li>`];
+    if(r.short)facts.push(`<li class="flag">${t.regShort(num(r.short))}</li>`);
+    if(r.long)facts.push(`<li class="flag">${t.regLong(num(r.long))}</li>`);
+    if(r.longBleed)facts.push(`<li class="flag">${t.regBleed(num(r.longBleed))}</li>`);
+    detail=`${regStrip(r)}<ul class="regfacts">${facts.join('')}</ul><p class="regmsg">${t.regMsg[st]}</p>`;
+  }
+  const full=`<div class="reghead"><span class="regill">${ILL.c_regular}</span><div><h3>${t.regH}</h3>${badge}<p class="note">${t.regBasis(num(r.n))}</p></div></div>${detail}
+    <button type="button" class="btn" data-art="regular">${t.readMore}</button>`;
+  $('regCard').innerHTML=full;
+  const mini=st==='need'?`<p class="note">${t.regNeed(num(Math.max(0,3-periods().length)))}</p>`:`<p class="note">${t.regRange(num(r.min),num(r.max),num(r.vary))}</p>${regStrip(r)}`;
+  $('regMini').innerHTML=`<div class="qhead"><h3>${t.regH}</h3>${badge}</div>${mini}<button type="button" class="linkbtn" data-goto="ins">${t.seeDetails}</button>`;
+}
+
+/* ---------- Learn + Today teasers ---------- */
+function renderLearn(){
+  const t=T();
+  $('learnGrid').innerHTML=ARTICLES.map(a=>articleCard(a)).join('');
+  $('learnTeaser').innerHTML=ARTICLES.slice(0,6).map(a=>articleCard(a,true)).join('');
+  $('learnHeroIll').innerHTML=ILL.woman;
+}
+
 /* render */
 function render(){
   const t=T();
@@ -1222,7 +1476,7 @@ function render(){
   let ph='none';
   if(cd){const ov=avg-14;ph=cd<=last.len?'period':cd===ov?'ovu':(cd>=ov-5&&cd<=ov+1)?'fertile':cd<ov-5?'follic':cd>avg?'late':'luteal'}
   $('rDay').textContent=cd?num(cd):'–';$('rOf').textContent=cd?(lang==='bn'?`${num(avg)} দিনের মধ্যে`:`of ${avg} days`):'';
-  $('hPhase').textContent=t.ph[ph];$('hTip').textContent=t.tips[ph];
+  $('hPhase').textContent=t.ph[ph];$('hTip').textContent=t.tips[ph];$('hPhIll').innerHTML=ILL[ph]||ILL.none;if(!$('heroIll').innerHTML)$('heroIll').innerHTML=ILL.woman;
   const nx=preds[0];
   if(ph==='none'){$('hHead').textContent=t.hNone;$('hSub').textContent=''}
   else if(ph==='period'){$('hHead').textContent=t.hPeriod(num(cd));$('hSub').textContent=t.hSubPeriod(range(last.start,last.len))}
@@ -1241,7 +1495,9 @@ function render(){
   $('lenOut').textContent=num(state.len);$('cycOut').textContent=num(state.cyc);
 
   document.querySelectorAll('.tab[data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
-  $('viewHome').hidden=tab!=='home';$('viewCal').hidden=tab!=='cal';$('viewIns').hidden=tab!=='ins';$('viewYear').hidden=tab!=='year';$('viewSet').hidden=tab!=='set';
+  $('viewHome').hidden=tab!=='home';$('viewCal').hidden=tab!=='cal';$('viewIns').hidden=tab!=='ins';$('viewLearn').hidden=tab!=='learn';$('viewSet').hidden=tab!=='set';
+  $('calMonth').hidden=calMode!=='month';$('viewYear').hidden=calMode!=='year';$('calWrap').classList.toggle('full',calMode==='year');$('segMonth').setAttribute('aria-pressed',calMode==='month');$('segYear').setAttribute('aria-pressed',calMode==='year');
+  renderRegularity();renderLearn();
 
   /* month */
   $('monthTitle').textContent=fmt(view,{month:'long',year:'numeric'});
@@ -1278,7 +1534,7 @@ function render(){
     const card=document.createElement('button');card.type='button';card.className='mini'+(year===view.getFullYear()&&m===view.getMonth()?' cur':'');
     card.setAttribute('aria-label',t.open(fmt(ms,{month:'long',year:'numeric'})));
     card.innerHTML=`<h4>${mName}${badge}</h4><div class="mg">${cells}</div>`;
-    card.onclick=()=>{view=ms;tab='cal';render();window.scrollTo({top:0,behavior:'smooth'})};
+    card.onclick=()=>{view=ms;tab='cal';calMode='month';render();window.scrollTo({top:0,behavior:'smooth'})};
     months.appendChild(card);
 
     const tr=document.createElement('tr');
@@ -1315,7 +1571,10 @@ function qAuto(){clearInterval(qTimer);qTimer=setInterval(()=>{qi++;showQuote(tr
 on('qPrev',()=>{qi--;showQuote(true);qAuto()});on('qNext',()=>{qi++;showQuote(true);qAuto()});
 on('todayBtn',()=>{const t0=new Date(today.getFullYear(),today.getMonth(),1);slideDir=Math.sign(t0-view);view=t0;render()});
 on('yPrev',()=>{year--;render()});on('yNext',()=>{year++;render()});on('yNow',()=>{year=today.getFullYear();render()});
-document.querySelectorAll('.tab[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;if(tab==='year')year=view.getFullYear();render();window.scrollTo({top:0,behavior:'smooth'})});
+document.querySelectorAll('.tab[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render();window.scrollTo({top:0,behavior:'smooth'})});
+on('segMonth',()=>{calMode='month';render()});on('segYear',()=>{calMode='year';year=view.getFullYear();render()});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-art]');if(a&&!a.closest('#dialog')){openArticle(a.dataset.art);return}
+  const g=e.target.closest('[data-goto]');if(g){tab=g.dataset.goto;render();window.scrollTo({top:0,behavior:'smooth'})}});
 on('hLogP',()=>{const c=state.example?null:coverOf(iso(today));periodDialog(c,c?c.start:iso(today))});
 on('hLogS',()=>dayDialog(iso(today)));
 on('clearEx',()=>{leaveExample();save();render()});

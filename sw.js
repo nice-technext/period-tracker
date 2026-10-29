@@ -1,5 +1,5 @@
 /* Monthly Period Tracker - offline support */
-const VERSION = 'mpt-v3';
+const VERSION = 'mpt-v4';
 const CORE = [
   './',
   './index.html',
