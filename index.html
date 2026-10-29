@@ -245,6 +245,9 @@ td.n{font-variant-numeric:tabular-nums}
 /* day log */
 .day.has-log::before{content:"";position:absolute;top:6px;right:7px;width:6px;height:6px;border-radius:50%;background:var(--rose-ink)}
 .lg-log{width:8px!important;height:8px!important;border-radius:50%!important;background:var(--rose-ink)}
+.bodyrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:6px 0 4px}
+.dialog input[type=number]{font:inherit;font-size:15px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%}
+.dialog .moods .mood{background:var(--surface-2)}
 .psum{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
 .psum span{flex:1 1 160px;min-width:0;font-size:14px;font-weight:600}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
@@ -308,7 +311,7 @@ td.n{font-variant-numeric:tabular-nums}
 @media (max-width:1100px) and (min-width:761px){.theme button span{display:none}.theme button{padding:7px 10px}.tab{padding:9px 12px}}
 @media (max-width:1000px) and (min-width:761px){.brand b{display:none}}
 @media (max-width:760px){
-  .nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.06);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+  .nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.06);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
   .tab{flex-direction:column;gap:3px;padding:7px 2px;font-size:11px;border-radius:14px;justify-content:center;min-width:0}
   .tab span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
   .tab svg{width:21px;height:21px}
@@ -327,6 +330,104 @@ td.n{font-variant-numeric:tabular-nums}
   .stats .sum small{font-size:11px}
 }
 @media (max-width:400px){.btn.lg{padding:11px 16px;font-size:14px}}
+
+/* ===== v3 ===== */
+.homegrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+.qhead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.qhead h3{margin:0}
+.qdate{font-size:13px;font-weight:700;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+.qsec{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.qsec > b,.qrow b{font-size:13px;color:var(--muted)}
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qmeta{font-size:13px;font-weight:700;color:var(--rose-ink)}
+.moods{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.mood{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);font-size:11px;font-weight:700;color:var(--muted);min-width:0}
+.mood span:last-child{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mood .emo{font-size:22px;line-height:1.1;filter:grayscale(.35)}
+.mood[aria-pressed="true"]{background:var(--baby);border-color:var(--rose);color:var(--on-baby)}
+.mood[aria-pressed="true"] .emo{filter:none}
+.water{display:flex;align-items:center;gap:8px}
+.glasses{flex:1;display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-width:0}
+.glasses i{width:24px;height:24px;display:inline-block}
+.glasses svg{width:100%;height:100%}
+.glasses svg path{fill:none;stroke:var(--line);stroke-width:1.6;stroke-linejoin:round}
+.glasses svg .fillw{stroke:none;fill:transparent}
+.glasses i.on svg path{stroke:#3b8fd6}
+.glasses i.on svg .fillw{fill:#7cc0f2}
+.pillbtn{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;border-radius:14px;border:1.5px dashed var(--rose);background:var(--surface);font-weight:800;color:var(--rose-ink)}
+.pillbtn svg{width:20px;height:20px;flex:none}
+.pillbtn svg *{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.pillbtn[aria-pressed="true"]{border-style:solid;background:var(--baby);color:var(--on-baby)}
+.qsum{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.qsum span{flex:1 1 200px;min-width:0;font-size:13px;color:var(--muted)}
+.qsum b{color:var(--ink)}
+.linkbtn{font-size:13px;font-weight:700;color:var(--rose-ink);text-decoration:underline;text-underline-offset:3px;padding:4px 2px}
+.kit .note{margin:4px 0 0}
+.kitban{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--baby);color:var(--on-baby);font-weight:700;font-size:13px}
+.kitprog{display:flex;align-items:center;gap:10px;margin-top:12px}
+.kitprog .bar{flex:1;margin:0}
+.kitprog span{font-size:12px;font-weight:800;color:var(--rose-ink);white-space:nowrap}
+.kitgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
+.kititem{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px 10px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);font-size:11px;font-weight:700;color:var(--muted);text-align:center;line-height:1.25;min-width:0}
+.kititem svg{width:30px;height:30px}
+.kititem svg *{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.kititem[aria-pressed="true"]{background:var(--baby);border-color:var(--rose);color:var(--on-baby)}
+.kititem[aria-pressed="true"]::after{content:"✓";position:absolute;top:5px;right:6px;width:16px;height:16px;border-radius:50%;background:var(--rose);color:var(--on-rose);font-size:10px;font-weight:900;display:grid;place-items:center;line-height:1}
+.alert.info{border-left-color:var(--rose)}
+.alert.info svg *{stroke:var(--rose-ink)}
+.alert .act{margin-top:10px}
+.insgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+.insgrid .span2{grid-column:1/-1}
+.insgrid h3{margin:0}
+.insgrid .note{margin:2px 0 0}
+.insbody{margin-top:14px}
+.chartcard .chart-head{margin-bottom:12px}
+.hbars{display:flex;flex-direction:column;gap:9px}
+.hbar{display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr) auto;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.hbar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbar .track{height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.hbar .track i{display:block;height:100%;border-radius:99px;background:var(--rose)}
+.hbar b{font-variant-numeric:tabular-nums;color:var(--rose-ink)}
+.moodsum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mchip{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--muted)}
+.mchip .emo{font-size:24px}
+.mchip b{font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums}
+.lchart{overflow-x:auto}
+.lchart svg{display:block;width:100%;min-width:360px;height:auto}
+.lchart text{font-family:var(--body);fill:var(--muted);font-size:11px}
+.lchart .val{fill:var(--ink);font-weight:800;font-size:12px}
+.lchart .grid-l{stroke:var(--line);stroke-width:1}
+.report{margin:14px 0 0;padding:14px 16px;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;color:var(--ink);max-height:360px;overflow:auto}
+.switch{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--muted);flex:none}
+.switch i{position:relative;width:44px;height:26px;border-radius:99px;background:var(--line);transition:background .2s}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.switch[aria-checked="true"] i{background:var(--rose)}
+.switch[aria-checked="true"] i::after{transform:translateX(18px)}
+.switch[aria-checked="true"]{color:var(--rose-ink)}
+.step output.wide{min-width:84px}
+.pinin{font:inherit;font-size:22px;letter-spacing:.5em;text-align:center;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%}
+#cIco{grid-template-columns:repeat(3,minmax(0,1fr))}
+.lock{position:fixed;inset:0;z-index:45;background:linear-gradient(160deg,var(--bg),var(--surface-2));display:flex;align-items:center;justify-content:center;padding:max(24px,env(safe-area-inset-top,0px)) 16px max(24px,env(safe-area-inset-bottom,0px))}
+body.locked{overflow:hidden}
+.lockbox{display:flex;flex-direction:column;align-items:center;gap:16px;width:min(100%,320px);text-align:center}
+.logo.lg{width:64px;height:64px;border-radius:20px}
+.logo.lg svg{width:34px;height:34px}
+.lockbox h2{margin:0;font-family:var(--display);font-weight:600;font-size:24px}
+.pdots{display:flex;gap:14px;height:18px}
+.pdots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--rose);display:block}
+.pdots i.on{background:var(--rose)}
+.pdots.shake{animation:shake .35s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.keypad{display:grid;grid-template-columns:repeat(3,72px);gap:14px;justify-content:center}
+.keypad button{width:72px;height:72px;border-radius:50%;background:var(--surface);border:1px solid var(--line);font-size:26px;font-weight:600;color:var(--ink);box-shadow:var(--shadow)}
+.keypad button:active{background:var(--baby)}
+@media (max-width:980px){.homegrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){.insgrid{grid-template-columns:minmax(0,1fr)}.nav{grid-template-columns:repeat(5,minmax(0,1fr))!important}.tab{font-size:10.5px}}
+@media (min-width:761px){.appbar .theme button span{display:none}.appbar .theme button{padding:7px 10px}.tab{padding:9px 13px}}
+@media (max-width:1180px) and (min-width:761px){.brand b{display:none}}
+@media (max-width:900px) and (min-width:761px){.tab svg{display:none}.tab{padding:8px 10px;font-size:13px}}
+@media (max-width:480px){.kititem{padding:10px 2px 8px;font-size:10px;gap:4px}.kitgrid{gap:6px}.kititem svg{width:24px;height:24px}.mood .emo{font-size:20px}.mood{font-size:10px}.moodsum{grid-template-columns:repeat(2,minmax(0,1fr))}.hbar{grid-template-columns:minmax(0,7.5em) minmax(0,1fr) auto}}
+@media (max-width:340px){.kitgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 /* dialog */
 .overlay{position:fixed;inset:0;z-index:50;background:rgba(45,26,36,.42);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 .dialog{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:min(100%,420px);max-height:100%;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:16px}
@@ -361,7 +462,7 @@ td.n{font-variant-numeric:tabular-nums}
       <div class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c-3.6 4.6-6 8-6 11a6 6 0 0 0 12 0c0-3-2.4-6.4-6-11z"/></svg></div>
       <b data-i18n="brand">Monthly Period Tracker</b>
     </div>
-    <nav class="nav" role="tablist" data-i18n-label="views"><button type="button" class="tab" role="tab" data-tab="home" id="tab-home" aria-controls="viewHome" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg><span data-i18n="tabHome">Today</span></button><button type="button" class="tab" role="tab" data-tab="cal" id="tab-cal" aria-controls="viewCal" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="tabCal">Calendar</span></button><button type="button" class="tab" role="tab" data-tab="year" id="tab-year" aria-controls="viewYear" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span data-i18n="tabYearS">12 months</span></button><button type="button" class="tab" role="tab" data-tab="set" id="tab-set" aria-controls="viewSet" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span data-i18n="tabSet">Settings</span></button></nav>
+    <nav class="nav" role="tablist" data-i18n-label="views"><button type="button" class="tab" role="tab" data-tab="home" id="tab-home" aria-controls="viewHome" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg><span data-i18n="tabHome">Today</span></button><button type="button" class="tab" role="tab" data-tab="cal" id="tab-cal" aria-controls="viewCal" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="tabCal">Calendar</span></button><button type="button" class="tab" role="tab" data-tab="ins" id="tab-ins" aria-controls="viewIns" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span data-i18n="tabIns">Insights</span></button><button type="button" class="tab" role="tab" data-tab="year" id="tab-year" aria-controls="viewYear" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span data-i18n="tabYearS">12 months</span></button><button type="button" class="tab" role="tab" data-tab="set" id="tab-set" aria-controls="viewSet" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span data-i18n="tabSet">Settings</span></button></nav>
     <div class="switches">
       <div class="theme lang" role="group" aria-label="Language / ভাষা">
         <button type="button" id="lEn" aria-pressed="true" lang="en">EN</button>
@@ -395,6 +496,11 @@ td.n{font-variant-numeric:tabular-nums}
     </div>
 
     <div class="alerts" id="alertBox" hidden></div>
+
+    <div class="homegrid">
+      <section class="card qlog" id="qlog" data-i18n-label="qlogH"></section>
+      <section class="card kit" id="kitCard" data-i18n-label="kitH"></section>
+    </div>
 
     <div class="stats">
       <div class="sum"><small data-i18n="avgCycle">Average cycle</small><b id="sAvg">–</b><span id="sAvgNote"></span></div>
@@ -438,6 +544,21 @@ td.n{font-variant-numeric:tabular-nums}
     </div>
   </section>
 
+  <section class="view" id="viewIns" role="tabpanel" aria-labelledby="tab-ins" hidden>
+    <div class="insgrid">
+    <section class="card span2 chartcard">
+      <div class="chart-head"><div><h3 data-i18n="histTitle">Cycle history</h3><p class="note" data-i18n="histBody">Length of each cycle, with your average.</p></div>
+        <div class="legend" style="margin-top:0"><span><i style="background:var(--baby)"></i><span data-i18n="cycleLbl">Cycle length</span></span><span><i style="background:var(--rose)"></i><span data-i18n="periodLbl">Period days</span></span></div></div>
+      <div id="chart"></div>
+    </section>
+      <section class="card"><h3 data-i18n="symH">Most common symptoms</h3><p class="note" data-i18n="last90">Last 90 days</p><div id="insSym" class="insbody"></div></section>
+      <section class="card"><h3 data-i18n="moodInsH">Mood</h3><p class="note" data-i18n="last90">Last 90 days</p><div id="insMood" class="insbody"></div></section>
+      <section class="card"><h3 data-i18n="weightH">Weight</h3><p class="note" data-i18n="kgNote">Kilograms</p><div id="insWeight" class="insbody"></div></section>
+      <section class="card"><h3 data-i18n="tempH">Body temperature</h3><p class="note" data-i18n="tempNote">Degrees Celsius</p><div id="insTemp" class="insbody"></div></section>
+      <section class="card span2"><div class="qhead"><div><h3 data-i18n="reportH">Doctor report</h3><p class="note" data-i18n="reportBody">A summary you can copy and show your doctor.</p></div><button type="button" class="btn primary" id="copyReport" data-i18n="copyReport">Copy report</button></div><pre class="report" id="report"></pre></section>
+    </div>
+  </section>
+
   <section class="card view-card" id="viewYear" role="tabpanel" aria-labelledby="tab-year" hidden>
     <div class="head">
       <h2 id="yearTitle">2026</h2>
@@ -446,11 +567,6 @@ td.n{font-variant-numeric:tabular-nums}
         <button type="button" class="btn" id="yNow" data-i18n="thisYear">This year</button>
         <button type="button" class="btn icon" id="yNext" data-i18n-label="nextYear">›</button>
       </div>
-    </div>
-    <div class="chartbox">
-      <div class="chart-head"><div><h3 data-i18n="histTitle">Cycle history</h3><p class="note" data-i18n="histBody">Length of each cycle, with your average.</p></div>
-        <div class="legend" style="margin-top:0"><span><i style="background:var(--baby)"></i><span data-i18n="cycleLbl">Cycle length</span></span><span><i style="background:var(--rose)"></i><span data-i18n="periodLbl">Period days</span></span></div></div>
-      <div id="chart"></div>
     </div>
     <div class="months" id="months"></div>
     <div class="tablewrap">
@@ -470,6 +586,19 @@ td.n{font-variant-numeric:tabular-nums}
           <div class="field"><span data-i18n="periodLen">Usual period length</span><div class="step"><button type="button" id="lenDn" data-i18n-label="shorter">−</button><output id="lenOut">5</output><button type="button" id="lenUp" data-i18n-label="longer">+</button></div></div>
           <div class="field"><span data-i18n="defCycle">Default cycle</span><div class="step"><button type="button" id="cycDn" data-i18n-label="shorter">−</button><output id="cycOut">28</output><button type="button" id="cycUp" data-i18n-label="longer">+</button></div></div>
           <p class="note" data-i18n="note">Predictions are estimates.</p>
+        </section>
+        <section class="card">
+          <h3 data-i18n="remH">Reminders &amp; tracking</h3>
+          <div class="field"><span data-i18n="remDays">Remind me before my period</span><div class="step"><button type="button" id="remDn" data-i18n-label="shorter">−</button><output id="remOut" class="wide">3</output><button type="button" id="remUp" data-i18n-label="longer">+</button></div></div>
+          <div class="field"><span data-i18n="remPill">Daily pill reminder</span><button type="button" class="switch" role="switch" id="pillSw" aria-checked="false"><i></i><span id="pillSwT">Off</span></button></div>
+          <div class="field"><span data-i18n="remWater">Daily water goal</span><div class="step"><button type="button" id="watDn" data-i18n-label="shorter">−</button><output id="waterOut" class="wide">8</output><button type="button" id="watUp" data-i18n-label="longer">+</button></div></div>
+          <p class="note" data-i18n="remNote">Reminders appear inside the app when you open it.</p>
+        </section>
+        <section class="card">
+          <h3 data-i18n="privH">Privacy lock</h3>
+          <p class="note" id="pinState"></p>
+          <div class="group" style="margin-top:12px"><button type="button" class="btn primary" id="pinSet">Set PIN</button><button type="button" class="btn" id="pinRm" hidden data-i18n="removePin">Turn off</button></div>
+          <p class="note" style="margin-top:10px" data-i18n="pinNote">The PIN hides the app from people using your phone.</p>
         </section>
         <section class="card">
           <h3 data-i18n="backupSec">Backup &amp; restore</h3>
@@ -493,6 +622,16 @@ td.n{font-variant-numeric:tabular-nums}
   <footer class="credit"><span data-i18n="createdBy">Created by</span> <b>Nafisha Tamanna Nice</b></footer>
 </main>
 
+<div class="lock" id="lock" hidden>
+  <div class="lockbox">
+    <div class="logo lg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c-3.6 4.6-6 8-6 11a6 6 0 0 0 12 0c0-3-2.4-6.4-6-11z"/></svg></div>
+    <h2 data-i18n="lockTitle">Enter your PIN</h2>
+    <div class="pdots" id="pDots" aria-hidden="true"></div>
+    <p class="err" id="lockErr" role="alert" hidden></p>
+    <div class="keypad" id="keypad"><button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><span></span><button type="button" data-k="0">0</button><button type="button" data-k="del" data-i18n-label="delKey">⌫</button></div>
+    <button type="button" class="linkbtn" id="forgotPin" data-i18n="forgot">Forgot PIN?</button>
+  </div>
+</div>
 <div class="overlay" id="overlay" hidden>
   <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle" id="dialog"></div>
 </div>
@@ -516,7 +655,18 @@ const I18N={
   needDate:'Choose a date first.',delTitle:'Delete this period?',delBody:r=>`The period ${r} will be removed. This can't be undone.`,yesDelete:'Yes, delete',
   monthTitle:m=>`Reset ${m}?`,monthBody:'All periods logged in this month will be removed. This can’t be undone.',yesReset:'Yes, reset',
   allTitle:'Reset all data?',allBody:'Every logged period will be removed and settings go back to default. This can’t be undone.',resetAll:'Reset all data',
-  tSaved:'Saved',tDeleted:'Period deleted',tMonth:'Month reset',tAll:'All data reset',close:'Close',createdBy:'Created by',tabHome:'Today',tabYearS:'12 months',tabSet:'Settings',logPeriod:'Log period',logSym:'Log symptoms',avgPeriod:'Average period',appearanceH:'Appearance',cycleSet:'Cycle settings',language:'Language',
+  tSaved:'Saved',tDeleted:'Period deleted',tMonth:'Month reset',tAll:'All data reset',close:'Close',createdBy:'Created by',tabIns:'Insights',qlogH:"Today's log",moodH:'Mood',waterH:'Water',glasses:(a,b)=>`${a} of ${b} glasses`,pillTaken:'Pill taken today',pillNot:'Tap when you take your pill',moreLog:'Symptoms & notes',todaySum:'Logged today:',nothingYet:'Nothing logged yet today.',
+  moods:{happy:'Happy',calm:'Calm',sad:'Sad',irritable:'Irritable',anxious:'Anxious',sleepy:'Sleepy'},bodyH:'Body',weightL:'Weight (kg)',tempL:'Temperature (°C)',badWeight:'Enter a weight between 20 and 300 kg.',badTemp:'Enter a temperature between 34 and 43 °C.',pillL:'Pill or medicine taken',
+  kitH:'Period kit',kitBody:'Tick what is ready for your next period.',kitProg:(a,b)=>`${a} of ${b} ready`,kitSoon:n=>`Your period may start in ${n} days. Is your kit ready?`,kitNow:'Your period is here. Keep your kit close.',kitReset:'Untick all',kitResetT:'Untick all items?',kitResetB:'Every item in your period kit will be marked as not ready.',yesUntick:'Yes, untick all',
+  kit:{pads:'Pads',liners:'Panty liners',tampons:'Tampons',cup:'Menstrual cup',pain:'Pain relief',heat:'Hot water bag',undies:'Spare underwear',wipes:'Wet wipes',choc:'Dark chocolate',bottle:'Water bottle'},
+  remH:'Reminders & tracking',remDays:'Remind me before my period',remPill:'Daily pill reminder',remWater:'Daily water goal',remNote:'Reminders appear inside the app when you open it.',on:'On',off:'Off',glassesN:n=>`${n} glasses`,
+  soonT:n=>`Your period may start in ${n} days`,soonB:'Pack your period kit and keep pain relief handy.',pillT:'Pill reminder',pillB:"Have you taken today's pill?",markTaken:'Mark as taken',
+  privH:'Privacy lock',pinOff:'PIN lock is off.',pinOn:'PIN lock is on. The app asks for your PIN each time it opens.',setPin:'Set PIN',changePin:'Change PIN',removePin:'Turn off',pinNote:'The PIN keeps other people using your phone out of the app. It does not encrypt your data.',
+  pinTitle:'Set a 4-digit PIN',pin1:'New PIN',pin2:'Enter the PIN again',pinBad:'The PIN must be exactly 4 digits.',pinMismatch:'The two PINs do not match.',pinSaved:'PIN lock turned on',pinRemoved:'PIN lock turned off',rmPinT:'Turn off PIN lock?',rmPinB:'Anyone using this device will be able to open the app.',yesOff:'Yes, turn off',
+  lockTitle:'Enter your PIN',lockWrong:'Wrong PIN. Try again.',forgot:'Forgot PIN?',forgotT:'Delete all data to get in?',forgotB:'Without the PIN, the only way in is to delete all data on this device. You can restore a backup afterwards if you have one.',yesDelAll:'Yes, delete all data',delKey:'Delete digit',
+  symH:'Most common symptoms',last90:'Last 90 days',noSym:'No symptoms logged in the last 90 days.',moodInsH:'Mood',noMood:'No moods logged in the last 90 days.',weightH:'Weight',tempH:'Body temperature',kgNote:'Kilograms, from your daily logs',tempNote:'Degrees Celsius, from your daily logs',needTwo:'Log this on at least 2 days to see a chart.',reportH:'Doctor report',reportBody:'A summary you can copy and show your doctor.',copyReport:'Copy report',
+  rep:{title:'Monthly Period Tracker - report',made:'Created',periods:'Periods logged',avgC:'Average cycle',shortest:'shortest',longest:'longest',avgP:'Average period length',recent:'Recent periods',syms:'Common symptoms (last 90 days)',none:'None',weight:'Latest weight',temp:'Latest temperature',noData:'No periods logged yet.'},
+  tabHome:'Today',tabYearS:'12 months',tabSet:'Settings',logPeriod:'Log period',logSym:'Log symptoms',avgPeriod:'Average period',appearanceH:'Appearance',cycleSet:'Cycle settings',language:'Language',
   bkHint:'Keep a copy of your data so you can restore it on any device.',resetH:'Reset',resetHint:'Remove every logged period, symptom and note from this device.',
   ph:{period:'Period',follic:'After period',fertile:'Fertile window',ovu:'Ovulation day (est.)',luteal:'Before period',late:'Period due',none:'Getting started'},
   tips:{period:'Rest when you can, stay warm and drink plenty of water.',follic:'Energy often rises in these days. A good time for exercise and plans.',fertile:'This is the most fertile time of your cycle.',ovu:'Ovulation is estimated around today.',luteal:'You may notice PMS signs like bloating or mood changes. Go easy on yourself.',late:'Your period is due. Keep pads or other supplies handy.',none:'Tap Log period and choose the first day of your last period.'},
@@ -526,14 +676,14 @@ const I18N={
   lgLog:'Symptoms or note',periodSec:'Period',inPeriod:(i,n,r)=>`Day ${i} of ${n} · ${r}`,editPeriod:'Edit period',startHere:'Start a period on this day',notInPeriod:'No period logged on this day.',
   flow:'Flow',symptoms:'Symptoms',noteL:'Note',notePh:'How are you feeling today?',
   flows:{none:'None',spot:'Spotting',light:'Light',medium:'Medium',heavy:'Heavy'},
-  syms:{cramps:'Cramps',headache:'Headache',back:'Back pain',bloat:'Bloating',mood:'Mood swings',tired:'Tiredness',acne:'Acne',breast:'Breast tenderness',nausea:'Nausea',crave:'Cravings'},
+  syms:{cramps:'Cramps',headache:'Headache',back:'Back pain',bloat:'Bloating',mood:'Mood swings',tired:'Tiredness',acne:'Acne',breast:'Breast tenderness',nausea:'Nausea',crave:'Cravings',sleep:'Trouble sleeping',dizzy:'Dizziness',diarrhea:'Diarrhea',constip:'Constipation',discharge:'Discharge',clots:'Clots'},
   lateT:n=>`Your period is ${n} days late`,lateB:'Stress, travel, illness and other changes can delay a period. If it is very late or you might be pregnant, consider a test or talk to a doctor.',
   irrT:'Your cycles vary a lot',irrB:(a,b)=>`Your recent cycles ranged from ${a} to ${b} days. Some variation is normal, but if it continues, you may want to talk to a doctor.`,
   rangeT:'Your average cycle is outside the usual range',rangeB:n=>`Your average is ${n} days. Most cycles last 21 to 35 days. If this continues, consider talking to a doctor.`,
   histTitle:'Cycle history',histBody:'Length of each cycle, with your average.',histEmpty:'Log at least two periods to see your cycle history.',avgLbl:n=>`Avg ${n}`,cycleLbl:'Cycle length',periodLbl:'Period days',
   brand:'Monthly Period Tracker',quoteTitle:'A gentle reminder',quoteLabel:'Period quote',qPrev:'Previous quote',qNext:'Next quote',
   quotes:['Your period is a sign of your body doing its work. Be gentle with yourself today.','Rest is productive too. Listen to what your body needs.','Periods are normal and natural. There is nothing to be ashamed of.','Drink water, eat well, sleep enough. Small care adds up.','Knowing your cycle is knowing yourself a little better.','Cramps are real. Asking for a break is okay.','Talk about periods openly. Silence helps no one.','Every cycle is different, and that is okay.','A warm compress, a warm drink and some kindness go a long way.','Track it, understand it, take care of yourself.'],customize:'Customize',themeColor:'Theme colour',mode:'Mode',periodIcon:'Period icon',iconColor:'Icon colour',bloodRed:'Blood red',matchTheme:'Match theme',done:'Done',custBody:'Changes apply right away and are remembered on this device.',
-  pal:{baby:'Baby pink',lavender:'Lavender',peach:'Peach',mint:'Mint',ruby:'Ruby',sky:'Sky'},ico:{drop:'Blood drop',heart:'Heart',flower:'Flower',pin:'Pin'}},
+  pal:{baby:'Baby pink',lavender:'Lavender',peach:'Peach',mint:'Mint',ruby:'Ruby',sky:'Sky'},ico:{drop:'Blood drop',pad:'Pad',cup:'Cup',heart:'Heart',flower:'Flower',pin:'Pin'}},
  bn:{appearance:'থিম',light:'লাইট',dark:'ডার্ক',summary:'সারসংক্ষেপ',nextPeriod:'পরবর্তী পিরিয়ড',cycleDay:'চক্রের দিন',avgCycle:'গড় চক্র',loggedYear:'এই বছরে লগ করা',periodStarts:'বার পিরিয়ড শুরু',
   exTitle:'উদাহরণ ডেটা দেখানো হচ্ছে।',exBody:'এগুলো মুছে আপনার নিজের পিরিয়ডের প্রথম দিনে ট্যাপ করুন।',clearEx:'উদাহরণ মুছুন',views:'ভিউ',tabCal:'ক্যালেন্ডার',tabYear:'১২ মাসের ট্র্যাকার',
   monthCal:'মাসের ক্যালেন্ডার',prevMonth:'আগের মাস',nextMonth:'পরের মাস',today:'আজ',lgPeriod:'পিরিয়ড',lgPred:'সম্ভাব্য',lgFertile:'উর্বর সময়',lgOvu:'ডিম্বস্ফোটন (আনুমানিক)',
@@ -550,7 +700,18 @@ const I18N={
   needDate:'আগে একটি তারিখ বেছে নিন।',delTitle:'এই পিরিয়ডটি মুছবেন?',delBody:r=>`${r} পিরিয়ডটি মুছে যাবে। এটি আর ফেরানো যাবে না।`,yesDelete:'হ্যাঁ, মুছুন',
   monthTitle:m=>`${m} রিসেট করবেন?`,monthBody:'এই মাসে লগ করা সব পিরিয়ড মুছে যাবে। এটি আর ফেরানো যাবে না।',yesReset:'হ্যাঁ, রিসেট',
   allTitle:'সব ডেটা রিসেট করবেন?',allBody:'লগ করা সব পিরিয়ড মুছে যাবে এবং সেটিংস ডিফল্টে ফিরে যাবে। এটি আর ফেরানো যাবে না।',resetAll:'সব ডেটা রিসেট',
-  tSaved:'সংরক্ষিত হয়েছে',tDeleted:'পিরিয়ড মুছে ফেলা হয়েছে',tMonth:'মাস রিসেট হয়েছে',tAll:'সব ডেটা রিসেট হয়েছে',close:'বন্ধ করুন',createdBy:'নির্মাতা:',tabHome:'আজ',tabYearS:'১২ মাস',tabSet:'সেটিংস',logPeriod:'পিরিয়ড লগ করুন',logSym:'উপসর্গ লগ করুন',avgPeriod:'গড় পিরিয়ড',appearanceH:'চেহারা ও থিম',cycleSet:'চক্রের সেটিংস',language:'ভাষা',
+  tSaved:'সংরক্ষিত হয়েছে',tDeleted:'পিরিয়ড মুছে ফেলা হয়েছে',tMonth:'মাস রিসেট হয়েছে',tAll:'সব ডেটা রিসেট হয়েছে',close:'বন্ধ করুন',createdBy:'নির্মাতা:',tabIns:'ইনসাইট',qlogH:'আজকের লগ',moodH:'মেজাজ',waterH:'পানি',glasses:(a,b)=>`${b} গ্লাসের মধ্যে ${a}`,pillTaken:'আজকের পিল খাওয়া হয়েছে',pillNot:'পিল খেলে এখানে ট্যাপ করুন',moreLog:'উপসর্গ ও নোট',todaySum:'আজ লগ করা:',nothingYet:'আজ এখনো কিছু লগ করা হয়নি।',
+  moods:{happy:'খুশি',calm:'শান্ত',sad:'মন খারাপ',irritable:'বিরক্ত',anxious:'উদ্বিগ্ন',sleepy:'ঘুম ঘুম'},bodyH:'শরীর',weightL:'ওজন (কেজি)',tempL:'তাপমাত্রা (°সে)',badWeight:'২০ থেকে ৩০০ কেজির মধ্যে ওজন দিন।',badTemp:'৩৪ থেকে ৪৩ °সে-এর মধ্যে তাপমাত্রা দিন।',pillL:'পিল বা ওষুধ খাওয়া হয়েছে',
+  kitH:'পিরিয়ড কিট',kitBody:'পরের পিরিয়ডের জন্য যা প্রস্তুত আছে তাতে টিক দিন।',kitProg:(a,b)=>`${b}টির মধ্যে ${a}টি প্রস্তুত`,kitSoon:n=>`${n} দিন পর পিরিয়ড শুরু হতে পারে। আপনার কিট প্রস্তুত তো?`,kitNow:'পিরিয়ড চলছে। কিট হাতের কাছে রাখুন।',kitReset:'সব টিক তুলুন',kitResetT:'সব টিক তুলে দেবেন?',kitResetB:'পিরিয়ড কিটের সব জিনিস "প্রস্তুত নয়" হিসেবে দেখাবে।',yesUntick:'হ্যাঁ, সব তুলুন',
+  kit:{pads:'প্যাড',liners:'প্যান্টি লাইনার',tampons:'ট্যাম্পন',cup:'মেনস্ট্রুয়াল কাপ',pain:'ব্যথার ওষুধ',heat:'গরম পানির ব্যাগ',undies:'বাড়তি অন্তর্বাস',wipes:'ওয়েট ওয়াইপস',choc:'ডার্ক চকলেট',bottle:'পানির বোতল'},
+  remH:'রিমাইন্ডার ও ট্র্যাকিং',remDays:'পিরিয়ডের কত দিন আগে মনে করাবে',remPill:'প্রতিদিনের পিল রিমাইন্ডার',remWater:'প্রতিদিনের পানির লক্ষ্য',remNote:'অ্যাপ খুললে অ্যাপের ভেতরেই রিমাইন্ডার দেখাবে।',on:'চালু',off:'বন্ধ',glassesN:n=>`${n} গ্লাস`,
+  soonT:n=>`${n} দিন পর পিরিয়ড শুরু হতে পারে`,soonB:'পিরিয়ড কিট গুছিয়ে নিন এবং ব্যথার ওষুধ হাতের কাছে রাখুন।',pillT:'পিল রিমাইন্ডার',pillB:'আজকের পিল খেয়েছেন?',markTaken:'খাওয়া হয়েছে',
+  privH:'প্রাইভেসি লক',pinOff:'পিন লক বন্ধ আছে।',pinOn:'পিন লক চালু আছে। অ্যাপ খুললেই পিন চাইবে।',setPin:'পিন সেট করুন',changePin:'পিন বদলান',removePin:'বন্ধ করুন',pinNote:'পিন দিলে আপনার ফোন ব্যবহারকারী অন্য কেউ অ্যাপটি খুলতে পারবে না। এটি ডেটা এনক্রিপ্ট করে না।',
+  pinTitle:'৪ সংখ্যার পিন সেট করুন',pin1:'নতুন পিন',pin2:'পিনটি আবার দিন',pinBad:'পিন অবশ্যই ৪ সংখ্যার হতে হবে।',pinMismatch:'দুটি পিন মেলেনি।',pinSaved:'পিন লক চালু হয়েছে',pinRemoved:'পিন লক বন্ধ হয়েছে',rmPinT:'পিন লক বন্ধ করবেন?',rmPinB:'এই ডিভাইস ব্যবহারকারী যে কেউ অ্যাপটি খুলতে পারবে।',yesOff:'হ্যাঁ, বন্ধ করুন',
+  lockTitle:'আপনার পিন দিন',lockWrong:'ভুল পিন। আবার চেষ্টা করুন।',forgot:'পিন ভুলে গেছেন?',forgotT:'সব ডেটা মুছে অ্যাপ খুলবেন?',forgotB:'পিন ছাড়া অ্যাপ খোলার একমাত্র উপায় এই ডিভাইসের সব ডেটা মুছে ফেলা। ব্যাকআপ থাকলে পরে রিস্টোর করতে পারবেন।',yesDelAll:'হ্যাঁ, সব ডেটা মুছুন',delKey:'একটি সংখ্যা মুছুন',
+  symH:'সবচেয়ে বেশি উপসর্গ',last90:'গত ৯০ দিন',noSym:'গত ৯০ দিনে কোনো উপসর্গ লগ করা হয়নি।',moodInsH:'মেজাজ',noMood:'গত ৯০ দিনে কোনো মেজাজ লগ করা হয়নি।',weightH:'ওজন',tempH:'শরীরের তাপমাত্রা',kgNote:'কেজি, প্রতিদিনের লগ থেকে',tempNote:'ডিগ্রি সেলসিয়াস, প্রতিদিনের লগ থেকে',needTwo:'চার্ট দেখতে অন্তত ২ দিন এটি লগ করুন।',reportH:'ডাক্তারের জন্য রিপোর্ট',reportBody:'একটি সারসংক্ষেপ, যা কপি করে ডাক্তারকে দেখাতে পারবেন।',copyReport:'রিপোর্ট কপি করুন',
+  rep:{title:'মাসিক পিরিয়ড ট্র্যাকার - রিপোর্ট',made:'তৈরির তারিখ',periods:'লগ করা পিরিয়ড',avgC:'গড় চক্র',shortest:'সবচেয়ে ছোট',longest:'সবচেয়ে বড়',avgP:'গড় পিরিয়ডের দৈর্ঘ্য',recent:'সাম্প্রতিক পিরিয়ড',syms:'সাধারণ উপসর্গ (গত ৯০ দিন)',none:'নেই',weight:'সর্বশেষ ওজন',temp:'সর্বশেষ তাপমাত্রা',noData:'এখনো কোনো পিরিয়ড লগ করা হয়নি।'},
+  tabHome:'আজ',tabYearS:'১২ মাস',tabSet:'সেটিংস',logPeriod:'পিরিয়ড লগ করুন',logSym:'উপসর্গ লগ করুন',avgPeriod:'গড় পিরিয়ড',appearanceH:'চেহারা ও থিম',cycleSet:'চক্রের সেটিংস',language:'ভাষা',
   bkHint:'ডেটার একটি কপি রাখুন, যাতে যেকোনো ডিভাইসে ফিরিয়ে আনতে পারেন।',resetH:'রিসেট',resetHint:'এই ডিভাইস থেকে সব পিরিয়ড, উপসর্গ ও নোট মুছে ফেলুন।',
   ph:{period:'পিরিয়ড চলছে',follic:'পিরিয়ড-পরবর্তী সময়',fertile:'উর্বর সময়',ovu:'ডিম্বস্ফোটনের দিন (আনুমানিক)',luteal:'পিরিয়ডের আগের সময়',late:'পিরিয়ডের সময় হয়েছে',none:'শুরু করুন'},
   tips:{period:'সম্ভব হলে বিশ্রাম নিন, শরীর উষ্ণ রাখুন এবং প্রচুর পানি পান করুন।',follic:'এই দিনগুলোতে সাধারণত শক্তি বাড়ে। ব্যায়াম ও পরিকল্পনার ভালো সময়।',fertile:'এটি আপনার চক্রের সবচেয়ে উর্বর সময়।',ovu:'আনুমানিক আজকের আশেপাশে ডিম্বস্ফোটন হতে পারে।',luteal:'পেট ফাঁপা বা মেজাজ পরিবর্তনের মতো PMS-এর লক্ষণ দেখা দিতে পারে। নিজের প্রতি সদয় থাকুন।',late:'পিরিয়ডের সময় হয়েছে। প্যাড বা প্রয়োজনীয় জিনিস হাতের কাছে রাখুন।',none:'"পিরিয়ড লগ করুন"-এ ট্যাপ করে শেষ পিরিয়ডের প্রথম দিন বেছে নিন।'},
@@ -560,19 +721,21 @@ const I18N={
   lgLog:'উপসর্গ বা নোট',periodSec:'পিরিয়ড',inPeriod:(i,n,r)=>`${n} দিনের ${i} নম্বর দিন · ${r}`,editPeriod:'পিরিয়ড সম্পাদনা',startHere:'এই দিন থেকে পিরিয়ড শুরু',notInPeriod:'এই দিনে কোনো পিরিয়ড লগ করা নেই।',
   flow:'রক্তপাতের পরিমাণ',symptoms:'উপসর্গ',noteL:'নোট',notePh:'আজ কেমন লাগছে?',
   flows:{none:'নেই',spot:'দাগ',light:'হালকা',medium:'মাঝারি',heavy:'বেশি'},
-  syms:{cramps:'পেটব্যথা',headache:'মাথাব্যথা',back:'কোমরব্যথা',bloat:'পেট ফাঁপা',mood:'মেজাজ ওঠানামা',tired:'ক্লান্তি',acne:'ব্রণ',breast:'স্তনে ব্যথা',nausea:'বমি ভাব',crave:'খাবারের ইচ্ছা'},
+  syms:{cramps:'পেটব্যথা',headache:'মাথাব্যথা',back:'কোমরব্যথা',bloat:'পেট ফাঁপা',mood:'মেজাজ ওঠানামা',tired:'ক্লান্তি',acne:'ব্রণ',breast:'স্তনে ব্যথা',nausea:'বমি ভাব',crave:'খাবারের ইচ্ছা',sleep:'ঘুমের সমস্যা',dizzy:'মাথা ঘোরা',diarrhea:'ডায়রিয়া',constip:'কোষ্ঠকাঠিন্য',discharge:'সাদা স্রাব',clots:'রক্তের চাকা'},
   lateT:n=>`আপনার পিরিয়ড ${n} দিন দেরি হয়েছে`,lateB:'মানসিক চাপ, ভ্রমণ, অসুস্থতা বা অন্য পরিবর্তনে পিরিয়ড দেরি হতে পারে। অনেক দেরি হলে বা গর্ভধারণের সম্ভাবনা থাকলে টেস্ট করুন বা ডাক্তারের সাথে কথা বলুন।',
   irrT:'আপনার চক্র অনেক ওঠানামা করছে',irrB:(a,b)=>`সাম্প্রতিক চক্র ${a} থেকে ${b} দিনের মধ্যে ছিল। কিছুটা পার্থক্য স্বাভাবিক, তবে এমন চলতে থাকলে ডাক্তারের সাথে কথা বলতে পারেন।`,
   rangeT:'আপনার গড় চক্র সাধারণ সীমার বাইরে',rangeB:n=>`আপনার গড় ${n} দিন। বেশিরভাগ চক্র ২১ থেকে ৩৫ দিনের হয়। এমন চলতে থাকলে ডাক্তারের সাথে কথা বলুন।`,
   histTitle:'চক্রের ইতিহাস',histBody:'প্রতিটি চক্রের দৈর্ঘ্য, সাথে আপনার গড়।',histEmpty:'চক্রের ইতিহাস দেখতে অন্তত দুটি পিরিয়ড লগ করুন।',avgLbl:n=>`গড় ${n}`,cycleLbl:'চক্রের দৈর্ঘ্য',periodLbl:'পিরিয়ডের দিন',
   brand:'মাসিক পিরিয়ড ট্র্যাকার',quoteTitle:'একটি কোমল কথা',quoteLabel:'পিরিয়ড উক্তি',qPrev:'আগের উক্তি',qNext:'পরের উক্তি',
   quotes:['পিরিয়ড মানে আপনার শরীর তার কাজ ঠিকমতো করছে। আজ নিজের প্রতি একটু কোমল হোন।','বিশ্রামও কাজের অংশ। শরীর যা চায় তা শুনুন।','পিরিয়ড স্বাভাবিক ও প্রাকৃতিক, এতে লজ্জার কিছু নেই।','পানি পান করুন, ভালো খান, পর্যাপ্ত ঘুমান। ছোট ছোট যত্নই বড় পার্থক্য গড়ে।','নিজের চক্র জানা মানে নিজেকে আরেকটু ভালো করে জানা।','পেটব্যথা সত্যি। বিরতি চাওয়াতে কোনো দোষ নেই।','পিরিয়ড নিয়ে খোলামেলা কথা বলুন। চুপ থাকায় কারও উপকার হয় না।','প্রতিটি চক্র আলাদা, এবং সেটাই স্বাভাবিক।','একটা গরম সেঁক, এক কাপ উষ্ণ পানীয় আর একটু ভালোবাসা অনেক কাজে দেয়।','ট্র্যাক করুন, বুঝুন, নিজের যত্ন নিন।'],customize:'কাস্টমাইজ',themeColor:'থিমের রঙ',mode:'মোড',periodIcon:'পিরিয়ড আইকন',iconColor:'আইকনের রঙ',bloodRed:'রক্ত লাল',matchTheme:'থিমের রঙে',done:'হয়ে গেছে',custBody:'পরিবর্তন সঙ্গে সঙ্গে দেখা যাবে এবং এই ডিভাইসে মনে রাখা হবে।',
-  pal:{baby:'বেবি পিংক',lavender:'ল্যাভেন্ডার',peach:'পিচ',mint:'মিন্ট',ruby:'রুবি',sky:'আকাশি'},ico:{drop:'রক্তের ফোঁটা',heart:'হার্ট',flower:'ফুল',pin:'পিন'}}
+  pal:{baby:'বেবি পিংক',lavender:'ল্যাভেন্ডার',peach:'পিচ',mint:'মিন্ট',ruby:'রুবি',sky:'আকাশি'},ico:{drop:'রক্তের ফোঁটা',pad:'প্যাড',cup:'কাপ',heart:'হার্ট',flower:'ফুল',pin:'পিন'}}
 };
 Object.assign(I18N.en,{instH:'Install app',instBtn:'Install app',instReady:'Add this tracker to your home screen. It opens like an app and works without internet.',instIos:'On iPhone: open this page in Safari, tap the Share button, then "Add to Home Screen".',instOther:'Open your browser menu and choose "Install app" or "Add to Home screen".',instDone:'The app is installed on this device.'});
 Object.assign(I18N.bn,{instH:'অ্যাপ ইনস্টল',instBtn:'অ্যাপ ইনস্টল করুন',instReady:'এই ট্র্যাকারটি হোম স্ক্রিনে যোগ করুন। এটি অ্যাপের মতো খুলবে এবং ইন্টারনেট ছাড়াও চলবে।',instIos:'আইফোনে: Safari-তে এই পেজটি খুলে Share বাটনে ট্যাপ করুন, তারপর "Add to Home Screen" বেছে নিন।',instOther:'ব্রাউজারের মেনু খুলে "Install app" বা "Add to Home screen" বেছে নিন।',instDone:'এই ডিভাইসে অ্যাপটি ইনস্টল করা আছে।'});
 const ICONS={
   drop:'<path d="M12 2.5c-3.6 4.6-6 8-6 11a6 6 0 0 0 12 0c0-3-2.4-6.4-6-11z"/>',
+  pad:'<path fill-rule="evenodd" d="M12 2.5c2.5 0 4.5 2 4.5 4.5v2.5h2a1.5 1.5 0 0 1 0 5h-2V17c0 2.5-2 4.5-4.5 4.5S7.5 19.5 7.5 17v-2.5h-2a1.5 1.5 0 0 1 0-5h2V7c0-2.5 2-4.5 4.5-4.5zm0 3c-1 0-1.8.8-1.8 1.8v9.4c0 1 .8 1.8 1.8 1.8s1.8-.8 1.8-1.8V7.3c0-1-.8-1.8-1.8-1.8z"/>',
+  cup:'<path d="M5 3h14c0 7.2-3 11.6-7 11.6S5 10.2 5 3z"/><rect x="11" y="14" width="2" height="5"/><rect x="8.5" y="19" width="7" height="2.2" rx="1.1"/>',
   heart:'<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>',
   flower:'<circle cx="12" cy="6.5" r="3.6"/><circle cx="17.2" cy="10.3" r="3.6"/><circle cx="15.2" cy="16.4" r="3.6"/><circle cx="8.8" cy="16.4" r="3.6"/><circle cx="6.8" cy="10.3" r="3.6"/>',
   pin:'<path d="M12 2a6 6 0 0 0-6 6c0 4.2 6 12 6 12s6-7.8 6-12a6 6 0 0 0-6-6zm0 8.4A2.4 2.4 0 1 1 12 5.6a2.4 2.4 0 0 1 0 4.8z"/>'
@@ -649,7 +812,7 @@ $('tLight').onclick=()=>setTheme('light');$('tDark').onclick=()=>setTheme('dark'
 /* data: periods = [{start:'YYYY-MM-DD', len:n}] */
 function sample(){const out=[];let d=add(today,-12);for(let i=0;i<10;i++){out.push({start:iso(d),len:[5,4,5,3,4][i%5]});d=add(d,-(27+(i%3)))}return sortP(out)}
 const sortP=a=>a.sort((x,y)=>x.start<y.start?-1:x.start>y.start?1:0);
-const DEFAULTS={periods:[],logs:{},len:5,cyc:28,example:true};
+const DEFAULTS={periods:[],logs:{},kit:{},prefs:{remind:3,pill:false,water:8,pin:null},len:5,cyc:28,example:true};
 let state={...DEFAULTS};
 try{
   const s=JSON.parse(localStorage.getItem(KEY));
@@ -661,7 +824,11 @@ try{
 }catch(e){}
 if(!Array.isArray(state.periods))state.periods=[];
 if(!state.logs||typeof state.logs!=='object')state.logs={};
+if(!state.kit||typeof state.kit!=='object')state.kit={};
+state.prefs=Object.assign({remind:3,pill:false,water:8,pin:null},state.prefs&&typeof state.prefs==='object'?state.prefs:{});
+state.prefs.remind=Math.min(7,Math.max(1,parseInt(state.prefs.remind)||3));state.prefs.water=Math.min(12,Math.max(4,parseInt(state.prefs.water)||8));state.prefs.pill=!!state.prefs.pill;if(typeof state.prefs.pin!=='string')state.prefs.pin=null;
 if(state.example&&!state.periods.length)state.periods=sample();
+if(state.example&&!Object.keys(state.logs).length)state.logs=sampleLogs(state.periods);
 sortP(state.periods);
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
 
@@ -695,7 +862,7 @@ function upsert(oldKey,start,len){
 }
 function removePeriod(key){state.periods=state.periods.filter(p=>p.start!==key);save();render();toast(T().tDeleted)}
 function resetMonth(y,m){state.periods=state.periods.filter(p=>{const d=parse(p.start);return!(d.getFullYear()===y&&d.getMonth()===m)});save();render();toast(T().tMonth)}
-function resetAll(){state={...DEFAULTS,periods:[],logs:{},example:false};save();render();toast(T().tAll)}
+function resetAll(){state={...DEFAULTS,periods:[],logs:{},kit:{},prefs:{remind:3,pill:false,water:8,pin:null},example:false};save();render();toast(T().tAll)}
 
 /* toast */
 let toastTimer;
@@ -757,37 +924,227 @@ function renderCust(){
 
 
 /* day log dialog */
-const FLOWS=['none','spot','light','medium','heavy'],SYMS=['cramps','headache','back','bloat','mood','tired','acne','breast','nausea','crave'];
-const hasLog=k=>{const l=state.logs[k];return !!l&&((l.flow&&l.flow!=='none')||(l.sym&&l.sym.length)||(l.note&&l.note.trim()))};
+const FLOWS=['none','spot','light','medium','heavy'],SYMS=['cramps','headache','back','bloat','mood','tired','acne','breast','nausea','crave','sleep','dizzy','diarrhea','constip','discharge','clots'];
+/* ===== v3: quick log, period kit, insights, reminders, PIN lock ===== */
+const MOODS=[['happy','😊'],['calm','😌'],['sad','😔'],['irritable','😤'],['anxious','😟'],['sleepy','😴']];
+const KIT={
+  pads:'<rect x="7" y="3" width="10" height="18" rx="5"/><path d="M7 9.5H4.5v5H7M17 9.5h2.5v5H17"/>',
+  liners:'<rect x="8.5" y="3" width="7" height="18" rx="3.5"/><path d="M12 7v10"/>',
+  tampons:'<rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M12 14.5v4.5c0 1.5 1 2.5 2.5 2.5"/>',
+  cup:'<path d="M6 4h12c0 6.5-2.6 10-6 10S6 10.5 6 4z"/><path d="M12 14v5M9.5 21h5"/>',
+  pain:'<path d="M10.6 3.4a5 5 0 0 1 7 7l-7.2 7.2a5 5 0 0 1-7-7z"/><path d="M7 7l7 7"/>',
+  heat:'<path d="M9.5 2h5v3h-5z"/><path d="M8 5h8a3 3 0 0 1 3 3v10a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8a3 3 0 0 1 3-3z"/><path d="M8.5 11c1.2-1 2.3-1 3.5 0s2.3 1 3.5 0M8.5 15c1.2-1 2.3-1 3.5 0s2.3 1 3.5 0"/>',
+  undies:'<path d="M3 6h18v3.2c-3.2.3-5.2 3.4-5.6 8.8H8.6C8.2 12.6 6.2 9.5 3 9.2z"/>',
+  wipes:'<rect x="3" y="7" width="18" height="12" rx="3"/><path d="M9 7c.5-2.3 5.5-2.3 6 0"/><path d="M7.5 13h9"/>',
+  choc:'<rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 9h12M6 15h12M12 3v18"/>',
+  bottle:'<path d="M10 2h4v3h-4z"/><path d="M9 5h6l1.2 3v12a2 2 0 0 1-2 2H9.8a2 2 0 0 1-2-2V8z"/><path d="M8 12.5h8.2"/>'
+};
+const kitSvg=k=>`<svg viewBox="0 0 24 24" aria-hidden="true">${KIT[k]}</svg>`;
+const PREF_DEF={remind:3,pill:false,water:8,pin:null};
+const ICO={bell:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6.5 2 6.5H4S6 14 6 9z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>',
+  pill:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 3.4a5 5 0 0 1 7 7l-7.2 7.2a5 5 0 0 1-7-7z"/><path d="M7 7l7 7"/></svg>',
+  glass:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14l-1.6 16.2A2 2 0 0 1 15.4 21H8.6a2 2 0 0 1-2-1.8z"/><path class="fillw" d="M6.2 10h11.6l-1 9.1a1 1 0 0 1-1 .9H8.2a1 1 0 0 1-1-.9z"/></svg>'};
+
+function leaveExample(){state.example=false;state.periods=[];state.logs={}}
+function sampleLogs(periods){
+  const logs={};const moods=['happy','calm','sleepy','irritable','happy','anxious','calm','sad'];
+  for(let i=0;i<75;i++){const d=add(today,-i),k=iso(d);const inP=periods.some(p=>{const x=diff(parse(p.start),d);return x>=0&&x<p.len});
+    const l={flow:'none',sym:[],note:'',mood:'',water:0,weight:null,temp:null,pill:false};
+    if(inP){l.flow=i%3?'medium':'heavy';l.sym=i%2?['cramps','back']:['cramps','tired'];}
+    if(i%3===0)l.mood=moods[(i/3)%moods.length];
+    if(i%4===0){l.weight=+(52.4+Math.sin(i/9)*0.8).toFixed(1)}
+    if(i%2===0){l.temp=+(36.4+((i%28)>14?0.3:0)+Math.sin(i)*0.05).toFixed(2)}
+    if(i%5===1&&!inP)l.sym=['bloat','crave'];
+    if(i<5)l.water=[6,8,5,7,8][i];
+    if(l.flow!=='none'||l.sym.length||l.mood||l.weight||l.temp||l.water)logs[k]=l}
+  return logs;
+}
+function cleanLog(l){return {flow:FLOWS.includes(l.flow)?l.flow:'none',sym:Array.isArray(l.sym)?l.sym.filter(x=>SYMS.includes(x)):[],note:String(l.note||'').slice(0,500),
+  mood:MOODS.some(m=>m[0]===l.mood)?l.mood:'',water:Math.max(0,Math.min(20,parseInt(l.water)||0)),
+  weight:(+l.weight>=20&&+l.weight<=300)?Math.round(+l.weight*10)/10:null,temp:(+l.temp>=34&&+l.temp<=43)?Math.round(+l.temp*100)/100:null,pill:!!l.pill}}
+const isEmptyLog=l=>l.flow==='none'&&!l.sym.length&&!l.note&&!l.mood&&!l.water&&l.weight==null&&l.temp==null&&!l.pill;
+function setLog(k,patch){
+  if(state.example)leaveExample();
+  const l=cleanLog({...(state.logs[k]||{}),...patch});
+  if(isEmptyLog(l))delete state.logs[k];else state.logs[k]=l;save();
+}
+
+/* quick log on Today */
+function renderQuick(){
+  const t=T(),k=iso(today),l=cleanLog(state.logs[k]||{}),goal=state.prefs.water;
+  const moods=MOODS.map(([m,e])=>`<button type="button" class="mood" data-m="${m}" aria-pressed="${l.mood===m}"><span class="emo">${e}</span><span>${t.moods[m]}</span></button>`).join('');
+  let glasses='';for(let i=0;i<goal;i++)glasses+=`<i class="${i<l.water?'on':''}">${ICO.glass}</i>`;
+  const sum=[];if(l.flow!=='none')sum.push(t.flows[l.flow]);l.sym.forEach(s=>sum.push(t.syms[s]));if(l.weight!=null)sum.push(num(l.weight)+' kg');if(l.temp!=null)sum.push(num(l.temp)+' °C');if(l.note)sum.push('“'+esc(l.note.slice(0,40))+(l.note.length>40?'…':'')+'”');
+  $('qlog').innerHTML=`<div class="qhead"><h3>${t.qlogH}</h3><span class="qdate">${fmt(today,{weekday:'short',day:'numeric',month:'short'})}</span></div>
+    <div class="qsec"><b>${t.moodH}</b><div class="moods" id="qMood">${moods}</div></div>
+    <div class="qsec"><div class="qrow"><b>${t.waterH}</b><span class="qmeta">${t.glasses(num(l.water),num(goal))}</span></div>
+      <div class="water"><button type="button" class="btn icon" id="qWdn" aria-label="${esc(t.shorter)}">−</button><div class="glasses" aria-hidden="true">${glasses}</div><button type="button" class="btn icon" id="qWup" aria-label="${esc(t.longer)}">+</button></div></div>
+    ${state.prefs.pill?`<div class="qsec"><button type="button" class="pillbtn" id="qPill" aria-pressed="${l.pill}">${ICO.pill}<span>${l.pill?t.pillTaken:t.pillNot}</span></button></div>`:''}
+    <div class="qsum"><span>${sum.length?`<b>${t.todaySum}</b> ${sum.join(' · ')}`:t.nothingYet}</span><button type="button" class="btn" id="qMore">${t.moreLog}</button></div>`;
+  $('qMood').onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;const cur=cleanLog(state.logs[k]||{}).mood;setLog(k,{mood:cur===b.dataset.m?'':b.dataset.m});render()};
+  $('qWup').onclick=()=>{setLog(k,{water:cleanLog(state.logs[k]||{}).water+1});render()};
+  $('qWdn').onclick=()=>{setLog(k,{water:Math.max(0,cleanLog(state.logs[k]||{}).water-1)});render()};
+  if($('qPill'))$('qPill').onclick=()=>{setLog(k,{pill:!cleanLog(state.logs[k]||{}).pill});render();toast(t.tSaved)};
+  $('qMore').onclick=()=>dayDialog(k);
+}
+
+/* period kit */
+function renderKit(preds,ph){
+  const t=T(),keys=Object.keys(KIT),ready=keys.filter(x=>state.kit[x]).length;
+  let banner='';const nx=preds[0];
+  if(ph==='period')banner=`<div class="kitban">${t.kitNow}</div>`;
+  else if(nx){const n=diff(today,nx.start);if(n>0&&n<=state.prefs.remind)banner=`<div class="kitban">${t.kitSoon(num(n))}</div>`}
+  $('kitCard').innerHTML=`<div class="qhead"><h3>${t.kitH}</h3><button type="button" class="linkbtn" id="kitReset">${t.kitReset}</button></div>
+    <p class="note">${t.kitBody}</p>${banner}
+    <div class="kitprog"><div class="bar"><i style="width:${ready/keys.length*100}%"></i></div><span>${t.kitProg(num(ready),num(keys.length))}</span></div>
+    <div class="kitgrid" id="kitGrid">${keys.map(x=>`<button type="button" class="kititem" data-kit="${x}" aria-pressed="${!!state.kit[x]}">${kitSvg(x)}<span>${t.kit[x]}</span></button>`).join('')}</div>`;
+  $('kitGrid').onclick=e=>{const b=e.target.closest('[data-kit]');if(!b)return;state.kit[b.dataset.kit]=!state.kit[b.dataset.kit];save();render()};
+  $('kitReset').onclick=()=>confirmBox(t.kitResetT,t.kitResetB,t.yesUntick,()=>{state.kit={};save();render()});
+}
+
+/* insights */
+function lastDays(n){const out=[];for(let i=0;i<n;i++){const k=iso(add(today,-i));if(state.logs[k])out.push([k,cleanLog(state.logs[k])])}return out}
+function lineChart(points,unit){
+  if(points.length<2)return `<p class="note">${T().needTwo}</p>`;
+  const W=600,H=200,L=44,R=16,Tp=18,B=28,vals=points.map(p=>p[1]);
+  let mn=Math.min(...vals),mx=Math.max(...vals);const pad=Math.max((mx-mn)*0.25,unit==='kg'?0.5:0.1);mn-=pad;mx+=pad;
+  const x=i=>L+(W-L-R)*(points.length===1?0.5:i/(points.length-1)),y=v=>Tp+(H-Tp-B)*(1-(v-mn)/(mx-mn));
+  const dec=unit==='kg'?1:2;let g='';
+  for(let i=0;i<=3;i++){const v=mn+(mx-mn)*i/3;g+=`<line class="grid-l" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${num(+v.toFixed(dec))}</text>`}
+  const pts=points.map((p,i)=>`${x(i).toFixed(1)},${y(p[1]).toFixed(1)}`).join(' ');
+  g+=`<polyline points="${pts}" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+  points.forEach((p,i)=>{g+=`<circle cx="${x(i)}" cy="${y(p[1])}" r="${i===points.length-1?5:3}" fill="${i===points.length-1?'var(--rose-ink)':'var(--surface)'}" stroke="var(--rose)" stroke-width="2"/>`});
+  const step=Math.max(1,Math.ceil(points.length/6));
+  points.forEach((p,i)=>{if(i%step===0||i===points.length-1)g+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${dm(parse(p[0]))}</text>`});
+  const last=points.at(-1);
+  g+=`<text class="val" x="${x(points.length-1)}" y="${y(last[1])-10}" text-anchor="end">${num(last[1])} ${unit}</text>`;
+  return `<div class="lchart"><svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg></div>`;
+}
+function renderInsights(){
+  const t=T(),recent=lastDays(90);
+  const cnt={};recent.forEach(([,l])=>l.sym.forEach(s=>cnt[s]=(cnt[s]||0)+1));
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,8);const mx=top.length?top[0][1]:1;
+  $('insSym').innerHTML=top.length?`<div class="hbars">${top.map(([s,c])=>`<div class="hbar"><span>${t.syms[s]}</span><div class="track"><i style="width:${c/mx*100}%"></i></div><b>${num(c)}</b></div>`).join('')}</div>`:`<p class="note">${t.noSym}</p>`;
+  const mc={};recent.forEach(([,l])=>{if(l.mood)mc[l.mood]=(mc[l.mood]||0)+1});
+  const ms=MOODS.filter(([m])=>mc[m]).sort((a,b)=>mc[b[0]]-mc[a[0]]);
+  $('insMood').innerHTML=ms.length?`<div class="moodsum">${ms.map(([m,e])=>`<div class="mchip"><span class="emo">${e}</span><span>${t.moods[m]}</span><b>${num(mc[m])}</b></div>`).join('')}</div>`:`<p class="note">${t.noMood}</p>`;
+  const all=Object.keys(state.logs).sort().map(k=>[k,cleanLog(state.logs[k])]);
+  $('insWeight').innerHTML=lineChart(all.filter(([,l])=>l.weight!=null).slice(-20).map(([k,l])=>[k,l.weight]),'kg');
+  $('insTemp').innerHTML=lineChart(all.filter(([,l])=>l.temp!=null).slice(-20).map(([k,l])=>[k,l.temp]),'°C');
+  $('report').textContent=buildReport();
+}
+function buildReport(){
+  const t=T(),r=t.rep,s=periods();
+  const lines=[r.title,`${r.made}: ${fmt(today,{day:'numeric',month:'long',year:'numeric'})}`,''];
+  if(!s.length){lines.push(r.noData);return lines.join('\n')}
+  const gaps=[];for(let i=1;i<s.length;i++){const g=diff(s[i-1].start,s[i].start);if(g>=10&&g<=90)gaps.push(g)}
+  const full=d=>fmt(d,{day:'numeric',month:'short',year:'numeric'});
+  lines.push(`${r.periods}: ${num(s.length)} (${full(s[0].start)} – ${full(s.at(-1).start)})`);
+  if(gaps.length)lines.push(`${r.avgC}: ${t.days(num(avgCycle()))} (${r.shortest} ${num(Math.min(...gaps))}, ${r.longest} ${num(Math.max(...gaps))})`);
+  lines.push(`${r.avgP}: ${t.days(num(avgLen()))}`,'',r.recent+':');
+  s.slice(-6).reverse().forEach(p=>lines.push(`  • ${full(p.start)} – ${full(add(p.start,p.len-1))} (${t.days(num(p.len))})`));
+  const cnt={};lastDays(90).forEach(([,l])=>l.sym.forEach(x=>cnt[x]=(cnt[x]||0)+1));
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  lines.push('',`${r.syms}: ${top.length?top.map(([x,c])=>`${t.syms[x]} (${num(c)})`).join(', '):r.none}`);
+  const all=Object.keys(state.logs).sort().map(k=>cleanLog(state.logs[k]));
+  const w=all.filter(l=>l.weight!=null).at(-1),tp=all.filter(l=>l.temp!=null).at(-1);
+  if(w)lines.push(`${r.weight}: ${num(w.weight)} kg`);if(tp)lines.push(`${r.temp}: ${num(tp.temp)} °C`);
+  return lines.join('\n');
+}
+function copyText(text,btn){const t=T();const ok=()=>{toast(t.copied);if(btn)btn.textContent=t.copied};
+  const fb=()=>{const pre=$('report');const rg=document.createRange();rg.selectNodeContents(pre);const sel=getSelection();sel.removeAllRanges();sel.addRange(rg);toast(t.copyFail)};
+  try{navigator.clipboard.writeText(text).then(ok,fb)}catch(e){fb()}}
+
+/* reminders (shown inside the app) */
+function buildReminders(preds,ph){
+  const t=T(),out=[];if(state.example)return out;
+  const nx=preds[0];if(nx&&ph!=='period'){const n=diff(today,nx.start);if(n>0&&n<=state.prefs.remind)out.push({info:true,icon:ICO.bell,title:t.soonT(num(n)),body:t.soonB})}
+  if(state.prefs.pill&&!cleanLog(state.logs[iso(today)]||{}).pill)out.push({info:true,icon:ICO.pill,title:t.pillT,body:t.pillB,action:`<button type="button" class="btn primary" data-act="pill">${t.markTaken}</button>`});
+  return out;
+}
+
+/* settings: reminders + privacy */
+function renderPrefs(){
+  const t=T(),p=state.prefs;
+  $('remOut').textContent=t.days(num(p.remind));$('waterOut').textContent=t.glassesN(num(p.water));
+  $('pillSw').setAttribute('aria-checked',p.pill);$('pillSwT').textContent=p.pill?t.on:t.off;
+  $('pinState').textContent=p.pin?t.pinOn:t.pinOff;$('pinSet').textContent=p.pin?t.changePin:t.setPin;$('pinRm').hidden=!p.pin;
+}
+async function hashPin(pin){const s='mpt:'+pin;try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+  catch(e){let h=5381;for(const c of s)h=((h<<5)+h+c.charCodeAt(0))|0;return 'f'+(h>>>0).toString(16)}}
+function pinDialog(){
+  const t=T();
+  openDialog(`<h3 id="dlgTitle">${t.pinTitle}</h3><p>${t.pinNote}</p>
+    <label for="pin1">${t.pin1}<input type="password" id="pin1" inputmode="numeric" maxlength="4" autocomplete="off" class="pinin"></label>
+    <label for="pin2">${t.pin2}<input type="password" id="pin2" inputmode="numeric" maxlength="4" autocomplete="off" class="pinin"></label>
+    <div class="err" id="pinErr" hidden></div>
+    <div class="actions"><button type="button" class="btn" id="pinCancel">${t.cancel}</button><button type="button" class="btn primary" id="pinSave">${t.save}</button></div>`,'#pin1');
+  $('pinCancel').onclick=closeDialog;
+  $('pinSave').onclick=async()=>{const a=$('pin1').value,b=$('pin2').value,err=$('pinErr');
+    if(!/^\d{4}$/.test(a)){err.textContent=t.pinBad;err.hidden=false;return}
+    if(a!==b){err.textContent=t.pinMismatch;err.hidden=false;return}
+    state.prefs.pin=await hashPin(a);save();closeDialog();renderPrefs();toast(t.pinSaved)};
+}
+/* lock screen */
+let pinBuf='';
+function showLock(){if(!state.prefs.pin)return;pinBuf='';drawDots();$('lockErr').hidden=true;$('lock').hidden=false;document.body.classList.add('locked')}
+function drawDots(){$('pDots').innerHTML=[0,1,2,3].map(i=>`<i class="${i<pinBuf.length?'on':''}"></i>`).join('')}
+async function pinKey(k){
+  if(k==='del'){pinBuf=pinBuf.slice(0,-1);drawDots();return}
+  if(pinBuf.length>=4)return;pinBuf+=k;drawDots();$('lockErr').hidden=true;
+  if(pinBuf.length===4){const h=await hashPin(pinBuf);
+    if(h===state.prefs.pin){$('lock').hidden=true;document.body.classList.remove('locked');pinBuf=''}
+    else{const box=$('pDots');box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake');$('lockErr').textContent=T().lockWrong;$('lockErr').hidden=false;pinBuf='';setTimeout(drawDots,250)}}
+}
+
+const hasLog=k=>{const l=state.logs[k];return !!l&&!isEmptyLog(cleanLog(l))};
 function dayDialog(k){
   const t=T(),d=parse(k),cover=state.example?null:coverOf(k);
-  const lg=state.logs[k]||{};let flow=lg.flow||'none',sym=[...(lg.sym||[])];
+  const lg=cleanLog(state.logs[k]||{});let flow=lg.flow,sym=[...lg.sym],mood=lg.mood,water=lg.water,pill=lg.pill;
   let psec;
   if(cover){const i=diff(parse(cover.start),d)+1;psec=`<div class="psum"><span>${t.inPeriod(num(i),num(cover.len),range(parse(cover.start),cover.len))}</span><button type="button" class="btn" id="dEditP">${t.editPeriod}</button></div>`}
   else psec=`<div class="psum"><span style="color:var(--muted)">${t.notInPeriod}</span><button type="button" class="btn primary" id="dStartP">${t.startHere}</button></div>`;
   openDialog(`<h3 id="dlgTitle">${fmt(d,{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</h3>
     <div class="sec"><b>${t.periodSec}</b>${psec}</div>
     <div class="sec"><b>${t.flow}</b><div class="tags" id="dFlow">${FLOWS.map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===flow}">${t.flows[f]}</button>`).join('')}</div></div>
+    <div class="sec"><b>${t.moodH}</b><div class="moods" id="dMood">${MOODS.map(([m,e])=>`<button type="button" class="mood" data-m="${m}" aria-pressed="${m===mood}"><span class="emo">${e}</span><span>${t.moods[m]}</span></button>`).join('')}</div></div>
     <div class="sec"><b>${t.symptoms}</b><div class="tags" id="dSym">${SYMS.map(x=>`<button type="button" data-s="${x}" aria-pressed="${sym.includes(x)}">${t.syms[x]}</button>`).join('')}</div></div>
+    <div class="sec"><b>${t.bodyH}</b>
+      <div class="field"><span>${t.waterH}</span><div class="step"><button type="button" id="dWdn" aria-label="${esc(t.shorter)}">−</button><output id="dWout" class="wide">${t.glassesN(num(water))}</output><button type="button" id="dWup" aria-label="${esc(t.longer)}">+</button></div></div>
+      <div class="bodyrow"><label for="dWeight">${t.weightL}<input type="number" id="dWeight" inputmode="decimal" step="0.1" min="20" max="300" value="${lg.weight??''}"></label>
+      <label for="dTemp">${t.tempL}<input type="number" id="dTemp" inputmode="decimal" step="0.01" min="34" max="43" value="${lg.temp??''}"></label></div>
+      <button type="button" class="pillbtn" id="dPill" aria-pressed="${pill}">${ICO.pill}<span>${t.pillL}</span></button></div>
     <label for="dNote">${t.noteL}<textarea id="dNote" maxlength="500" placeholder="${esc(t.notePh)}">${esc(lg.note||'')}</textarea></label>
+    <div class="err" id="dErr" hidden></div>
     <div class="actions"><button type="button" class="btn" id="dCancel">${t.cancel}</button><button type="button" class="btn primary" id="dSave">${t.save}</button></div>`,cover?'#dEditP':'#dStartP');
   $('dFlow').onclick=e=>{const b=e.target.closest('[data-f]');if(!b)return;flow=b.dataset.f;$('dFlow').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.f===flow))};
+  $('dMood').onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;mood=mood===b.dataset.m?'':b.dataset.m;$('dMood').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.m===mood))};
   $('dSym').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;const v=b.dataset.s;sym=sym.includes(v)?sym.filter(x=>x!==v):[...sym,v];b.setAttribute('aria-pressed',sym.includes(v))};
+  const wset=n=>{water=Math.max(0,Math.min(20,n));$('dWout').textContent=t.glassesN(num(water))};
+  $('dWup').onclick=()=>wset(water+1);$('dWdn').onclick=()=>wset(water-1);
+  $('dPill').onclick=()=>{pill=!pill;$('dPill').setAttribute('aria-pressed',pill)};
   $('dCancel').onclick=closeDialog;
-  $('dSave').onclick=()=>{const note=$('dNote').value.trim();
-    if(flow==='none'&&!sym.length&&!note)delete state.logs[k];else state.logs[k]={flow,sym,note};
+  $('dSave').onclick=()=>{const note=$('dNote').value.trim(),wv=$('dWeight').value.trim(),tv=$('dTemp').value.trim(),err=$('dErr');
+    const w=wv===''?null:+wv,tp=tv===''?null:+tv;
+    if(w!==null&&!(w>=20&&w<=300)){err.textContent=t.badWeight;err.hidden=false;return}
+    if(tp!==null&&!(tp>=34&&tp<=43)){err.textContent=t.badTemp;err.hidden=false;return}
+    if(state.example)leaveExample();
+    const l=cleanLog({flow,sym,note,mood,water,weight:w,temp:tp,pill});
+    if(isEmptyLog(l))delete state.logs[k];else state.logs[k]=l;
     save();closeDialog();render();toast(t.tSaved)};
   if(cover)$('dEditP').onclick=()=>{closeDialog();periodDialog(cover,cover.start)};
   else $('dStartP').onclick=()=>{closeDialog();periodDialog(null,k)};
 }
 
 /* backup / restore */
-function encodeData(){const o={v:1,periods:state.example?[]:state.periods,logs:state.logs,len:state.len,cyc:state.cyc};return 'MPT1.'+btoa(unescape(encodeURIComponent(JSON.stringify(o))))}
+function encodeData(){const o={v:2,periods:state.example?[]:state.periods,logs:state.example?{}:state.logs,kit:state.kit,prefs:{remind:state.prefs.remind,pill:state.prefs.pill,water:state.prefs.water},len:state.len,cyc:state.cyc};return 'MPT1.'+btoa(unescape(encodeURIComponent(JSON.stringify(o))))}
 function decodeData(code){try{code=code.trim().replace(/\s+/g,'');if(!code.startsWith('MPT1.'))return null;const o=JSON.parse(decodeURIComponent(escape(atob(code.slice(5)))));
   if(!o||!Array.isArray(o.periods))return null;
   const periods=o.periods.filter(p=>p&&/^\d{4}-\d{2}-\d{2}$/.test(p.start)&&Number.isInteger(p.len)&&p.len>=1&&p.len<=10);
-  const logs={};if(o.logs&&typeof o.logs==='object')for(const k in o.logs)if(/^\d{4}-\d{2}-\d{2}$/.test(k)){const l=o.logs[k]||{};logs[k]={flow:FLOWS.includes(l.flow)?l.flow:'none',sym:Array.isArray(l.sym)?l.sym.filter(x=>SYMS.includes(x)):[],note:String(l.note||'').slice(0,500)}}
-  return {periods:sortP(periods),logs,len:Math.min(10,Math.max(1,+o.len||5)),cyc:Math.min(45,Math.max(20,+o.cyc||28))}}catch(e){return null}}
+  const logs={};if(o.logs&&typeof o.logs==='object')for(const k in o.logs)if(/^\d{4}-\d{2}-\d{2}$/.test(k)){const l=cleanLog(o.logs[k]||{});if(!isEmptyLog(l)||(o.logs[k]&&o.logs[k].flow!==undefined))logs[k]=l}
+  const kit={};if(o.kit&&typeof o.kit==='object')for(const x in KIT)if(o.kit[x])kit[x]=true;
+  const pr=o.prefs||{};const prefs={remind:Math.min(7,Math.max(1,parseInt(pr.remind)||3)),pill:!!pr.pill,water:Math.min(12,Math.max(4,parseInt(pr.water)||8))};
+  return {periods:sortP(periods),logs,kit,prefs,len:Math.min(10,Math.max(1,+o.len||5)),cyc:Math.min(45,Math.max(20,+o.cyc||28))}}catch(e){return null}}
 function backupDialog(){
   const t=T(),code=encodeData();
   openDialog(`<h3 id="dlgTitle">${t.bkTitle}</h3><p>${t.bkBody}</p><textarea class="code" id="bkCode" readonly>${code}</textarea><div class="err" id="bkMsg" hidden></div>
@@ -802,7 +1159,7 @@ function restoreDialog(){
     <div class="actions"><button type="button" class="btn" id="rsCancel">${t.cancel}</button><button type="button" class="btn primary" id="rsGo">${t.restore}</button></div>`,'#rsCode');
   $('rsCancel').onclick=closeDialog;
   $('rsGo').onclick=()=>{const data=decodeData($('rsCode').value);if(!data){$('rsErr').textContent=t.rsBad;$('rsErr').hidden=false;return}
-    confirmBox(t.rsConfirmTitle,t.rsConfirmBody,t.yesRestore,()=>{state={...DEFAULTS,...data,example:false};save();render();toast(t.tRestored)})};
+    confirmBox(t.rsConfirmTitle,t.rsConfirmBody,t.yesRestore,()=>{const pin=state.prefs.pin;state={...DEFAULTS,...data,prefs:{...DEFAULTS.prefs,...data.prefs,pin},example:false};save();render();toast(t.tRestored)})};
 }
 
 /* alerts */
@@ -879,11 +1236,12 @@ function render(){
   $('sAvgNote').textContent=s.length>1?t.fromPins:t.defaultSetting;
   $('sYear').textContent=num(s.filter(p=>p.start.getFullYear()===today.getFullYear()).length);
   $('exampleBar').hidden=!state.example;
-  const al=buildAlerts();$('alertBox').hidden=!al.length;$('alertBox').innerHTML=al.map(a=>`<div class="alert${a.warn?' warn':''}" role="status">${ALERT_ICON}<div><b>${a.title}</b><p>${a.body}</p></div></div>`).join('');
+  const al=[...buildReminders(preds,ph),...buildAlerts()];$('alertBox').hidden=!al.length;$('alertBox').innerHTML=al.map(a=>`<div class="alert${a.warn?' warn':''}${a.info?' info':''}" role="status">${a.icon||ALERT_ICON}<div><b>${a.title}</b><p>${a.body}</p>${a.action?`<div class="act">${a.action}</div>`:''}</div></div>`).join('');
+  renderQuick();renderKit(preds,ph);renderInsights();renderPrefs();
   $('lenOut').textContent=num(state.len);$('cycOut').textContent=num(state.cyc);
 
   document.querySelectorAll('.tab[data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
-  $('viewHome').hidden=tab!=='home';$('viewCal').hidden=tab!=='cal';$('viewYear').hidden=tab!=='year';$('viewSet').hidden=tab!=='set';
+  $('viewHome').hidden=tab!=='home';$('viewCal').hidden=tab!=='cal';$('viewIns').hidden=tab!=='ins';$('viewYear').hidden=tab!=='year';$('viewSet').hidden=tab!=='set';
 
   /* month */
   $('monthTitle').textContent=fmt(view,{month:'long',year:'numeric'});
@@ -960,12 +1318,22 @@ on('yPrev',()=>{year--;render()});on('yNext',()=>{year++;render()});on('yNow',()
 document.querySelectorAll('.tab[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;if(tab==='year')year=view.getFullYear();render();window.scrollTo({top:0,behavior:'smooth'})});
 on('hLogP',()=>{const c=state.example?null:coverOf(iso(today));periodDialog(c,c?c.start:iso(today))});
 on('hLogS',()=>dayDialog(iso(today)));
-on('clearEx',()=>{state.example=false;state.periods=[];save();render()});
+on('clearEx',()=>{leaveExample();save();render()});
+$('alertBox').addEventListener('click',e=>{const b=e.target.closest('[data-act="pill"]');if(!b)return;setLog(iso(today),{pill:true});render();toast(T().tSaved)});
+on('copyReport',()=>copyText($('report').textContent,$('copyReport')));
+const padj=(key,d,lo,hi)=>()=>{state.prefs[key]=Math.min(hi,Math.max(lo,state.prefs[key]+d));save();render()};
+on('remDn',padj('remind',-1,1,7));on('remUp',padj('remind',1,1,7));on('watDn',padj('water',-1,4,12));on('watUp',padj('water',1,4,12));
+on('pillSw',()=>{state.prefs.pill=!state.prefs.pill;save();render()});
+on('pinSet',pinDialog);
+on('pinRm',()=>{const t=T();confirmBox(t.rmPinT,t.rmPinB,t.yesOff,()=>{state.prefs.pin=null;save();renderPrefs();toast(t.pinRemoved)})});
+$('keypad').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(b)pinKey(b.dataset.k)});
+document.addEventListener('keydown',e=>{if($('lock').hidden||!$('overlay').hidden)return;if(/^[0-9]$/.test(e.key))pinKey(e.key);else if(e.key==='Backspace')pinKey('del')});
+on('forgotPin',()=>{const t=T();confirmBox(t.forgotT,t.forgotB,t.yesDelAll,()=>{resetAll();$('lock').hidden=true;document.body.classList.remove('locked')})});
 on('backupBtn',backupDialog);on('restoreBtn',restoreDialog);
 on('resetAll',()=>{const t=T();confirmBox(t.allTitle,t.allBody,t.yesReset,resetAll)});
 const adj=(key,d,lo,hi)=>()=>{state[key]=Math.min(hi,Math.max(lo,state[key]+d));save();render()};
 on('lenDn',adj('len',-1,1,10));on('lenUp',adj('len',1,1,10));on('cycDn',adj('cyc',-1,20,45));on('cycUp',adj('cyc',1,20,45));
-applyLang();applyPalette();render();renderCust();showQuote(false);qAuto();
+applyLang();applyPalette();render();renderCust();showQuote(false);qAuto();showLock();
 </script>
 <script>
 /* app install + offline support */
