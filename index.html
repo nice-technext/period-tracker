@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Monthly Period Tracker</title>
+<meta name="description" content="Track your monthly period, symptoms and cycle. Works offline. English and Bangla.">
+<meta name="theme-color" content="#fff5f8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Period Tracker">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500;600&display=swap">
+<style>
+html{-webkit-text-size-adjust:100%;color-scheme:light}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+img{max-width:100%}
+
+/* Layout: white app bar (brand + theme switch), summary strip, tabs (Calendar | 12 months), content card. Baby pink + white, rose for contrast. */
+:root{
+  --bg:#fbe6ee; --surface:#fff5f8; --surface-2:#fcecf2; --ink:#2d1a24; --muted:#7a5a69;
+  --baby:#f5b8d0; --baby-2:#f9d3e2; --rose:#d4467f; --rose-ink:#9c1f55; --on-rose:#ffffff;
+  --line:#f3cfdd; --fertile:#efe8fb; --fertile-ink:#6a4c9c;
+  --on-baby:#4a1530; --on-baby-2:#7a2a50; --icon:#c8102e;
+  --shadow:0 1px 2px rgba(156,31,85,.06),0 8px 24px rgba(156,31,85,.06);
+  --display:"Fraunces", "Noto Serif Bengali", Georgia, "Times New Roman", serif;
+  --body:"Manrope", "Hind Siliguri", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17111a; --surface:#211821; --surface-2:#2b1f2a; --ink:#f8eaf0; --muted:#bfa3b2;
+  --baby:#f2a9c7; --baby-2:#3d2533; --rose:#f48fb8; --rose-ink:#ffc2da; --on-rose:#2a0f1c;
+  --line:#3a2a36; --fertile:#2d2442; --fertile-ink:#cdb8f5; --on-baby:#3a0f24; --on-baby-2:#5a1f3a; --icon:#ff4d6a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17111a; --surface:#211821; --surface-2:#2b1f2a; --ink:#f8eaf0; --muted:#bfa3b2;
+  --baby:#f2a9c7; --baby-2:#3d2533; --rose:#f48fb8; --rose-ink:#ffc2da; --on-rose:#2a0f1c;
+  --line:#3a2a36; --fertile:#2d2442; --fertile-ink:#cdb8f5; --on-baby:#3a0f24; --on-baby-2:#5a1f3a; --icon:#ff4d6a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+button:focus-visible,input:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+
+/* app bar */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.appbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.appbar .in{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:12px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.logo{width:36px;height:36px;border-radius:12px;background:var(--baby);display:grid;place-items:center;flex:none}
+.logo svg{width:20px;height:20px}
+.logo svg *{fill:var(--icon)}
+.brand b{font-family:var(--display);font-weight:600;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px;flex:none}
+.theme button{padding:6px 12px;border-radius:999px;font-size:13px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.theme button svg{width:15px;height:15px}
+.theme button svg *{stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.theme button[aria-pressed="true"]{background:var(--surface);color:var(--rose-ink);box-shadow:var(--shadow)}
+.switches{display:flex;gap:8px;flex:none}
+.lang button{min-width:44px;justify-content:center}
+@media (max-width:520px){.theme button span{display:none}.theme button{padding:7px 10px}}
+@media (max-width:560px){.brand b{font-size:16px}}
+@media (max-width:420px){.brand b{font-size:14px;white-space:normal;line-height:1.2}}
+:lang(bn) .sum b,:lang(bn) .head h2,:lang(bn) h3{line-height:1.4}
+:lang(bn) .mg i{font-size:9.5px}
+
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:22px 56px;display:flex;flex-direction:column;gap:18px}
+
+/* summary */
+.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sum{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);min-width:0}
+.sum.lead{background:var(--baby);border-color:var(--baby);color:var(--on-baby)}
+.sum small{display:block;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.02em}
+.sum.lead small{color:var(--on-baby-2)}
+.sum b{display:block;font-family:var(--display);font-weight:600;font-size:24px;line-height:1.25;margin-top:2px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sum span{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sum.lead span{color:var(--on-baby-2)}
+.bar{height:6px;border-radius:99px;background:var(--surface-2);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--rose);border-radius:99px;width:0}
+
+.notice{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;background:var(--surface);border:1px dashed var(--rose);border-radius:16px;padding:12px 16px;font-size:14px}
+.notice span{flex:1 1 240px;min-width:0}
+
+/* tabs + toolbar */
+.navrow{border-top:1px solid var(--line)}
+.navrow .in{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.navrow .in::-webkit-scrollbar{display:none}
+.tab{display:flex;align-items:center;gap:8px;padding:12px 14px 10px;font-weight:700;font-size:14px;color:var(--muted);white-space:nowrap;border-bottom:2.5px solid transparent;flex:none}
+.tab svg{width:17px;height:17px;flex:none}
+.tab svg *{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--rose-ink);border-bottom-color:var(--rose)}
+#navCust{margin-left:auto}
+@media (max-width:480px){.tab{padding:11px 10px 9px;font-size:13px;gap:6px}}
+.quote{display:flex;align-items:center;gap:14px;background:linear-gradient(120deg,var(--baby),var(--surface) 75%);border:1px solid var(--line);border-radius:20px;padding:16px 18px;box-shadow:var(--shadow);min-width:0}
+.qmark{width:30px;height:30px;flex:none;align-self:flex-start}
+.qmark path{fill:var(--rose)}
+.qbody{flex:1;min-width:0}
+.qbody small{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--on-baby-2)}
+:lang(bn) .qbody small{letter-spacing:0;text-transform:none}
+.qbody p{margin:4px 0 0;font-family:var(--display);font-size:18px;line-height:1.45;color:var(--ink);text-wrap:pretty;min-height:2.9em}
+.qnav{display:flex;align-items:center;gap:6px;flex:none}
+.qbtn{width:30px;height:30px;border-radius:50%;background:var(--surface);border:1px solid var(--line);font-size:16px;font-weight:800;display:grid;place-items:center;color:var(--ink)}
+.qbtn:hover{border-color:var(--rose)}
+.qdots{display:flex;gap:4px}
+.qdots i{width:6px;height:6px;border-radius:50%;background:var(--line)}
+.qdots i.on{background:var(--rose);width:14px;border-radius:3px}
+@media (max-width:640px){.quote{flex-wrap:wrap;padding:14px}.qbody{flex-basis:calc(100% - 44px)}.qnav{width:100%;justify-content:center}.qbody p{font-size:16px}}
+.btn{padding:9px 16px;border-radius:12px;font-weight:700;font-size:14px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink);white-space:nowrap}
+.btn:hover{border-color:var(--rose)}
+.btn.primary{background:var(--rose);border-color:var(--rose);color:var(--on-rose)}
+.btn.primary:hover{filter:brightness(1.05)}
+.icon{width:38px;height:38px;padding:0;display:inline-grid;place-items:center;font-size:18px}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+@media (max-width:880px){.layout{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow);min-width:0}
+.head{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px}
+.head h2{flex:1 1 150px;min-width:0;margin:0;font-family:var(--display);font-weight:600;font-size:24px;line-height:1.2}
+.group{display:flex;gap:6px;flex-wrap:wrap}
+h3{font-family:var(--display);font-weight:600;font-size:18px;margin:0 0 10px}
+
+/* month grid */
+.dow,.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.dow{margin-bottom:6px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.grid{row-gap:6px;touch-action:pan-y}
+.dow div{text-align:center;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.03em}
+.day{position:relative;min-height:58px;border-radius:14px;background:transparent;border:1.5px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 0;font-weight:600;font-size:15px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.day .n{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;line-height:1}
+.day .mk{height:14px;display:flex;align-items:center;justify-content:center}
+.day .mk svg{width:13px;height:13px}
+.day .dot{width:6px;height:6px;border-radius:50%;background:var(--fertile-ink)}
+.day:hover{background:var(--surface-2)}
+.day.out{opacity:.35}
+.day.period{background:var(--baby);color:var(--on-baby);font-weight:800}
+.day.period:hover{filter:brightness(.97)}
+.day.period .mk svg *{fill:var(--icon)}
+.day.predicted{border:1.5px dashed var(--rose);color:var(--rose-ink);font-weight:700}
+.day.predicted .mk svg *{fill:none;stroke:var(--rose);stroke-width:2.2}
+.day.fertile{background:var(--fertile);color:var(--fertile-ink)}
+.day.jl{border-top-left-radius:0;border-bottom-left-radius:0}
+.day.jr{border-top-right-radius:0;border-bottom-right-radius:0}
+.day.predicted.jl{border-left-color:transparent}
+.day.predicted.jr{border-right-color:transparent}
+.day.today .n{background:var(--ink);color:var(--surface);font-weight:800}
+.day:focus-visible{z-index:1}
+@keyframes slideL{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes slideR{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){.grid.anim-l{animation:slideL .28s cubic-bezier(.2,.7,.2,1)}.grid.anim-r{animation:slideR .28s cubic-bezier(.2,.7,.2,1)}#monthTitle.anim{animation:fadeIn .28s ease}#qText.anim{animation:fadeIn .45s ease}}
+@media (max-width:480px){.day{min-height:48px;font-size:13px;border-radius:11px}.day .n{width:26px;height:26px}.day .mk{height:12px}.day .mk svg{width:11px;height:11px}.card{padding:14px;border-radius:18px}}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.legend i{width:14px;height:14px;border-radius:4px;flex:none;display:inline-block}
+.hint{margin:10px 0 0;font-size:13px;color:var(--muted)}
+
+/* side */
+.side{display:flex;flex-direction:column;gap:18px}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:var(--surface-2);min-width:0}
+.item .ic{width:32px;height:32px;border-radius:10px;background:var(--baby);display:grid;place-items:center;flex:none}
+.item .ic svg{width:16px;height:16px}
+.item .ic svg *{fill:var(--icon)}
+.item div{flex:1;min-width:0}
+.item b{display:block;font-size:14px}
+.item small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item em{font-style:normal;font-weight:800;font-size:12px;color:var(--rose-ink);white-space:nowrap}
+.field{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px;font-weight:600;padding:8px 0;border-bottom:1px solid var(--line)}
+.field:last-of-type{border-bottom:0}
+.step{display:flex;align-items:center;gap:4px;flex:none}
+.step button{width:30px;height:30px;border-radius:9px;background:var(--surface-2);border:1px solid var(--line);font-weight:800}
+.step output{min-width:32px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.note{font-size:12px;color:var(--muted);margin:6px 0 0}
+
+/* year */
+.months{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.mini{border:1px solid var(--line);border-radius:16px;padding:12px;background:var(--surface);text-align:left;display:flex;flex-direction:column;gap:8px}
+.mini:hover{border-color:var(--rose)}
+.mini.cur{box-shadow:inset 0 0 0 2px var(--rose)}
+.mini h4{margin:0;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:14px;font-weight:800}
+.mini h4 span{font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.mini h4 span.l{background:var(--baby);color:var(--on-baby)}
+.mini h4 span.p{border:1px dashed var(--rose);color:var(--rose-ink)}
+.mg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.mg i{font-style:normal;font-size:10px;text-align:center;line-height:21px;height:21px;border-radius:6px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mg i.p{background:var(--baby);color:var(--on-baby);font-weight:800}
+.mg i.q{box-shadow:inset 0 0 0 1.5px var(--rose);color:var(--rose-ink);font-weight:800}
+.mg i.f{background:var(--fertile);color:var(--fertile-ink)}
+.mg i.t{box-shadow:inset 0 0 0 1.5px var(--ink);color:var(--ink);font-weight:800}
+.tablewrap{overflow-x:auto;margin-top:18px;border:1px solid var(--line);border-radius:16px}
+table{width:100%;border-collapse:collapse;min-width:660px;font-size:14px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;font-weight:700;color:var(--muted);background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums}
+.chip{display:inline-block;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:800;white-space:nowrap}
+.chip.l{background:var(--baby);color:var(--on-baby)}
+.chip.p{border:1px dashed var(--rose);color:var(--rose-ink)}
+.chip.n{background:var(--surface-2);color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.day,.mini,.btn,.tab{transition:background .15s,border-color .15s,color .15s}.bar i{transition:width .5s ease}}
+
+.credit{text-align:center;font-size:14px;color:var(--muted);padding-top:8px;border-top:1px solid var(--line)}
+.credit b{color:var(--rose-ink);font-family:var(--display);font-weight:600;font-size:16px}
+
+[hidden]{display:none!important}
+/* customize */
+.cust-btn{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-weight:700;font-size:13px;color:var(--ink);flex:none;white-space:nowrap}
+.cust-btn:hover{border-color:var(--rose)}
+.cust-btn svg{width:16px;height:16px}
+.cust-btn svg *{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:640px){.cust-btn span{display:none}.cust-btn{padding:7px 9px}}
+.sec{display:flex;flex-direction:column;gap:8px}
+.sec > b{font-size:13px;color:var(--muted)}
+.swatches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sw{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);font-size:12px;font-weight:700;color:var(--ink);min-width:0}
+.sw .dots{display:flex}
+.sw .dots i{width:18px;height:18px;border-radius:50%;border:2px solid var(--surface);margin-left:-5px}
+.sw .dots i:first-child{margin-left:0}
+.sw span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sw[aria-pressed="true"],.opt[aria-pressed="true"]{border-color:var(--rose);box-shadow:inset 0 0 0 1px var(--rose);background:var(--surface)}
+.opts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opt{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);font-size:12px;font-weight:700;color:var(--ink);min-width:0;text-align:center}
+.opt svg{width:22px;height:22px}
+.opt svg *{fill:var(--icon)}
+.opts.two .opt{flex-direction:row;justify-content:center;padding:10px 8px}
+.opt .c{width:16px;height:16px;border-radius:50%;flex:none}
+.legend .lg-ic svg{width:14px;height:14px;display:block}
+.legend .lg-ic svg *{fill:var(--icon)}
+
+/* alerts */
+.alerts{display:flex;flex-direction:column;gap:10px}
+.alert{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-left:4px solid #e0a020;border-radius:16px;padding:14px 16px;box-shadow:var(--shadow);min-width:0}
+.alert.warn{border-left-color:#d64545}
+.alert svg{width:22px;height:22px;flex:none;margin-top:1px}
+.alert svg *{fill:none;stroke:#c98a0b;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.alert.warn svg *{stroke:#d64545}
+.alert div{min-width:0}
+.alert b{display:block;font-size:15px}
+.alert p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+/* day log */
+.day.has-log::before{content:"";position:absolute;top:6px;right:7px;width:6px;height:6px;border-radius:50%;background:var(--rose-ink)}
+.lg-log{width:8px!important;height:8px!important;border-radius:50%!important;background:var(--rose-ink)}
+.psum{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.psum span{flex:1 1 160px;min-width:0;font-size:14px;font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags button{padding:7px 12px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-size:13px;font-weight:700;white-space:nowrap}
+.tags button[aria-pressed="true"]{background:var(--baby);border-color:var(--rose);color:var(--on-baby)}
+.dialog textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;min-height:76px;resize:vertical}
+.dialog textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;min-height:110px;word-break:break-all}
+.bk{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.bk h3{margin:0}
+/* chart */
+.chartbox{border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px;background:var(--surface)}
+.chart-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;margin-bottom:8px}
+.chart-head h3{margin:0}
+.chart-head .note{margin:2px 0 0}
+#chart{overflow-x:auto}
+#chart svg{display:block;width:100%;min-width:420px;height:auto}
+#chart text{font-family:var(--body);fill:var(--muted);font-size:11px}
+#chart .val{fill:var(--ink);font-weight:800;font-size:12px}
+#chart .grid-l{stroke:var(--line);stroke-width:1}
+#chart .avg{stroke:var(--rose-ink);stroke-width:1.5;stroke-dasharray:5 4}
+#chart .avg-t{fill:var(--rose-ink);font-weight:800}
+
+/* ===== v2 layout ===== */
+.appbar .in{gap:16px}
+.brand{flex:0 1 auto}
+.nav{flex:1;display:flex;justify-content:center;gap:4px;min-width:0}
+.tab{display:flex;align-items:center;gap:8px;padding:9px 16px;border:0;border-radius:999px;font-weight:700;font-size:14px;color:var(--muted);white-space:nowrap}
+.tab svg{width:18px;height:18px;flex:none}
+.tab svg *{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tab:hover{color:var(--ink);background:var(--surface-2)}
+.tab[aria-selected="true"]{background:var(--baby);color:var(--on-baby);border:0}
+.view{display:flex;flex-direction:column;gap:18px}
+.view-card{min-width:0}
+.hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:center;padding:26px 30px;background:linear-gradient(135deg,var(--surface) 40%,var(--surface-2))}
+.ringwrap{position:relative;width:210px;height:210px;flex:none}
+.ringwrap svg{width:100%;height:100%;display:block}
+.ringtxt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ringtxt small{font-size:12px;font-weight:700;color:var(--muted)}
+.ringtxt b{font-family:var(--display);font-weight:600;font-size:54px;line-height:1.05;color:var(--ink);font-variant-numeric:tabular-nums}
+.ringtxt span{font-size:13px;color:var(--muted);font-weight:600}
+.phase{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:var(--baby);color:var(--on-baby);font-size:12px;font-weight:800}
+.phase::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--icon)}
+.herobody{min-width:0}
+.herobody h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.6vw,36px);line-height:1.2;margin:12px 0 4px;text-wrap:balance}
+.herobody > p{margin:0;color:var(--muted);font-size:15px}
+.herobody .tip{margin-top:14px;padding:11px 14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;color:var(--ink);font-size:14px;max-width:56ch}
+.herobody .group{margin-top:18px;gap:10px}
+.btn.lg{padding:12px 22px;font-size:15px;border-radius:14px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+.duo .quote{flex-wrap:wrap;align-content:flex-start}
+.duo .qbody{flex-basis:calc(100% - 46px)}
+.duo .qnav{width:100%;justify-content:flex-start;padding-left:44px}
+.calwrap{max-width:880px;width:100%;margin:0 auto}
+.setgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+.setgrid .col{display:flex;flex-direction:column;gap:18px;min-width:0}
+.setgrid h3{margin:0 0 4px}
+.custpanel{display:flex;flex-direction:column;gap:18px;margin-top:16px}
+.opts.three{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:860px){.duo,.setgrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:1100px) and (min-width:761px){.theme button span{display:none}.theme button{padding:7px 10px}.tab{padding:9px 12px}}
+@media (max-width:1000px) and (min-width:761px){.brand b{display:none}}
+@media (max-width:760px){
+  .nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.06);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+  .tab{flex-direction:column;gap:3px;padding:7px 2px;font-size:11px;border-radius:14px;justify-content:center;min-width:0}
+  .tab span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  .tab svg{width:21px;height:21px}
+  .appbar .in{justify-content:space-between}
+  .wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  .toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:640px){
+  .hero{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;padding:22px 18px;gap:18px}
+  .ringwrap{width:184px;height:184px}
+  .herobody .group{justify-content:center}
+  .herobody .tip{text-align:left}
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .stats .sum{padding:12px}
+  .stats .sum b{font-size:19px}
+  .stats .sum small{font-size:11px}
+}
+@media (max-width:400px){.btn.lg{padding:11px 16px;font-size:14px}}
+/* dialog */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(45,26,36,.42);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.dialog{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.25);width:min(100%,420px);max-height:100%;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:16px}
+.dialog h3{margin:0;font-size:21px}
+.dialog p{margin:0;color:var(--muted);font-size:14px}
+.dialog label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.dialog input[type=date]{font:inherit;font-size:15px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%}
+.chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.chips button{padding:10px 0;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);font-weight:800;font-variant-numeric:tabular-nums}
+.chips button[aria-pressed="true"]{background:var(--baby);border-color:var(--rose);color:var(--on-baby)}
+.ends{font-size:13px;color:var(--rose-ink);font-weight:700}
+.actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.actions .grow{margin-right:auto}
+.btn.danger{background:transparent;border-color:#d64545;color:#c03030}
+.btn.danger.fill{background:#d64545;border-color:#d64545;color:#fff}
+.err{color:#c03030;font-size:13px;font-weight:700}
+.danger-zone{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.rowbtns{display:flex;flex-wrap:wrap;gap:6px}
+.mini-btn{padding:5px 11px;border-radius:9px;font-size:12px;font-weight:800;background:var(--surface-2);border:1px solid var(--line);white-space:nowrap}
+.mini-btn:hover{border-color:var(--rose)}
+.mini-btn.danger{color:#c03030}
+.pline{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.pline + .pline{margin-top:6px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--surface);padding:10px 18px;border-radius:999px;font-weight:700;font-size:14px;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="in">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c-3.6 4.6-6 8-6 11a6 6 0 0 0 12 0c0-3-2.4-6.4-6-11z"/></svg></div>
+      <b data-i18n="brand">Monthly Period Tracker</b>
+    </div>
+    <nav class="nav" role="tablist" data-i18n-label="views"><button type="button" class="tab" role="tab" data-tab="home" id="tab-home" aria-controls="viewHome" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg><span data-i18n="tabHome">Today</span></button><button type="button" class="tab" role="tab" data-tab="cal" id="tab-cal" aria-controls="viewCal" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-i18n="tabCal">Calendar</span></button><button type="button" class="tab" role="tab" data-tab="year" id="tab-year" aria-controls="viewYear" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span data-i18n="tabYearS">12 months</span></button><button type="button" class="tab" role="tab" data-tab="set" id="tab-set" aria-controls="viewSet" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span data-i18n="tabSet">Settings</span></button></nav>
+    <div class="switches">
+      <div class="theme lang" role="group" aria-label="Language / ভাষা">
+        <button type="button" id="lEn" aria-pressed="true" lang="en">EN</button>
+        <button type="button" id="lBn" aria-pressed="false" lang="bn">বাংলা</button>
+      </div>
+      <div class="theme" role="group" data-i18n-label="appearance">
+        <button type="button" id="tLight" aria-pressed="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span data-i18n="light">Light</span></button>
+        <button type="button" id="tDark" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span data-i18n="dark">Dark</span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="notice" id="exampleBar" hidden>
+    <span><b data-i18n="exTitle">Example data is shown.</b> <span data-i18n="exBody">Clear it, then tap the first day of your own periods.</span></span>
+    <button type="button" class="btn primary" id="clearEx" data-i18n="clearEx">Clear examples</button>
+  </div>
+
+  <section class="view" id="viewHome" role="tabpanel" aria-labelledby="tab-home">
+    <div class="hero card">
+      <div class="ringwrap"><svg id="ring" viewBox="0 0 220 220" aria-hidden="true"></svg>
+        <div class="ringtxt"><small data-i18n="cycleDay">Cycle day</small><b id="rDay">–</b><span id="rOf"></span></div></div>
+      <div class="herobody">
+        <span class="phase" id="hPhase"></span>
+        <h1 id="hHead"></h1>
+        <p id="hSub"></p>
+        <p class="tip" id="hTip"></p>
+        <div class="group"><button type="button" class="btn primary lg" id="hLogP"></button><button type="button" class="btn lg" id="hLogS" data-i18n="logSym">Log symptoms</button></div>
+      </div>
+    </div>
+
+    <div class="alerts" id="alertBox" hidden></div>
+
+    <div class="stats">
+      <div class="sum"><small data-i18n="avgCycle">Average cycle</small><b id="sAvg">–</b><span id="sAvgNote"></span></div>
+      <div class="sum"><small data-i18n="avgPeriod">Average period</small><b id="sPer">–</b><span id="sPerNote"></span></div>
+      <div class="sum"><small data-i18n="loggedYear">Logged this year</small><b id="sYear">–</b><span data-i18n="periodStarts">period starts</span></div>
+    </div>
+
+    <div class="duo">
+      <section class="card"><h3 data-i18n="comingUp">Coming up</h3><div class="list" id="upnext"></div></section>
+  <section class="quote" aria-live="polite" data-i18n-label="quoteLabel">
+    <svg class="qmark" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6C6.5 7.2 4.5 9.8 4.5 13.2V18h6v-6H7.6c.2-1.9 1.3-3.3 3-4.1L9.5 6zm10 0c-3 1.2-5 3.8-5 7.2V18h6v-6h-2.9c.2-1.9 1.3-3.3 3-4.1L19.5 6z"/></svg>
+    <div class="qbody"><small data-i18n="quoteTitle">A gentle reminder</small><p id="qText"></p></div>
+    <div class="qnav"><button type="button" class="qbtn" id="qPrev" data-i18n-label="qPrev">‹</button><div class="qdots" id="qDots"></div><button type="button" class="qbtn" id="qNext" data-i18n-label="qNext">›</button></div>
+  </section>
+    </div>
+  </section>
+
+  <section class="view" id="viewCal" role="tabpanel" aria-labelledby="tab-cal" hidden>
+    <div class="calwrap">
+    <section class="card" data-i18n-label="monthCal">
+      <div class="head">
+        <h2 id="monthTitle">Month</h2>
+        <div class="group">
+          <button type="button" class="btn icon" id="prev" data-i18n-label="prevMonth">‹</button>
+          <button type="button" class="btn" id="todayBtn" data-i18n="today">Today</button>
+          <button type="button" class="btn icon" id="next" data-i18n-label="nextMonth">›</button>
+        </div>
+      </div>
+      <div class="dow" id="dow"></div>
+      <div class="grid" id="grid"></div>
+      <div class="legend">
+        <span><i style="background:var(--baby);display:grid;place-items:center" class="lg-ic" id="lgIcon"></i><span data-i18n="lgPeriod">Period</span></span>
+        <span><i style="border:1.5px dashed var(--rose)"></i><span data-i18n="lgPred">Predicted</span></span>
+        <span><i style="background:var(--fertile)"></i><span data-i18n="lgFertile">Fertile window</span></span>
+        <span><i style="background:var(--fertile-ink);border-radius:50%;width:8px;height:8px"></i><span data-i18n="lgOvu">Ovulation (est.)</span></span>
+        <span><i class="lg-log"></i><span data-i18n="lgLog">Symptoms or note</span></span>
+      </div>
+      <p class="hint" data-i18n="hint">Tap any day to log a period, flow, symptoms or a note.</p>
+    </section>
+
+    </div>
+  </section>
+
+  <section class="card view-card" id="viewYear" role="tabpanel" aria-labelledby="tab-year" hidden>
+    <div class="head">
+      <h2 id="yearTitle">2026</h2>
+      <div class="group">
+        <button type="button" class="btn icon" id="yPrev" data-i18n-label="prevYear">‹</button>
+        <button type="button" class="btn" id="yNow" data-i18n="thisYear">This year</button>
+        <button type="button" class="btn icon" id="yNext" data-i18n-label="nextYear">›</button>
+      </div>
+    </div>
+    <div class="chartbox">
+      <div class="chart-head"><div><h3 data-i18n="histTitle">Cycle history</h3><p class="note" data-i18n="histBody">Length of each cycle, with your average.</p></div>
+        <div class="legend" style="margin-top:0"><span><i style="background:var(--baby)"></i><span data-i18n="cycleLbl">Cycle length</span></span><span><i style="background:var(--rose)"></i><span data-i18n="periodLbl">Period days</span></span></div></div>
+      <div id="chart"></div>
+    </div>
+    <div class="months" id="months"></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th data-i18n="thMonth">Month</th><th data-i18n="thDates">Period dates</th><th data-i18n="thStatus">Status</th><th data-i18n="thCycle">Cycle length</th><th data-i18n="thActions">Actions</th></tr></thead>
+        <tbody id="ytable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="view" id="viewSet" role="tabpanel" aria-labelledby="tab-set" hidden>
+    <div class="setgrid">
+      <section class="card"><h3 data-i18n="appearanceH">Appearance</h3><p class="note" data-i18n="custBody">Changes apply right away.</p><div id="custPanel" class="custpanel"></div></section>
+      <div class="col">
+        <section class="card">
+          <h3 data-i18n="cycleSet">Cycle settings</h3>
+          <div class="field"><span data-i18n="periodLen">Usual period length</span><div class="step"><button type="button" id="lenDn" data-i18n-label="shorter">−</button><output id="lenOut">5</output><button type="button" id="lenUp" data-i18n-label="longer">+</button></div></div>
+          <div class="field"><span data-i18n="defCycle">Default cycle</span><div class="step"><button type="button" id="cycDn" data-i18n-label="shorter">−</button><output id="cycOut">28</output><button type="button" id="cycUp" data-i18n-label="longer">+</button></div></div>
+          <p class="note" data-i18n="note">Predictions are estimates.</p>
+        </section>
+        <section class="card">
+          <h3 data-i18n="backupSec">Backup &amp; restore</h3>
+          <p class="note" data-i18n="bkHint">Keep a copy of your data.</p>
+          <div class="group" style="margin-top:12px"><button type="button" class="btn primary" id="backupBtn" data-i18n="backup">Back up</button><button type="button" class="btn" id="restoreBtn" data-i18n="restore">Restore</button></div>
+        </section>
+        <section class="card" id="installCard">
+          <h3 data-i18n="instH">Install app</h3>
+          <p class="note" id="instText"></p>
+          <div style="margin-top:12px"><button type="button" class="btn primary" id="instBtn" hidden data-i18n="instBtn">Install app</button></div>
+        </section>
+        <section class="card">
+          <h3 data-i18n="resetH">Reset</h3>
+          <p class="note" data-i18n="resetHint">Remove all data.</p>
+          <div style="margin-top:12px"><button type="button" class="btn danger" id="resetAll" data-i18n="resetAll">Reset all data</button></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <footer class="credit"><span data-i18n="createdBy">Created by</span> <b>Nafisha Tamanna Nice</b></footer>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle" id="dialog"></div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+const I18N={
+ en:{appearance:'Appearance',light:'Light',dark:'Dark',summary:'Summary',nextPeriod:'Next period',cycleDay:'Cycle day',avgCycle:'Average cycle',loggedYear:'Logged this year',periodStarts:'period starts',
+  exTitle:'Example data is shown.',exBody:'Clear it, then tap the first day of your own periods.',clearEx:'Clear examples',views:'Views',tabCal:'Calendar',tabYear:'12-month tracker',
+  monthCal:'Month calendar',prevMonth:'Previous month',nextMonth:'Next month',today:'Today',lgPeriod:'Period',lgPred:'Predicted',lgFertile:'Fertile window',lgOvu:'Ovulation (est.)',
+  hint:'Tap any day to log a period, flow, symptoms or a note.',sideLabel:'Upcoming and settings',comingUp:'Coming up',settings:'Settings',
+  periodLen:'Usual period length',defCycle:'Default cycle',shorter:'Decrease',longer:'Increase',
+  note:'The default cycle is used until you have two pins. Your dates stay in this browser on this device. Predictions are estimates, not medical or contraceptive advice.',
+  prevYear:'Previous year',nextYear:'Next year',thisYear:'This year',thMonth:'Month',thDates:'Period dates',thStatus:'Status',thCycle:'Cycle length',thActions:'Actions',
+  pinStart:'Pin a start date',expectedNow:'Expected now',inDays:n=>`in ${n} days`,inD:n=>`in ${n}d`,now:'now',dayOf:(a,b)=>`${a} of ${b}`,days:n=>`${n} days`,
+  fromPins:'from your pins',defaultSetting:'default setting',noPreds:'Pin your last period start to see predictions.',yearTitle:y=>`${y} at a glance`,
+  logged:'Logged',predicted:'Predicted',notLogged:'Not logged',noDates:'No dates',open:m=>`Open ${m}`,
+  aToday:'today',aPeriod:'period',aPred:'predicted period',aFertile:'fertile window',
+  logTitle:'Log period',editTitle:'Edit period',logBody:'Choose the first day and how many days it lasted.',editBody:'Change the first day or the number of days to match when it actually happened.',
+  firstDay:'First day',howMany:'How many days',endsOn:d=>`Ends on ${d}`,save:'Save',cancel:'Cancel',del:'Delete',edit:'Edit',reset:'Reset',
+  needDate:'Choose a date first.',delTitle:'Delete this period?',delBody:r=>`The period ${r} will be removed. This can't be undone.`,yesDelete:'Yes, delete',
+  monthTitle:m=>`Reset ${m}?`,monthBody:'All periods logged in this month will be removed. This can’t be undone.',yesReset:'Yes, reset',
+  allTitle:'Reset all data?',allBody:'Every logged period will be removed and settings go back to default. This can’t be undone.',resetAll:'Reset all data',
+  tSaved:'Saved',tDeleted:'Period deleted',tMonth:'Month reset',tAll:'All data reset',close:'Close',createdBy:'Created by',tabHome:'Today',tabYearS:'12 months',tabSet:'Settings',logPeriod:'Log period',logSym:'Log symptoms',avgPeriod:'Average period',appearanceH:'Appearance',cycleSet:'Cycle settings',language:'Language',
+  bkHint:'Keep a copy of your data so you can restore it on any device.',resetH:'Reset',resetHint:'Remove every logged period, symptom and note from this device.',
+  ph:{period:'Period',follic:'After period',fertile:'Fertile window',ovu:'Ovulation day (est.)',luteal:'Before period',late:'Period due',none:'Getting started'},
+  tips:{period:'Rest when you can, stay warm and drink plenty of water.',follic:'Energy often rises in these days. A good time for exercise and plans.',fertile:'This is the most fertile time of your cycle.',ovu:'Ovulation is estimated around today.',luteal:'You may notice PMS signs like bloating or mood changes. Go easy on yourself.',late:'Your period is due. Keep pads or other supplies handy.',none:'Tap Log period and choose the first day of your last period.'},
+  hNone:'Welcome! Log your last period to begin',hPeriod:n=>`Period day ${n}`,hNext:n=>`Next period in ${n} days`,hToday:'Your period may start today',hLate:n=>`Period ${n} days late`,hSub:r=>`Expected ${r}`,hSubPeriod:r=>`This period: ${r}`,
+  backupSec:'Backup & restore',backup:'Back up',restore:'Restore',bkTitle:'Back up your data',bkBody:'Copy this code and keep it somewhere safe, such as your notes or email. Paste it into Restore on any device to get your data back.',copy:'Copy code',copied:'Copied',copyFail:'Select the code and copy it manually.',
+  rsTitle:'Restore from backup',rsBody:'Paste your backup code below. This replaces the data on this device.',rsBad:'This code is not valid. Check that you copied all of it.',rsConfirmTitle:'Replace current data?',rsConfirmBody:'Your current dates and notes on this device will be replaced by the backup.',yesRestore:'Yes, restore',tRestored:'Data restored',
+  lgLog:'Symptoms or note',periodSec:'Period',inPeriod:(i,n,r)=>`Day ${i} of ${n} · ${r}`,editPeriod:'Edit period',startHere:'Start a period on this day',notInPeriod:'No period logged on this day.',
+  flow:'Flow',symptoms:'Symptoms',noteL:'Note',notePh:'How are you feeling today?',
+  flows:{none:'None',spot:'Spotting',light:'Light',medium:'Medium',heavy:'Heavy'},
+  syms:{cramps:'Cramps',headache:'Headache',back:'Back pain',bloat:'Bloating',mood:'Mood swings',tired:'Tiredness',acne:'Acne',breast:'Breast tenderness',nausea:'Nausea',crave:'Cravings'},
+  lateT:n=>`Your period is ${n} days late`,lateB:'Stress, travel, illness and other changes can delay a period. If it is very late or you might be pregnant, consider a test or talk to a doctor.',
+  irrT:'Your cycles vary a lot',irrB:(a,b)=>`Your recent cycles ranged from ${a} to ${b} days. Some variation is normal, but if it continues, you may want to talk to a doctor.`,
+  rangeT:'Your average cycle is outside the usual range',rangeB:n=>`Your average is ${n} days. Most cycles last 21 to 35 days. If this continues, consider talking to a doctor.`,
+  histTitle:'Cycle history',histBody:'Length of each cycle, with your average.',histEmpty:'Log at least two periods to see your cycle history.',avgLbl:n=>`Avg ${n}`,cycleLbl:'Cycle length',periodLbl:'Period days',
+  brand:'Monthly Period Tracker',quoteTitle:'A gentle reminder',quoteLabel:'Period quote',qPrev:'Previous quote',qNext:'Next quote',
+  quotes:['Your period is a sign of your body doing its work. Be gentle with yourself today.','Rest is productive too. Listen to what your body needs.','Periods are normal and natural. There is nothing to be ashamed of.','Drink water, eat well, sleep enough. Small care adds up.','Knowing your cycle is knowing yourself a little better.','Cramps are real. Asking for a break is okay.','Talk about periods openly. Silence helps no one.','Every cycle is different, and that is okay.','A warm compress, a warm drink and some kindness go a long way.','Track it, understand it, take care of yourself.'],customize:'Customize',themeColor:'Theme colour',mode:'Mode',periodIcon:'Period icon',iconColor:'Icon colour',bloodRed:'Blood red',matchTheme:'Match theme',done:'Done',custBody:'Changes apply right away and are remembered on this device.',
+  pal:{baby:'Baby pink',lavender:'Lavender',peach:'Peach',mint:'Mint',ruby:'Ruby',sky:'Sky'},ico:{drop:'Blood drop',heart:'Heart',flower:'Flower',pin:'Pin'}},
+ bn:{appearance:'থিম',light:'লাইট',dark:'ডার্ক',summary:'সারসংক্ষেপ',nextPeriod:'পরবর্তী পিরিয়ড',cycleDay:'চক্রের দিন',avgCycle:'গড় চক্র',loggedYear:'এই বছরে লগ করা',periodStarts:'বার পিরিয়ড শুরু',
+  exTitle:'উদাহরণ ডেটা দেখানো হচ্ছে।',exBody:'এগুলো মুছে আপনার নিজের পিরিয়ডের প্রথম দিনে ট্যাপ করুন।',clearEx:'উদাহরণ মুছুন',views:'ভিউ',tabCal:'ক্যালেন্ডার',tabYear:'১২ মাসের ট্র্যাকার',
+  monthCal:'মাসের ক্যালেন্ডার',prevMonth:'আগের মাস',nextMonth:'পরের মাস',today:'আজ',lgPeriod:'পিরিয়ড',lgPred:'সম্ভাব্য',lgFertile:'উর্বর সময়',lgOvu:'ডিম্বস্ফোটন (আনুমানিক)',
+  hint:'যেকোনো দিনে ট্যাপ করে পিরিয়ড, রক্তপাতের পরিমাণ, উপসর্গ বা নোট লগ করুন।',sideLabel:'আসন্ন ও সেটিংস',comingUp:'আসন্ন',settings:'সেটিংস',
+  periodLen:'সাধারণ পিরিয়ডের দৈর্ঘ্য',defCycle:'ডিফল্ট চক্র',shorter:'কমান',longer:'বাড়ান',
+  note:'দুটি পিন না হওয়া পর্যন্ত ডিফল্ট চক্র ব্যবহার হয়। আপনার তারিখগুলো শুধু এই ডিভাইসের এই ব্রাউজারে থাকে। পূর্বাভাস আনুমানিক, এটি চিকিৎসা বা জন্মনিয়ন্ত্রণের পরামর্শ নয়।',
+  prevYear:'আগের বছর',nextYear:'পরের বছর',thisYear:'এই বছর',thMonth:'মাস',thDates:'পিরিয়ডের তারিখ',thStatus:'অবস্থা',thCycle:'চক্রের দৈর্ঘ্য',thActions:'অ্যাকশন',
+  pinStart:'শুরুর তারিখ পিন করুন',expectedNow:'এখনই হওয়ার কথা',inDays:n=>`${n} দিন পর`,inD:n=>`${n} দিন পর`,now:'এখন',dayOf:(a,b)=>`${b} দিনের ${a}`,days:n=>`${n} দিন`,
+  fromPins:'আপনার পিন থেকে',defaultSetting:'ডিফল্ট সেটিং',noPreds:'পূর্বাভাস দেখতে শেষ পিরিয়ডের শুরুর দিন পিন করুন।',yearTitle:y=>`${y} সালের সারসংক্ষেপ`,
+  logged:'লগ করা',predicted:'সম্ভাব্য',notLogged:'লগ করা হয়নি',noDates:'কোনো তারিখ নেই',open:m=>`${m} খুলুন`,
+  aToday:'আজ',aPeriod:'পিরিয়ড',aPred:'সম্ভাব্য পিরিয়ড',aFertile:'উর্বর সময়',
+  logTitle:'পিরিয়ড লগ করুন',editTitle:'পিরিয়ড সম্পাদনা',logBody:'প্রথম দিন এবং কত দিন ছিল তা বেছে নিন।',editBody:'আসলে যেদিন হয়েছিল সেই অনুযায়ী প্রথম দিন বা দিনের সংখ্যা বদলান।',
+  firstDay:'প্রথম দিন',howMany:'কত দিন',endsOn:d=>`${d} তারিখে শেষ`,save:'সংরক্ষণ',cancel:'বাতিল',del:'মুছুন',edit:'সম্পাদনা',reset:'রিসেট',
+  needDate:'আগে একটি তারিখ বেছে নিন।',delTitle:'এই পিরিয়ডটি মুছবেন?',delBody:r=>`${r} পিরিয়ডটি মুছে যাবে। এটি আর ফেরানো যাবে না।`,yesDelete:'হ্যাঁ, মুছুন',
+  monthTitle:m=>`${m} রিসেট করবেন?`,monthBody:'এই মাসে লগ করা সব পিরিয়ড মুছে যাবে। এটি আর ফেরানো যাবে না।',yesReset:'হ্যাঁ, রিসেট',
+  allTitle:'সব ডেটা রিসেট করবেন?',allBody:'লগ করা সব পিরিয়ড মুছে যাবে এবং সেটিংস ডিফল্টে ফিরে যাবে। এটি আর ফেরানো যাবে না।',resetAll:'সব ডেটা রিসেট',
+  tSaved:'সংরক্ষিত হয়েছে',tDeleted:'পিরিয়ড মুছে ফেলা হয়েছে',tMonth:'মাস রিসেট হয়েছে',tAll:'সব ডেটা রিসেট হয়েছে',close:'বন্ধ করুন',createdBy:'নির্মাতা:',tabHome:'আজ',tabYearS:'১২ মাস',tabSet:'সেটিংস',logPeriod:'পিরিয়ড লগ করুন',logSym:'উপসর্গ লগ করুন',avgPeriod:'গড় পিরিয়ড',appearanceH:'চেহারা ও থিম',cycleSet:'চক্রের সেটিংস',language:'ভাষা',
+  bkHint:'ডেটার একটি কপি রাখুন, যাতে যেকোনো ডিভাইসে ফিরিয়ে আনতে পারেন।',resetH:'রিসেট',resetHint:'এই ডিভাইস থেকে সব পিরিয়ড, উপসর্গ ও নোট মুছে ফেলুন।',
+  ph:{period:'পিরিয়ড চলছে',follic:'পিরিয়ড-পরবর্তী সময়',fertile:'উর্বর সময়',ovu:'ডিম্বস্ফোটনের দিন (আনুমানিক)',luteal:'পিরিয়ডের আগের সময়',late:'পিরিয়ডের সময় হয়েছে',none:'শুরু করুন'},
+  tips:{period:'সম্ভব হলে বিশ্রাম নিন, শরীর উষ্ণ রাখুন এবং প্রচুর পানি পান করুন।',follic:'এই দিনগুলোতে সাধারণত শক্তি বাড়ে। ব্যায়াম ও পরিকল্পনার ভালো সময়।',fertile:'এটি আপনার চক্রের সবচেয়ে উর্বর সময়।',ovu:'আনুমানিক আজকের আশেপাশে ডিম্বস্ফোটন হতে পারে।',luteal:'পেট ফাঁপা বা মেজাজ পরিবর্তনের মতো PMS-এর লক্ষণ দেখা দিতে পারে। নিজের প্রতি সদয় থাকুন।',late:'পিরিয়ডের সময় হয়েছে। প্যাড বা প্রয়োজনীয় জিনিস হাতের কাছে রাখুন।',none:'"পিরিয়ড লগ করুন"-এ ট্যাপ করে শেষ পিরিয়ডের প্রথম দিন বেছে নিন।'},
+  hNone:'স্বাগতম! শুরু করতে শেষ পিরিয়ড লগ করুন',hPeriod:n=>`পিরিয়ডের ${n} নম্বর দিন`,hNext:n=>`পরবর্তী পিরিয়ড ${n} দিন পর`,hToday:'আজ পিরিয়ড শুরু হতে পারে',hLate:n=>`পিরিয়ড ${n} দিন দেরি`,hSub:r=>`সম্ভাব্য তারিখ: ${r}`,hSubPeriod:r=>`এই পিরিয়ড: ${r}`,
+  backupSec:'ব্যাকআপ ও রিস্টোর',backup:'ব্যাকআপ',restore:'রিস্টোর',bkTitle:'আপনার ডেটা ব্যাকআপ করুন',bkBody:'এই কোডটি কপি করে নিরাপদ কোথাও রাখুন, যেমন নোট বা ইমেইলে। যেকোনো ডিভাইসে রিস্টোর-এ পেস্ট করলে ডেটা ফিরে পাবেন।',copy:'কোড কপি করুন',copied:'কপি হয়েছে',copyFail:'কোডটি সিলেক্ট করে নিজে কপি করুন।',
+  rsTitle:'ব্যাকআপ থেকে রিস্টোর',rsBody:'নিচে আপনার ব্যাকআপ কোড পেস্ট করুন। এতে এই ডিভাইসের ডেটা বদলে যাবে।',rsBad:'কোডটি সঠিক নয়। পুরো কোড কপি হয়েছে কিনা দেখুন।',rsConfirmTitle:'বর্তমান ডেটা বদলাবেন?',rsConfirmBody:'এই ডিভাইসের বর্তমান তারিখ ও নোট ব্যাকআপ দিয়ে বদলে যাবে।',yesRestore:'হ্যাঁ, রিস্টোর',tRestored:'ডেটা রিস্টোর হয়েছে',
+  lgLog:'উপসর্গ বা নোট',periodSec:'পিরিয়ড',inPeriod:(i,n,r)=>`${n} দিনের ${i} নম্বর দিন · ${r}`,editPeriod:'পিরিয়ড সম্পাদনা',startHere:'এই দিন থেকে পিরিয়ড শুরু',notInPeriod:'এই দিনে কোনো পিরিয়ড লগ করা নেই।',
+  flow:'রক্তপাতের পরিমাণ',symptoms:'উপসর্গ',noteL:'নোট',notePh:'আজ কেমন লাগছে?',
+  flows:{none:'নেই',spot:'দাগ',light:'হালকা',medium:'মাঝারি',heavy:'বেশি'},
+  syms:{cramps:'পেটব্যথা',headache:'মাথাব্যথা',back:'কোমরব্যথা',bloat:'পেট ফাঁপা',mood:'মেজাজ ওঠানামা',tired:'ক্লান্তি',acne:'ব্রণ',breast:'স্তনে ব্যথা',nausea:'বমি ভাব',crave:'খাবারের ইচ্ছা'},
+  lateT:n=>`আপনার পিরিয়ড ${n} দিন দেরি হয়েছে`,lateB:'মানসিক চাপ, ভ্রমণ, অসুস্থতা বা অন্য পরিবর্তনে পিরিয়ড দেরি হতে পারে। অনেক দেরি হলে বা গর্ভধারণের সম্ভাবনা থাকলে টেস্ট করুন বা ডাক্তারের সাথে কথা বলুন।',
+  irrT:'আপনার চক্র অনেক ওঠানামা করছে',irrB:(a,b)=>`সাম্প্রতিক চক্র ${a} থেকে ${b} দিনের মধ্যে ছিল। কিছুটা পার্থক্য স্বাভাবিক, তবে এমন চলতে থাকলে ডাক্তারের সাথে কথা বলতে পারেন।`,
+  rangeT:'আপনার গড় চক্র সাধারণ সীমার বাইরে',rangeB:n=>`আপনার গড় ${n} দিন। বেশিরভাগ চক্র ২১ থেকে ৩৫ দিনের হয়। এমন চলতে থাকলে ডাক্তারের সাথে কথা বলুন।`,
+  histTitle:'চক্রের ইতিহাস',histBody:'প্রতিটি চক্রের দৈর্ঘ্য, সাথে আপনার গড়।',histEmpty:'চক্রের ইতিহাস দেখতে অন্তত দুটি পিরিয়ড লগ করুন।',avgLbl:n=>`গড় ${n}`,cycleLbl:'চক্রের দৈর্ঘ্য',periodLbl:'পিরিয়ডের দিন',
+  brand:'মাসিক পিরিয়ড ট্র্যাকার',quoteTitle:'একটি কোমল কথা',quoteLabel:'পিরিয়ড উক্তি',qPrev:'আগের উক্তি',qNext:'পরের উক্তি',
+  quotes:['পিরিয়ড মানে আপনার শরীর তার কাজ ঠিকমতো করছে। আজ নিজের প্রতি একটু কোমল হোন।','বিশ্রামও কাজের অংশ। শরীর যা চায় তা শুনুন।','পিরিয়ড স্বাভাবিক ও প্রাকৃতিক, এতে লজ্জার কিছু নেই।','পানি পান করুন, ভালো খান, পর্যাপ্ত ঘুমান। ছোট ছোট যত্নই বড় পার্থক্য গড়ে।','নিজের চক্র জানা মানে নিজেকে আরেকটু ভালো করে জানা।','পেটব্যথা সত্যি। বিরতি চাওয়াতে কোনো দোষ নেই।','পিরিয়ড নিয়ে খোলামেলা কথা বলুন। চুপ থাকায় কারও উপকার হয় না।','প্রতিটি চক্র আলাদা, এবং সেটাই স্বাভাবিক।','একটা গরম সেঁক, এক কাপ উষ্ণ পানীয় আর একটু ভালোবাসা অনেক কাজে দেয়।','ট্র্যাক করুন, বুঝুন, নিজের যত্ন নিন।'],customize:'কাস্টমাইজ',themeColor:'থিমের রঙ',mode:'মোড',periodIcon:'পিরিয়ড আইকন',iconColor:'আইকনের রঙ',bloodRed:'রক্ত লাল',matchTheme:'থিমের রঙে',done:'হয়ে গেছে',custBody:'পরিবর্তন সঙ্গে সঙ্গে দেখা যাবে এবং এই ডিভাইসে মনে রাখা হবে।',
+  pal:{baby:'বেবি পিংক',lavender:'ল্যাভেন্ডার',peach:'পিচ',mint:'মিন্ট',ruby:'রুবি',sky:'আকাশি'},ico:{drop:'রক্তের ফোঁটা',heart:'হার্ট',flower:'ফুল',pin:'পিন'}}
+};
+Object.assign(I18N.en,{instH:'Install app',instBtn:'Install app',instReady:'Add this tracker to your home screen. It opens like an app and works without internet.',instIos:'On iPhone: open this page in Safari, tap the Share button, then "Add to Home Screen".',instOther:'Open your browser menu and choose "Install app" or "Add to Home screen".',instDone:'The app is installed on this device.'});
+Object.assign(I18N.bn,{instH:'অ্যাপ ইনস্টল',instBtn:'অ্যাপ ইনস্টল করুন',instReady:'এই ট্র্যাকারটি হোম স্ক্রিনে যোগ করুন। এটি অ্যাপের মতো খুলবে এবং ইন্টারনেট ছাড়াও চলবে।',instIos:'আইফোনে: Safari-তে এই পেজটি খুলে Share বাটনে ট্যাপ করুন, তারপর "Add to Home Screen" বেছে নিন।',instOther:'ব্রাউজারের মেনু খুলে "Install app" বা "Add to Home screen" বেছে নিন।',instDone:'এই ডিভাইসে অ্যাপটি ইনস্টল করা আছে।'});
+const ICONS={
+  drop:'<path d="M12 2.5c-3.6 4.6-6 8-6 11a6 6 0 0 0 12 0c0-3-2.4-6.4-6-11z"/>',
+  heart:'<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>',
+  flower:'<circle cx="12" cy="6.5" r="3.6"/><circle cx="17.2" cy="10.3" r="3.6"/><circle cx="15.2" cy="16.4" r="3.6"/><circle cx="8.8" cy="16.4" r="3.6"/><circle cx="6.8" cy="10.3" r="3.6"/>',
+  pin:'<path d="M12 2a6 6 0 0 0-6 6c0 4.2 6 12 6 12s6-7.8 6-12a6 6 0 0 0-6-6zm0 8.4A2.4 2.4 0 1 1 12 5.6a2.4 2.4 0 0 1 0 4.8z"/>'
+};
+const svgIcon=k=>`<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]||ICONS.drop}</svg>`;
+const PALETTES={
+  baby:{light:{bg:'#fbe6ee',surface:'#fff5f8',s2:'#fcecf2',baby:'#f5b8d0',rose:'#d4467f',roseInk:'#9c1f55',line:'#f3cfdd',muted:'#7a5a69',onBaby:'#4a1530',onBaby2:'#7a2a50'},
+        dark:{bg:'#17111a',surface:'#211821',s2:'#2b1f2a',baby:'#f2a9c7',rose:'#f48fb8',roseInk:'#ffc2da',line:'#3a2a36',muted:'#bfa3b2',onBaby:'#3a0f24',onBaby2:'#5a1f3a'}},
+  lavender:{light:{bg:'#eee8f8',surface:'#faf7fe',s2:'#f2edfb',baby:'#d6c4f2',rose:'#7e57c2',roseInk:'#4f2f8f',line:'#e0d5f2',muted:'#6b5f80',onBaby:'#2e1a52',onBaby2:'#4f3a78'},
+        dark:{bg:'#141120',surface:'#1d1830',s2:'#261f3c',baby:'#c9b2f0',rose:'#b39dfa',roseInk:'#dccfff',line:'#312a48',muted:'#ada3c6',onBaby:'#24123f',onBaby2:'#3d2a63'}},
+  peach:{light:{bg:'#fde9df',surface:'#fff7f2',s2:'#fdeee6',baby:'#f9c5ab',rose:'#d9602f',roseInk:'#a33d17',line:'#f4d3c3',muted:'#7d6155',onBaby:'#4f200c',onBaby2:'#7a3a1e'},
+        dark:{bg:'#1a120e',surface:'#241914',s2:'#2e211a',baby:'#f6b796',rose:'#ff9a6e',roseInk:'#ffd2bd',line:'#3d2c23',muted:'#c4a698',onBaby:'#3d1a0a',onBaby2:'#5e2c16'}},
+  mint:{light:{bg:'#e3f4ee',surface:'#f6fcf9',s2:'#e9f7f1',baby:'#b5e3d1',rose:'#23876a',roseInk:'#1b6b52',line:'#cde9de',muted:'#557067',onBaby:'#0f3b2d',onBaby2:'#2a5a4a'},
+        dark:{bg:'#0f1714',surface:'#16211d',s2:'#1e2c27',baby:'#9fdcc4',rose:'#5fd1aa',roseInk:'#b8f0dc',line:'#263a33',muted:'#9dbcb1',onBaby:'#0c3326',onBaby2:'#1f4f3f'}},
+  ruby:{light:{bg:'#fbe3e6',surface:'#fff6f7',s2:'#fcebed',baby:'#f4b3bc',rose:'#c81e3c',roseInk:'#8e0f26',line:'#f2cdd3',muted:'#7c585e',onBaby:'#4d0a17',onBaby2:'#7a2232'},
+        dark:{bg:'#1a0d10',surface:'#251317',s2:'#301a1f',baby:'#f29aa8',rose:'#ff6b81',roseInk:'#ffc0ca',line:'#3f242a',muted:'#c9a0a7',onBaby:'#3d0812',onBaby2:'#5e1a27'}},
+  sky:{light:{bg:'#e4eef9',surface:'#f7fbff',s2:'#ebf3fc',baby:'#bcd6f2',rose:'#2f6fc6',roseInk:'#1f4f94',line:'#d2e2f3',muted:'#5c6b7e',onBaby:'#0f2d55',onBaby2:'#2c4a72'},
+        dark:{bg:'#0f141c',surface:'#161d28',s2:'#1e2735',baby:'#a7c8ef',rose:'#6fa8ff',roseInk:'#c4dcff',line:'#27324a',muted:'#a0b0c8',onBaby:'#0c2445',onBaby2:'#213f66'}}
+};
+const LOOKKEY='rosette-look';
+let look={palette:'baby',icon:'drop',iconColor:'red'};
+try{const l=JSON.parse(localStorage.getItem(LOOKKEY));if(l)look=Object.assign(look,l)}catch(e){}
+if(!PALETTES[look.palette])look.palette='baby';if(!ICONS[look.icon])look.icon='drop';
+const ICON=()=>svgIcon(look.icon);
+const hexRgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)).join(',');
+function applyPalette(){
+  const mode=document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light',c=PALETTES[look.palette][mode],st=document.documentElement.style;
+  const set=(k,v)=>st.setProperty(k,v);
+  const tm=document.querySelector('meta[name="theme-color"]');if(tm)tm.setAttribute('content',c.surface);
+  set('--bg',c.bg);set('--surface',c.surface);set('--surface-2',c.s2);set('--baby',c.baby);set('--rose',c.rose);set('--rose-ink',c.roseInk);
+  set('--line',c.line);set('--muted',c.muted);set('--on-baby',c.onBaby);set('--on-baby-2',c.onBaby2);
+  set('--on-rose',mode==='dark'?c.onBaby:'#ffffff');
+  set('--icon',look.iconColor==='theme'?(mode==='dark'?c.rose:c.roseInk):(mode==='dark'?'#ff4d6a':'#c8102e'));
+  const rgb=hexRgb(c.roseInk);
+  set('--shadow',mode==='dark'?'0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25)':`0 1px 2px rgba(${rgb},.07),0 8px 24px rgba(${rgb},.07)`);
+  const lg=document.getElementById('lgIcon');if(lg)lg.innerHTML=ICON();
+}
+const saveLook=()=>{try{localStorage.setItem(LOOKKEY,JSON.stringify(look))}catch(e){}};
+const DAY=864e5, KEY='rosette-v1', TKEY='rosette-theme', LKEY='rosette-lang';
+const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const parse=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const add=(d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+const diff=(a,b)=>Math.round((b-a)/DAY);
+const today=new Date();today.setHours(0,0,0,0);
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* language */
+let lang='en';try{lang=localStorage.getItem(LKEY)||'en'}catch(e){}
+if(!I18N[lang])lang='en';
+const T=()=>I18N[lang];
+const LOC=()=>lang==='bn'?'bn-BD':'en-GB';
+const fmt=(d,o)=>d.toLocaleDateString(LOC(),o);
+const num=n=>new Intl.NumberFormat(LOC(),{useGrouping:false}).format(n);
+function applyLang(){
+  if(window.updInst)setTimeout(window.updInst);
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=T()[el.dataset.i18n]);
+  document.querySelectorAll('[data-i18n-label]').forEach(el=>el.setAttribute('aria-label',T()[el.dataset.i18nLabel]));
+  $('lEn').setAttribute('aria-pressed',lang==='en');$('lBn').setAttribute('aria-pressed',lang==='bn');
+  $('dow').innerHTML=[0,1,2,3,4,5,6].map(i=>`<div>${new Date(2026,9,18+i).toLocaleDateString(LOC(),{weekday:'short'})}</div>`).join('');
+}
+const setLang=l=>{lang=l;try{localStorage.setItem(LKEY,l)}catch(e){}closeDialog();applyLang();render();renderCust();showQuote(true)};
+$('lEn').onclick=()=>setLang('en');$('lBn').onclick=()=>setLang('bn');
+
+/* theme */
+function systemDark(){return window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches}
+function applyTheme(t){document.documentElement.setAttribute('data-theme',t);applyPalette();$('tLight').setAttribute('aria-pressed',t==='light');$('tDark').setAttribute('aria-pressed',t==='dark')}
+let theme=null;try{theme=localStorage.getItem(TKEY)}catch(e){}
+applyTheme(theme||document.documentElement.getAttribute('data-theme')||(systemDark()?'dark':'light'));
+const setTheme=t=>{applyTheme(t);try{localStorage.setItem(TKEY,t)}catch(e){}if(typeof renderCust==='function')renderCust()};
+$('tLight').onclick=()=>setTheme('light');$('tDark').onclick=()=>setTheme('dark');
+
+/* data: periods = [{start:'YYYY-MM-DD', len:n}] */
+function sample(){const out=[];let d=add(today,-12);for(let i=0;i<10;i++){out.push({start:iso(d),len:[5,4,5,3,4][i%5]});d=add(d,-(27+(i%3)))}return sortP(out)}
+const sortP=a=>a.sort((x,y)=>x.start<y.start?-1:x.start>y.start?1:0);
+const DEFAULTS={periods:[],logs:{},len:5,cyc:28,example:true};
+let state={...DEFAULTS};
+try{
+  const s=JSON.parse(localStorage.getItem(KEY));
+  if(s){
+    state=Object.assign({...DEFAULTS},s);
+    if(Array.isArray(s.starts)&&!Array.isArray(s.periods))state.periods=s.starts.map(x=>({start:x,len:s.len||5})); // migrate older saves
+    delete state.starts;
+  }
+}catch(e){}
+if(!Array.isArray(state.periods))state.periods=[];
+if(!state.logs||typeof state.logs!=='object')state.logs={};
+if(state.example&&!state.periods.length)state.periods=sample();
+sortP(state.periods);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
+
+let view=new Date(today.getFullYear(),today.getMonth(),1), year=today.getFullYear(), tab='home', slideDir=0;
+
+const periods=()=>state.periods.map(p=>({start:parse(p.start),len:p.len,key:p.start}));
+function avgCycle(){const s=periods(),g=[];for(let i=1;i<s.length;i++){const x=diff(s[i-1].start,s[i].start);if(x>=18&&x<=50)g.push(x)}const r=g.slice(-6);return r.length?Math.round(r.reduce((a,b)=>a+b,0)/r.length):state.cyc}
+function avgLen(){const r=state.periods.slice(-6);return r.length&&!state.example?Math.round(r.reduce((a,p)=>a+p.len,0)/r.length):state.len}
+function predictions(until){const s=periods();if(!s.length)return[];const c=avgCycle(),L=avgLen(),out=[];let p=add(s.at(-1).start,c);while(add(p,L-1)<today)p=add(p,c);while(p<=until&&out.length<30){out.push({start:p,len:L});p=add(p,c)}return out}
+function classify(until){
+  const map={},mark=(d,c)=>{const k=iso(d);(map[k]=map[k]||new Set()).add(c)},s=periods();
+  s.forEach(p=>{for(let i=0;i<p.len;i++)mark(add(p.start,i),'period');mark(p.start,'start')});
+  for(let i=1;i<s.length;i++){const ov=add(s[i].start,-14);for(let j=-5;j<=1;j++)mark(add(ov,j),'fertile');mark(ov,'ovu')}
+  predictions(until).forEach(p=>{for(let i=0;i<p.len;i++)mark(add(p.start,i),'predicted');mark(p.start,'pstart');const ov=add(p.start,-14);for(let j=-5;j<=1;j++)mark(add(ov,j),'fertile');mark(ov,'ovu')});
+  return map;
+}
+const coverOf=k=>{const d=parse(k);return state.periods.find(p=>{const x=diff(parse(p.start),d);return x>=0&&x<p.len})};
+const dm=d=>fmt(d,{day:'numeric',month:'short'});
+const range=(d,len)=>len>1?`${dm(d)} – ${dm(add(d,len-1))}`:dm(d);
+
+/* mutations */
+function upsert(oldKey,start,len){
+  if(state.example){state.example=false;state.periods=[];oldKey=null}
+  const s=parse(start),e=add(s,len-1);
+  state.periods=state.periods.filter(p=>{
+    if(p.start===oldKey)return false;
+    const ps=parse(p.start),pe=add(ps,p.len-1);
+    return pe<s||ps>e; // drop any period that overlaps the new dates
+  });
+  state.periods.push({start,len});sortP(state.periods);save();render();toast(T().tSaved);
+}
+function removePeriod(key){state.periods=state.periods.filter(p=>p.start!==key);save();render();toast(T().tDeleted)}
+function resetMonth(y,m){state.periods=state.periods.filter(p=>{const d=parse(p.start);return!(d.getFullYear()===y&&d.getMonth()===m)});save();render();toast(T().tMonth)}
+function resetAll(){state={...DEFAULTS,periods:[],logs:{},example:false};save();render();toast(T().tAll)}
+
+/* toast */
+let toastTimer;
+function toast(msg){const el=$('toast');el.textContent=msg;el.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.hidden=true,2200)}
+
+/* dialog */
+let lastFocus=null;
+function openDialog(html,focusSel){
+  lastFocus=document.activeElement;
+  $('dialog').innerHTML=html;$('overlay').hidden=false;
+  const f=$('dialog').querySelector(focusSel||'button');if(f)f.focus();
+}
+function closeDialog(){if($('overlay').hidden)return;$('overlay').hidden=true;$('dialog').innerHTML='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+$('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closeDialog()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDialog()});
+
+function confirmBox(title,body,yes,onYes){
+  const t=T();
+  openDialog(`<h3 id="dlgTitle">${esc(title)}</h3><p>${esc(body)}</p>
+    <div class="actions"><button type="button" class="btn" id="cNo">${t.cancel}</button><button type="button" class="btn danger fill" id="cYes">${esc(yes)}</button></div>`,'#cNo');
+  $('cNo').onclick=closeDialog;
+  $('cYes').onclick=()=>{closeDialog();onYes()};
+}
+function periodDialog(existing,dateKey){
+  const t=T(),isEdit=!!existing&&!state.example;
+  let start=isEdit?existing.start:dateKey, len=isEdit?existing.len:state.len;
+  const chips=()=>Array.from({length:10},(_,i)=>i+1).map(n=>`<button type="button" data-n="${n}" aria-pressed="${n===len}">${num(n)}</button>`).join('');
+  openDialog(`<h3 id="dlgTitle">${isEdit?t.editTitle:t.logTitle}</h3><p>${isEdit?t.editBody:t.logBody}</p>
+    <label for="pStart">${t.firstDay}<input type="date" id="pStart" value="${start}"></label>
+    <div><div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px">${t.howMany}</div><div class="chips" id="pLen" role="group" aria-label="${t.howMany}">${chips()}</div></div>
+    <div class="ends" id="pEnds"></div><div class="err" id="pErr" hidden></div>
+    <div class="actions">${isEdit?`<button type="button" class="btn danger grow" id="pDel">${t.del}</button>`:''}<button type="button" class="btn" id="pCancel">${t.cancel}</button><button type="button" class="btn primary" id="pSave">${t.save}</button></div>`,'#pStart');
+  const upd=()=>{const v=$('pStart').value;$('pEnds').textContent=v?t.endsOn(fmt(add(parse(v),len-1),{weekday:'short',day:'numeric',month:'long'})):'';};
+  upd();
+  $('pStart').oninput=()=>{$('pErr').hidden=true;upd()};
+  $('pLen').onclick=e=>{const b=e.target.closest('button');if(!b)return;len=+b.dataset.n;$('pLen').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.n===len));upd()};
+  $('pCancel').onclick=closeDialog;
+  $('pSave').onclick=()=>{const v=$('pStart').value;if(!v){$('pErr').textContent=t.needDate;$('pErr').hidden=false;return}closeDialog();upsert(isEdit?existing.start:null,v,len);const d=parse(v);view=new Date(d.getFullYear(),d.getMonth(),1);render()};
+  if(isEdit)$('pDel').onclick=()=>confirmBox(t.delTitle,t.delBody(range(parse(existing.start),existing.len)),t.yesDelete,()=>removePeriod(existing.start));
+}
+
+/* customize */
+function renderCust(){
+  const box=$('custPanel');if(!box)return;const t=T();
+  const sw=Object.keys(PALETTES).map(k=>{const L=PALETTES[k].light;return `<button type="button" class="sw" data-pal="${k}" aria-pressed="${look.palette===k}"><span class="dots"><i style="background:${L.baby}"></i><i style="background:${L.rose}"></i><i style="background:${L.surface}"></i></span><span>${t.pal[k]}</span></button>`}).join('');
+  const ic=Object.keys(ICONS).map(k=>`<button type="button" class="opt" data-ico="${k}" aria-pressed="${look.icon===k}">${svgIcon(k)}<span>${t.ico[k]}</span></button>`).join('');
+  const mode=document.documentElement.getAttribute('data-theme');
+  box.innerHTML=`<div class="sec"><b>${t.themeColor}</b><div class="swatches" id="cPal">${sw}</div></div>
+    <div class="sec"><b>${t.mode}</b><div class="opts two" id="cMode"><button type="button" class="opt" data-mode="light" aria-pressed="${mode!=='dark'}">${t.light}</button><button type="button" class="opt" data-mode="dark" aria-pressed="${mode==='dark'}">${t.dark}</button></div></div>
+    <div class="sec"><b>${t.language}</b><div class="opts two" id="cLang"><button type="button" class="opt" data-l="en" lang="en" aria-pressed="${lang==='en'}">English</button><button type="button" class="opt" data-l="bn" lang="bn" aria-pressed="${lang==='bn'}">বাংলা</button></div></div>
+    <div class="sec"><b>${t.periodIcon}</b><div class="opts" id="cIco">${ic}</div></div>
+    <div class="sec"><b>${t.iconColor}</b><div class="opts two" id="cCol"><button type="button" class="opt" data-col="red" aria-pressed="${look.iconColor!=='theme'}"><span class="c" style="background:#c8102e"></span>${t.bloodRed}</button><button type="button" class="opt" data-col="theme" aria-pressed="${look.iconColor==='theme'}"><span class="c" style="background:var(--rose)"></span>${t.matchTheme}</button></div></div>`;
+  $('cPal').onclick=e=>{const b=e.target.closest('[data-pal]');if(!b)return;look.palette=b.dataset.pal;saveLook();applyPalette();renderCust()};
+  $('cMode').onclick=e=>{const b=e.target.closest('[data-mode]');if(!b)return;setTheme(b.dataset.mode)};
+  $('cLang').onclick=e=>{const b=e.target.closest('[data-l]');if(!b)return;setLang(b.dataset.l)};
+  $('cIco').onclick=e=>{const b=e.target.closest('[data-ico]');if(!b)return;look.icon=b.dataset.ico;saveLook();applyPalette();render();renderCust()};
+  $('cCol').onclick=e=>{const b=e.target.closest('[data-col]');if(!b)return;look.iconColor=b.dataset.col;saveLook();applyPalette();renderCust()};
+}
+
+
+/* day log dialog */
+const FLOWS=['none','spot','light','medium','heavy'],SYMS=['cramps','headache','back','bloat','mood','tired','acne','breast','nausea','crave'];
+const hasLog=k=>{const l=state.logs[k];return !!l&&((l.flow&&l.flow!=='none')||(l.sym&&l.sym.length)||(l.note&&l.note.trim()))};
+function dayDialog(k){
+  const t=T(),d=parse(k),cover=state.example?null:coverOf(k);
+  const lg=state.logs[k]||{};let flow=lg.flow||'none',sym=[...(lg.sym||[])];
+  let psec;
+  if(cover){const i=diff(parse(cover.start),d)+1;psec=`<div class="psum"><span>${t.inPeriod(num(i),num(cover.len),range(parse(cover.start),cover.len))}</span><button type="button" class="btn" id="dEditP">${t.editPeriod}</button></div>`}
+  else psec=`<div class="psum"><span style="color:var(--muted)">${t.notInPeriod}</span><button type="button" class="btn primary" id="dStartP">${t.startHere}</button></div>`;
+  openDialog(`<h3 id="dlgTitle">${fmt(d,{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</h3>
+    <div class="sec"><b>${t.periodSec}</b>${psec}</div>
+    <div class="sec"><b>${t.flow}</b><div class="tags" id="dFlow">${FLOWS.map(f=>`<button type="button" data-f="${f}" aria-pressed="${f===flow}">${t.flows[f]}</button>`).join('')}</div></div>
+    <div class="sec"><b>${t.symptoms}</b><div class="tags" id="dSym">${SYMS.map(x=>`<button type="button" data-s="${x}" aria-pressed="${sym.includes(x)}">${t.syms[x]}</button>`).join('')}</div></div>
+    <label for="dNote">${t.noteL}<textarea id="dNote" maxlength="500" placeholder="${esc(t.notePh)}">${esc(lg.note||'')}</textarea></label>
+    <div class="actions"><button type="button" class="btn" id="dCancel">${t.cancel}</button><button type="button" class="btn primary" id="dSave">${t.save}</button></div>`,cover?'#dEditP':'#dStartP');
+  $('dFlow').onclick=e=>{const b=e.target.closest('[data-f]');if(!b)return;flow=b.dataset.f;$('dFlow').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.f===flow))};
+  $('dSym').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;const v=b.dataset.s;sym=sym.includes(v)?sym.filter(x=>x!==v):[...sym,v];b.setAttribute('aria-pressed',sym.includes(v))};
+  $('dCancel').onclick=closeDialog;
+  $('dSave').onclick=()=>{const note=$('dNote').value.trim();
+    if(flow==='none'&&!sym.length&&!note)delete state.logs[k];else state.logs[k]={flow,sym,note};
+    save();closeDialog();render();toast(t.tSaved)};
+  if(cover)$('dEditP').onclick=()=>{closeDialog();periodDialog(cover,cover.start)};
+  else $('dStartP').onclick=()=>{closeDialog();periodDialog(null,k)};
+}
+
+/* backup / restore */
+function encodeData(){const o={v:1,periods:state.example?[]:state.periods,logs:state.logs,len:state.len,cyc:state.cyc};return 'MPT1.'+btoa(unescape(encodeURIComponent(JSON.stringify(o))))}
+function decodeData(code){try{code=code.trim().replace(/\s+/g,'');if(!code.startsWith('MPT1.'))return null;const o=JSON.parse(decodeURIComponent(escape(atob(code.slice(5)))));
+  if(!o||!Array.isArray(o.periods))return null;
+  const periods=o.periods.filter(p=>p&&/^\d{4}-\d{2}-\d{2}$/.test(p.start)&&Number.isInteger(p.len)&&p.len>=1&&p.len<=10);
+  const logs={};if(o.logs&&typeof o.logs==='object')for(const k in o.logs)if(/^\d{4}-\d{2}-\d{2}$/.test(k)){const l=o.logs[k]||{};logs[k]={flow:FLOWS.includes(l.flow)?l.flow:'none',sym:Array.isArray(l.sym)?l.sym.filter(x=>SYMS.includes(x)):[],note:String(l.note||'').slice(0,500)}}
+  return {periods:sortP(periods),logs,len:Math.min(10,Math.max(1,+o.len||5)),cyc:Math.min(45,Math.max(20,+o.cyc||28))}}catch(e){return null}}
+function backupDialog(){
+  const t=T(),code=encodeData();
+  openDialog(`<h3 id="dlgTitle">${t.bkTitle}</h3><p>${t.bkBody}</p><textarea class="code" id="bkCode" readonly>${code}</textarea><div class="err" id="bkMsg" hidden></div>
+    <div class="actions"><button type="button" class="btn" id="bkClose">${t.close}</button><button type="button" class="btn primary" id="bkCopy">${t.copy}</button></div>`,'#bkCopy');
+  $('bkClose').onclick=closeDialog;
+  $('bkCopy').onclick=()=>{const ta=$('bkCode');const fallback=()=>{ta.focus();ta.select();$('bkMsg').textContent=t.copyFail;$('bkMsg').hidden=false};
+    try{navigator.clipboard.writeText(code).then(()=>{$('bkCopy').textContent=t.copied;toast(t.copied)},fallback)}catch(e){fallback()}};
+}
+function restoreDialog(){
+  const t=T();
+  openDialog(`<h3 id="dlgTitle">${t.rsTitle}</h3><p>${t.rsBody}</p><textarea class="code" id="rsCode" placeholder="MPT1.…"></textarea><div class="err" id="rsErr" hidden></div>
+    <div class="actions"><button type="button" class="btn" id="rsCancel">${t.cancel}</button><button type="button" class="btn primary" id="rsGo">${t.restore}</button></div>`,'#rsCode');
+  $('rsCancel').onclick=closeDialog;
+  $('rsGo').onclick=()=>{const data=decodeData($('rsCode').value);if(!data){$('rsErr').textContent=t.rsBad;$('rsErr').hidden=false;return}
+    confirmBox(t.rsConfirmTitle,t.rsConfirmBody,t.yesRestore,()=>{state={...DEFAULTS,...data,example:false};save();render();toast(t.tRestored)})};
+}
+
+/* alerts */
+function buildAlerts(){
+  const t=T(),s=periods(),out=[];
+  if(state.example||!s.length)return out;
+  const avg=avgCycle(),last=s.at(-1);
+  const late=diff(add(last.start,avg),today);
+  if(late>=5&&diff(last.start,today)<120)out.push({warn:true,title:t.lateT(num(late)),body:t.lateB});
+  const gaps=[];for(let i=1;i<s.length;i++){const g=diff(s[i-1].start,s[i].start);if(g>=10&&g<=90)gaps.push(g)}
+  const r=gaps.slice(-6);
+  if(r.length>=3){const mn=Math.min(...r),mx=Math.max(...r);if(mx-mn>7)out.push({title:t.irrT,body:t.irrB(num(mn),num(mx))})}
+  if(r.length>=2&&(avg<21||avg>35))out.push({title:t.rangeT,body:t.rangeB(num(avg))});
+  return out;
+}
+const ALERT_ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17.5v.01"/></svg>';
+
+/* chart */
+function drawChart(){
+  const t=T(),s=periods(),box=$('chart');
+  const cyc=[];for(let i=1;i<s.length;i++){const g=diff(s[i-1].start,s[i].start);if(g>=10&&g<=90)cyc.push({start:s[i-1].start,len:g,plen:s[i-1].len})}
+  const data=cyc.slice(-12);
+  if(!data.length){box.innerHTML=`<p class="note">${t.histEmpty}</p>`;return}
+  const W=600,H=230,L=34,R=58,Tp=22,B=30,ih=H-Tp-B,iw=W-L-R;
+  const max=Math.max(40,Math.ceil(Math.max(...data.map(d=>d.len))/10)*10);
+  const y=v=>Tp+ih-(v/max)*ih,slot=iw/data.length,bw=Math.min(34,slot*.6);
+  let g='';
+  for(let v=0;v<=max;v+=10)g+=`<line class="grid-l" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L-6}" y="${y(v)+4}" text-anchor="end">${num(v)}</text>`;
+  data.forEach((d,i)=>{const cx=L+slot*i+slot/2,x=cx-bw/2;
+    g+=`<rect x="${x}" y="${y(d.len)}" width="${bw}" height="${y(0)-y(d.len)}" rx="6" fill="var(--baby)"/>`;
+    g+=`<rect x="${x}" y="${y(d.plen)}" width="${bw}" height="${y(0)-y(d.plen)}" rx="6" fill="var(--rose)"/>`;
+    g+=`<text class="val" x="${cx}" y="${y(d.len)-6}" text-anchor="middle">${num(d.len)}</text>`;
+    g+=`<text x="${cx}" y="${H-10}" text-anchor="middle">${fmt(d.start,{month:'short'})}</text>`});
+  const a=Math.round(data.reduce((x,d)=>x+d.len,0)/data.length);
+  g+=`<line class="avg" x1="${L}" x2="${W-R}" y1="${y(a)}" y2="${y(a)}"/><text class="avg-t" x="${W-R+6}" y="${y(a)+4}" text-anchor="start">${t.avgLbl(num(a))}</text>`;
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(t.histTitle)}">${g}</svg>`;
+}
+
+/* hero ring */
+function drawRing(cd,avg,plen){
+  const R=92,C=2*Math.PI*R,cx=110,frac=d=>Math.max(0,Math.min(1,d/avg));
+  const arc=(from,to,color,w,op)=>{const a=frac(from)*C,l=Math.max(0,(frac(to)-frac(from))*C);return l?`<circle cx="${cx}" cy="${cx}" r="${R}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${l} ${C}" stroke-dashoffset="${-a}" transform="rotate(-90 ${cx} ${cx})" opacity="${op||1}"/>`:''};
+  const ov=avg-14;
+  let g=`<circle cx="${cx}" cy="${cx}" r="${R}" fill="none" stroke="var(--line)" stroke-width="14"/>`;
+  g+=arc(ov-6,ov+1,'var(--fertile-ink)',14,.35);
+  g+=arc(0,plen,'var(--rose)',14);
+  if(cd){const ang=(frac(Math.min(cd,avg)-.5)*360-90)*Math.PI/180,x=cx+R*Math.cos(ang),y=cx+R*Math.sin(ang);
+    g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11" fill="var(--surface)" stroke="var(--ink)" stroke-width="4"/>`}
+  $('ring').innerHTML=g;
+}
+
+/* render */
+function render(){
+  const t=T();
+  const map=classify(new Date(Math.max(+new Date(year,11,31),+add(view,62))));
+  const preds=predictions(add(today,120)),s=periods(),last=s.filter(p=>p.start<=today).at(-1),avg=avgCycle();
+
+  const cd=last?diff(last.start,today)+1:null;
+  /* hero */
+  let ph='none';
+  if(cd){const ov=avg-14;ph=cd<=last.len?'period':cd===ov?'ovu':(cd>=ov-5&&cd<=ov+1)?'fertile':cd<ov-5?'follic':cd>avg?'late':'luteal'}
+  $('rDay').textContent=cd?num(cd):'–';$('rOf').textContent=cd?(lang==='bn'?`${num(avg)} দিনের মধ্যে`:`of ${avg} days`):'';
+  $('hPhase').textContent=t.ph[ph];$('hTip').textContent=t.tips[ph];
+  const nx=preds[0];
+  if(ph==='none'){$('hHead').textContent=t.hNone;$('hSub').textContent=''}
+  else if(ph==='period'){$('hHead').textContent=t.hPeriod(num(cd));$('hSub').textContent=t.hSubPeriod(range(last.start,last.len))}
+  else if(ph==='late'){$('hHead').textContent=t.hLate(num(cd-avg));$('hSub').textContent=nx?t.hSub(range(nx.start,nx.len)):''}
+  else if(nx){const n=diff(today,nx.start);$('hHead').textContent=n<=0?t.hToday:t.hNext(num(n));$('hSub').textContent=t.hSub(range(nx.start,nx.len))}
+  drawRing(cd,avg,last?last.len:avgLen());
+  const todayCover=state.example?null:coverOf(iso(today));
+  $('hLogP').textContent=todayCover?t.editPeriod:t.logPeriod;
+  $('sPer').textContent=t.days(num(avgLen()));$('sPerNote').textContent=state.periods.length&&!state.example?t.fromPins:t.defaultSetting;
+  $('sAvg').textContent=t.days(num(s.length>1?avg:state.cyc));
+  $('sAvgNote').textContent=s.length>1?t.fromPins:t.defaultSetting;
+  $('sYear').textContent=num(s.filter(p=>p.start.getFullYear()===today.getFullYear()).length);
+  $('exampleBar').hidden=!state.example;
+  const al=buildAlerts();$('alertBox').hidden=!al.length;$('alertBox').innerHTML=al.map(a=>`<div class="alert${a.warn?' warn':''}" role="status">${ALERT_ICON}<div><b>${a.title}</b><p>${a.body}</p></div></div>`).join('');
+  $('lenOut').textContent=num(state.len);$('cycOut').textContent=num(state.cyc);
+
+  document.querySelectorAll('.tab[data-tab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab));
+  $('viewHome').hidden=tab!=='home';$('viewCal').hidden=tab!=='cal';$('viewYear').hidden=tab!=='year';$('viewSet').hidden=tab!=='set';
+
+  /* month */
+  $('monthTitle').textContent=fmt(view,{month:'long',year:'numeric'});
+  const g=$('grid');g.innerHTML='';const first=add(view,-view.getDay());
+  const kindOf=d=>{const c=map[iso(d)];if(!c)return'';return c.has('period')?'period':c.has('predicted')?'predicted':c.has('fertile')?'fertile':''};
+  if(slideDir){const cls=slideDir>0?'anim-l':'anim-r';g.classList.remove('anim-l','anim-r');$('monthTitle').classList.remove('anim');void g.offsetWidth;g.classList.add(cls);$('monthTitle').classList.add('anim');slideDir=0}
+  for(let i=0;i<42;i++){
+    const d=add(first,i),k=iso(d),c=map[k]||new Set(),b=document.createElement('button');
+    b.type='button';b.className='day';b.id='d-'+k;
+    let label=fmt(d,{weekday:'long',month:'long',day:'numeric'}),mk='';
+    if(d.getMonth()!==view.getMonth())b.classList.add('out');
+    if(+d===+today){b.classList.add('today');label+=', '+t.aToday}
+    if(c.has('period')){b.classList.add('period');label+=', '+t.aPeriod;mk=ICON()}
+    else if(c.has('predicted')){b.classList.add('predicted');label+=', '+t.aPred;if(c.has('pstart'))mk=ICON()}
+    else if(c.has('fertile')){b.classList.add('fertile');label+=', '+t.aFertile;if(c.has('ovu'))mk='<span class="dot"></span>'}
+    const kd=kindOf(d);
+    if(kd){if(i%7!==0&&kindOf(add(d,-1))===kd)b.classList.add('jl');if(i%7!==6&&kindOf(add(d,1))===kd)b.classList.add('jr')}
+    b.innerHTML=`<span class="n">${num(d.getDate())}</span><span class="mk">${mk}</span>`;
+    b.setAttribute('aria-label',label);if(hasLog(k))b.classList.add('has-log');b.onclick=()=>dayDialog(k);g.appendChild(b);
+  }
+  $('upnext').innerHTML=preds.length?preds.slice(0,3).map(p=>`<div class="item"><span class="ic">${ICON()}</span><div><b>${fmt(p.start,{month:'long'})}</b><small>${range(p.start,p.len)}</small></div><em>${diff(today,p.start)<=0?t.now:t.inD(num(diff(today,p.start)))}</em></div>`).join(''):`<p class="note">${t.noPreds}</p>`;
+
+  /* year */
+  $('yearTitle').textContent=t.yearTitle(num(year));
+  drawChart();
+  const months=$('months'),tb=$('ytable');months.innerHTML='';tb.innerHTML='';
+  const yp=predictions(new Date(year,11,31));
+  for(let m=0;m<12;m++){
+    const ms=new Date(year,m,1),days=new Date(year,m+1,0).getDate(),mName=fmt(ms,{month:'long'});
+    const lg=s.filter(p=>p.start.getFullYear()===year&&p.start.getMonth()===m),pr=yp.filter(p=>p.start.getFullYear()===year&&p.start.getMonth()===m);
+    let cells='';for(let i=0;i<ms.getDay();i++)cells+='<i></i>';
+    for(let d=1;d<=days;d++){const dt=new Date(year,m,d),c=map[iso(dt)]||new Set();cells+=`<i class="${c.has('period')?'p':c.has('predicted')?'q':c.has('fertile')?'f':(+dt===+today?'t':'')}">${num(d)}</i>`}
+    const badge=lg.length?`<span class="l">${dm(lg[0].start)}</span>`:pr.length?`<span class="p">~${dm(pr[0].start)}</span>`:'';
+    const card=document.createElement('button');card.type='button';card.className='mini'+(year===view.getFullYear()&&m===view.getMonth()?' cur':'');
+    card.setAttribute('aria-label',t.open(fmt(ms,{month:'long',year:'numeric'})));
+    card.innerHTML=`<h4>${mName}${badge}</h4><div class="mg">${cells}</div>`;
+    card.onclick=()=>{view=ms;tab='cal';render();window.scrollTo({top:0,behavior:'smooth'})};
+    months.appendChild(card);
+
+    const tr=document.createElement('tr');
+    let dates,st,cy='–',acts='';
+    if(lg.length){
+      dates=lg.map(p=>`<div class="pline"><span>${range(p.start,p.len)}</span><span style="color:var(--muted)">· ${t.days(num(p.len))}</span></div>`).join('');
+      st=`<span class="chip l">${t.logged}</span>`;
+      const pv=s.filter(p=>p.start<lg[0].start).at(-1);if(pv)cy=t.days(num(diff(pv.start,lg[0].start)));
+      if(!state.example)acts=`<div class="rowbtns">${lg.map((p,i)=>`<button type="button" class="mini-btn" data-edit="${p.key}">${t.edit}${lg.length>1?' '+num(i+1):''}</button>`).join('')}<button type="button" class="mini-btn danger" data-reset="${m}">${t.reset}</button></div>`;
+    }else if(pr.length){dates=pr.map(p=>range(p.start,p.len)).join('<br>');st=`<span class="chip p">${t.predicted}</span>`;cy='~'+t.days(num(avg))}
+    else{dates=`<span style="color:var(--muted)">${t.noDates}</span>`;st=`<span class="chip n">${t.notLogged}</span>`}
+    tr.innerHTML=`<td><b>${mName}</b></td><td class="n">${dates}</td><td>${st}</td><td class="n">${cy}</td><td>${acts||'<span style="color:var(--muted)">–</span>'}</td>`;
+    tb.appendChild(tr);
+  }
+}
+$('ytable').addEventListener('click',e=>{
+  const ed=e.target.closest('[data-edit]'),rs=e.target.closest('[data-reset]');
+  if(ed){const p=state.periods.find(x=>x.start===ed.dataset.edit);if(p)periodDialog(p,p.start)}
+  if(rs){const m=+rs.dataset.reset,t=T();confirmBox(t.monthTitle(fmt(new Date(year,m,1),{month:'long',year:'numeric'})),t.monthBody,t.yesReset,()=>resetMonth(year,m))}
+});
+
+const on=(id,f)=>$(id).onclick=f;
+const goMonth=n=>{slideDir=n;view=new Date(view.getFullYear(),view.getMonth()+n,1);render()};
+on('prev',()=>goMonth(-1));on('next',()=>goMonth(1));
+let tx=null,ty=null;
+$('grid').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+$('grid').addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;tx=null;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)goMonth(dx<0?1:-1)},{passive:true});
+
+/* quotes */
+let qi=Math.floor((today-new Date(today.getFullYear(),0,0))/DAY)%10,qTimer;
+function showQuote(anim){const q=T().quotes;qi=(qi+q.length)%q.length;const el=$('qText');el.textContent=q[qi];if(anim){el.classList.remove('anim');void el.offsetWidth;el.classList.add('anim')}
+  $('qDots').innerHTML=q.map((_,i)=>`<i class="${i===qi?'on':''}"></i>`).join('');}
+function qAuto(){clearInterval(qTimer);qTimer=setInterval(()=>{qi++;showQuote(true)},9000)}
+on('qPrev',()=>{qi--;showQuote(true);qAuto()});on('qNext',()=>{qi++;showQuote(true);qAuto()});
+on('todayBtn',()=>{const t0=new Date(today.getFullYear(),today.getMonth(),1);slideDir=Math.sign(t0-view);view=t0;render()});
+on('yPrev',()=>{year--;render()});on('yNext',()=>{year++;render()});on('yNow',()=>{year=today.getFullYear();render()});
+document.querySelectorAll('.tab[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;if(tab==='year')year=view.getFullYear();render();window.scrollTo({top:0,behavior:'smooth'})});
+on('hLogP',()=>{const c=state.example?null:coverOf(iso(today));periodDialog(c,c?c.start:iso(today))});
+on('hLogS',()=>dayDialog(iso(today)));
+on('clearEx',()=>{state.example=false;state.periods=[];save();render()});
+on('backupBtn',backupDialog);on('restoreBtn',restoreDialog);
+on('resetAll',()=>{const t=T();confirmBox(t.allTitle,t.allBody,t.yesReset,resetAll)});
+const adj=(key,d,lo,hi)=>()=>{state[key]=Math.min(hi,Math.max(lo,state[key]+d));save();render()};
+on('lenDn',adj('len',-1,1,10));on('lenUp',adj('len',1,1,10));on('cycDn',adj('cyc',-1,20,45));on('cycUp',adj('cyc',1,20,45));
+applyLang();applyPalette();render();renderCust();showQuote(false);qAuto();
+</script>
+<script>
+/* app install + offline support */
+(function(){
+  let deferred=null;
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const standalone=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+  window.updInst=function(){
+    const t=I18N[document.documentElement.lang]||I18N.en,txt=document.getElementById('instText'),btn=document.getElementById('instBtn');
+    if(!txt)return;
+    if(standalone()){txt.textContent=t.instDone;btn.hidden=true}
+    else if(deferred){txt.textContent=t.instReady;btn.hidden=false}
+    else{txt.textContent=isIOS?t.instIos:t.instOther;btn.hidden=true}
+  };
+  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;updInst()});
+  window.addEventListener('appinstalled',()=>{deferred=null;updInst()});
+  document.getElementById('instBtn').addEventListener('click',async()=>{if(!deferred)return;deferred.prompt();try{await deferred.userChoice}catch(e){}deferred=null;updInst()});
+  updInst();
+  if('serviceWorker' in navigator&&location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+})();
+</script>
+</body>
+</html>
