@@ -9,7 +9,7 @@ to any free static host, open the link on your phone, and install it.
 - `index.html` – the app
 - `manifest.webmanifest` – app name, colours and icons
 - `sw.js` – lets the app work offline
-- `icons/` – app icons
+- `*.png` – app icons
 
 ## Option 1: Netlify Drop (easiest, no account needed to try)
 1. Unzip this file.
@@ -20,7 +20,7 @@ to any free static host, open the link on your phone, and install it.
 
 ## Option 2: GitHub Pages
 1. Create a new public repository on GitHub.
-2. Upload all files from this folder (keep the `icons` folder).
+2. Upload all files from this folder .
 3. Go to Settings → Pages → Source: "Deploy from a branch", branch `main`, folder `/ (root)`.
 4. After a minute your app is at `https://<username>.github.io/<repo>/`.
 
